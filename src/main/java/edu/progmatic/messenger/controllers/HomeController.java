@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
-    static List<Message> messageList = new ArrayList<>();
+    static List<Message> messageList;
 
-    public HomeController() {
+    static {
         messageList = Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
                 new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
                 new Message("Jo napot!", "Kati"),new Message("Udv!", "Laci"),
