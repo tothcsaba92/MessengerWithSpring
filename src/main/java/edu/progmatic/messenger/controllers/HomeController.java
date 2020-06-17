@@ -21,7 +21,7 @@ public class HomeController {
                 new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti"));
     }
 
-    @RequestMapping(value = "/greeting", method = RequestMethod.GET)
+    @RequestMapping(value = {"/","/greeting"}, method = RequestMethod.GET)
     public String homePage(Model model) {
         model.addAttribute("message", "Hello world!");
         return "home";
@@ -32,7 +32,6 @@ public class HomeController {
             @RequestParam(value = "limit", required = false, defaultValue = "5") int limit ,
             @RequestParam(value = "orderby", required = false, defaultValue = "author") String order,
             @RequestParam(value = "direction", required = false, defaultValue = "desc") String dir, Model model) {
-        System.out.println(limit + "ez a limit");
 
         if (limit <= messageList.size()) {
             List<Message> resultList = switcher(order, model, limit, dir);
