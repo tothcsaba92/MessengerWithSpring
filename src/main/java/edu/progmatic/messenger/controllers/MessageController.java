@@ -1,12 +1,10 @@
 package edu.progmatic.messenger.controllers;
 
 import edu.progmatic.messenger.model.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,10 +53,12 @@ public class MessageController {
         return "single_message";
     }
 
-//    @RequestMapping(value = "messages/newMessage", method = RequestMethod.POST)
-//    public String writeNewMessage(){
-//
-//    }
+
+    @RequestMapping(value = "/new_message", method = RequestMethod.POST)
+    public String createNewMessage(@ModelAttribute(value ="newMessage") Message newMessage){
+        messageList.add(newMessage);
+        return "redirect:/messages";
+    }
 
 
 

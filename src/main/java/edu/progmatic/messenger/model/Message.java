@@ -17,6 +17,7 @@ public class Message {
         this.id = idCounter++;
     }
 
+
     public String getText() {
         return text;
     }
