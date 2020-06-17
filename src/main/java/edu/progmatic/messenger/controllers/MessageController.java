@@ -55,6 +55,11 @@ public class MessageController {
         return "single_message";
     }
 
+//    @RequestMapping(value = "messages/newMessage", method = RequestMethod.POST)
+//    public String writeNewMessage(){
+//
+//    }
+
 
 
     public List<Message> switcher(String order, Model model, int limit, String direction) {

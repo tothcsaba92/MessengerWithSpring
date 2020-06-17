@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!--<html xmlns:th="http://www.w3.org/1999/xhtml">-->
+
 <head>
     <meta charset="UTF-8"/>
     <title>Üzenetek olvasása</title>
@@ -13,7 +13,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light" style=background-color:#CD5C2E>
     <div class="container">
-        <a class="navbar-brand" href="home.html">Üzengető <img
+        <a class="navbar-brand" th:href="@{/messages}">Üzengető <img
                 src="https://img.icons8.com/flat_round/64/000000/phone-message--v2.png"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,18 +27,18 @@
             <form class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ">
-                        <a class="nav-link active" href="home.html">Főoldal<span
+                        <a class="nav-link active" th:href="@{/home}">Főoldal<span
                                 class="form-control mr-sm-2 sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="home.html"
+                        <a class="nav-link dropdown-toggle" th:href="@{/home}"
                            role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Üzenetek
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="messages.html">Üzenetek olvasás</a>
-                            <a class="dropdown-item" href="new_message.html">Üzenet írás</a>
+                            <a class="dropdown-item" th:href="@{/messages}">Üzenetek olvasás</a>
+                            <a class="dropdown-item" th:href="@{/new_message}">Üzenet írás</a>
                         </div>
                     </li>
                 </ul>
