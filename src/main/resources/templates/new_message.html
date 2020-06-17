@@ -1,20 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!--<html xmlns:th="http://www.w3.org/1999/xhtml">-->
+<html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Főoldal</title>
+    <meta charset="utf-8">
+    <title>Új üzenet írása</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="message.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light" style=background-color:#CD5C2E>
     <div class="container">
-        <a class="navbar-brand" href="home.html">Üzengető <img
-                src="https://img.icons8.com/flat_round/64/000000/phone-message--v2.png"/></a>
+        <a class="navbar-brand" href="home.html">Üzengető <img src="https://img.icons8.com/flat_round/64/000000/phone-message--v2.png"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -47,11 +45,22 @@
     </div>
 
 </nav>
-
 <div class="container">
-    <h2 align="center">Üdvözlünk az üzenetküldő alkalamazásunkban</h2>
-
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Feladó:</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Add meg az neved!">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Üzenet:</label>
+            <input class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Gépeld ide az üzeneted!"></inputtextarea>
+        </div>
+    </form>
 </div>
+
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

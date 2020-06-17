@@ -52,7 +52,7 @@ public class MessageController {
         if (!result.isEmpty()) {
             model.addAttribute("message",result.get(0));
         }
-        return "message";
+        return "single_message";
     }
 
 

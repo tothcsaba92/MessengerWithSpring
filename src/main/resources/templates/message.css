@@ -7,3 +7,13 @@ body {
 }
 
 .navbar-nav > li > .dropdown-menu a:hover { background-color: #faad1f;}
+
+#exampleFormControlInput1 {
+    background-color:rgba(0, 0, 0, 0.1);
+}
+
+#exampleFormControlTextarea1{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.form-control::-webkit-input-placeholder { color: white; }
