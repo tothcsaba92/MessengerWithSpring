@@ -19,7 +19,6 @@ public class HomeController {
                 new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
                 new Message("Jo napot!", "Kati"),new Message("Udv!", "Laci"),
                 new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti"));
-
     }
 
     @RequestMapping(value = "/greeting", method = RequestMethod.GET)
@@ -78,9 +77,7 @@ public class HomeController {
                 } else {
                     comparator = Comparator.comparing(Message::getDateTime).reversed();
                 }
-                Collections.sort(messageList, comparator);
-                results = messageList.stream().limit(limit).collect(Collectors.toList());
-                model.addAttribute("messages", results);
+                results = sortList(messageList, comparator, limit, model);
                 break;
             case "author":
                 Comparator<Message> comparator2;
@@ -89,9 +86,7 @@ public class HomeController {
                 } else {
                     comparator2 = Comparator.comparing(Message::getSender).reversed();
                 }
-                Collections.sort(messageList, comparator2);
-                results = messageList.stream().limit(limit).collect(Collectors.toList());
-                model.addAttribute("messages", results);
+                results = sortList(messageList, comparator2, limit, model);
                 break;
             case "message":
                 Comparator<Message> comparator3;
@@ -100,12 +95,16 @@ public class HomeController {
                 } else {
                     comparator3 = Comparator.comparing(Message::getMessage).reversed();
                 }
-                Collections.sort(messageList, comparator3);
-                results = messageList.stream().limit(limit).collect(Collectors.toList());
-                model.addAttribute("messages", results);
+                results = sortList(messageList, comparator3, limit, model);
                 break;
-
         }
+        return results;
+    }
+
+    private List<Message> sortList(List<Message> messagesList, Comparator comp, int limit, Model model){
+        Collections.sort(messageList, comp);
+        List<Message> results = messageList.stream().limit(limit).collect(Collectors.toList());
+        model.addAttribute("messages", results);
         return results;
     }
 }
