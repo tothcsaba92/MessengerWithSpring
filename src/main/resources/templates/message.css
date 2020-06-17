@@ -1,0 +1,9 @@
+body {
+    background-image: url('../pics/msg_background.jpeg');
+}
+
+.navbar-nav > li > .dropdown-menu {
+    background-color: #f36d26;
+}
+
+.navbar-nav > li > .dropdown-menu a:hover { background-color: #faad1f;}

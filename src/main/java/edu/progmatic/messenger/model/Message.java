@@ -7,12 +7,14 @@ public class Message {
     private String text;
     private String sender;
     private LocalDateTime dateTime;
+    private static int idCounter;
+    private int id;
 
     public Message(String text, String sender) {
         this.text = text;
         this.sender = sender;
         this.dateTime = LocalDateTime.now().withNano(0);
-
+        this.id = idCounter++;
     }
 
     public String getText() {
@@ -37,5 +39,9 @@ public class Message {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public int getId() {
+        return id;
     }
 }
