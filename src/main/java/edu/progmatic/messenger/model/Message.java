@@ -1,13 +1,12 @@
 package edu.progmatic.messenger.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+
 
 public class Message {
-    public String text;
-    public String sender;
-    public LocalDateTime dateTime;
+    private String text;
+    private String sender;
+    private LocalDateTime dateTime;
 
     public Message(String text, String sender) {
         this.text = text;
@@ -16,7 +15,7 @@ public class Message {
 
     }
 
-    public String getMessage() {
+    public String getText() {
         return text;
     }
 
