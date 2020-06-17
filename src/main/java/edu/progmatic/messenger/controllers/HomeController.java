@@ -27,20 +27,20 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/message", method = RequestMethod.GET)
+    @RequestMapping(value = "/messages", method = RequestMethod.GET)
     public String limitedMessages(
             @RequestParam(value = "limit", required = false, defaultValue = "5") int limit ,
             @RequestParam(value = "orderby", required = false, defaultValue = "author") String order,
             @RequestParam(value = "direction", required = false, defaultValue = "desc") String dir, Model model) {
 
         if (limit <= messageList.size()) {
-            List<Message> switcherList = switcher(order, model, limit, dir);
-            model.addAttribute("messages", switcherList);
+            List<Message> resultList = switcher(order, model, limit, dir);
+            model.addAttribute("messages", resultList);
 
         } else {
             limit = messageList.size();
-            List<Message> switcherList = switcher(order, model, limit, dir);
-            model.addAttribute("messages", switcherList);
+            List<Message> resultList = switcher(order, model, limit, dir);
+            model.addAttribute("messages", resultList);
         }
         return "message";
     }
