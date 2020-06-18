@@ -56,27 +56,50 @@
 </nav>
 
 <div class="container">
-    <h2>Üzenet:</h2>
-    <table border="1">
-        <thead>
-        <tr>
-            <td>Üzenet szövege:</td>
-            <td>Feladó:</td>
-            <td>Üzenet ideje:</td>
-            <td>Üzenet ID:</td>
-        </tr>
-        </thead>
-        <tr data-th-each="message: ${messages}">
-            <td data-th-text="${message.text}"></td>
-            <td data-th-text="${message.sender}"></td>
-            <td data-th-text="${{message.dateTime}}"></td>
+    <!--    <h2>Üzenet:</h2>-->
+    <!--    <table border="1">-->
+    <!--        <thead>-->
+    <!--        <tr>-->
+    <!--            <td>Üzenet szövege:</td>-->
+    <!--            <td>Feladó:</td>-->
+    <!--            <td>Üzenet ideje:</td>-->
+    <!--            <td>Üzenet ID:</td>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tr data-th-each="message: ${messages}">-->
+    <!--            <td data-th-text="${message.text}"></td>-->
+    <!--            <td data-th-text="${message.sender}"></td>-->
+    <!--            <td data-th-text="${{message.dateTime}}"></td>-->
 
-            <td>
-                <a data-th-href="@{/messages/{messageId}(messageId=${message.id})}"><p data-th-text="${message.id}"></p></a>
-            </td>
+    <!--            <td>-->
+    <!--                <a data-th-href="@{/messages/{messageId}(messageId=${message.id})}"><p data-th-text="${message.id}"></p></a>-->
+    <!--            </td>-->
 
-        </tr>
-    </table>
+    <!--        </tr>-->
+    <!--    </table>-->
+
+    <h1>
+        Üzenetek
+    </h1>
+
+    <div class="card-columns">
+        <div class="col mb-4">
+            <div class="card" data-th-each="message: ${messages}">
+                <img class="card-img-top"
+                     src="https://img.freepik.com/free-vector/businessman-profile-cartoon_18591-58479.jpg?size=338&ext=jpg"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" data-th-text="${message.sender}"></h5>
+                    <p class="card-text" data-th-text="${message.text}"></p>
+                    <p class="card-text"><small class="text-muted" data-th-text="${{message.dateTime}}"></small></p>
+                    <a data-th-href="@{/messages/{messageId}(messageId=${message.id})}"><p
+                            data-th-text="${message.id}"></p></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 </div>

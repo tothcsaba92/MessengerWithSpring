@@ -32,3 +32,20 @@ body {
 }
 
 
+body {
+    padding-top: 20px;
+}
+
+.card-deck {
+    margin: 0 -15px;
+    justify-content: space-between;
+}
+
+.card-deck .card {
+    margin: 0 0 1rem;
+}
+
+
+
+
+

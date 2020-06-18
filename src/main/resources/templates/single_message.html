@@ -54,23 +54,39 @@
 </nav>
 
 <div class="container">
-    <h2>Üzenet:</h2>
-    <table border="1">
-        <thead>
-        <tr>
-            <td>Üzenet szövege:</td>
-            <td>Feladó:</td>
-            <td>Üzenet ideje:</td>
-            <td>Üzenet ID:</td>
-        </tr>
-        </thead>
-        <tr>
-            <td data-th-text="${message.text}"></td>
-            <td data-th-text="${message.sender}"></td>
-            <td data-th-text="${{message.dateTime}}"></td>
-            <td data-th-text="${message.id}"></td>
-        </tr>
-    </table>
+<!--    <h2>Üzenet:</h2>-->
+<!--    <table border="1">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <td>Üzenet szövege:</td>-->
+<!--            <td>Feladó:</td>-->
+<!--            <td>Üzenet ideje:</td>-->
+<!--            <td>Üzenet ID:</td>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tr>-->
+<!--            <td data-th-text="${message.text}"></td>-->
+<!--            <td data-th-text="${message.sender}"></td>-->
+<!--            <td data-th-text="${{message.dateTime}}"></td>-->
+<!--            <td data-th-text="${message.id}"></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="https://img.freepik.com/free-vector/businessman-profile-cartoon_18591-58479.jpg?size=338&ext=jpg"
+                     class="card-img" alt="Profile picture">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${message.sender}"></h5>
+                    <p class="card-text" th:text="${message.text}"></p>
+                    <p class="card-text"><small class="text-muted" th:text="${{message.dateTime}}"></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
