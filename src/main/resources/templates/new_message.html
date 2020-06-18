@@ -59,7 +59,7 @@
         <div class="form-group">
             <label for="exampleFormControlInput1">Feladó:</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" data-th-field="*{sender}"
-                   placeholder="Add meg az neved!" data-th-classappend="${#fields.hasErrors('text')} ? is-invalid : ''"/>
+                   placeholder="Add meg az neved!" data-th-classappend="${#fields.hasErrors('sender')} ? is-invalid : ''"/>
             <div class="invalid-feedback">
                 1-50 hosszu lehet a neved
             </div>
