@@ -29,7 +29,7 @@ public class MessageController implements WebMvcConfigurer {
 
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
     public String limitedMessages(
-            @RequestParam(value = "limit", required = false, defaultValue = "5") int limit,
+            @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE +"") int limit,
             @RequestParam(value = "orderby", required = false, defaultValue = "author") String order,
             @RequestParam(value = "direction", required = false, defaultValue = "desc") String dir, Model model) {
 
