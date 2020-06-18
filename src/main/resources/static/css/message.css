@@ -1,6 +1,8 @@
 body {
     background-image: url('../pics/msg_background.jpeg');
     background-attachment: fixed;
+
+
 }
 
 .navbar-nav > li > .dropdown-menu {
@@ -45,6 +47,9 @@ body {
 .card-deck .card {
     margin: 0 0 1rem;
 }
+
+.card { background-color: rgba(255, 255, 255, 0.9);}
+.card-header, .card-footer { opacity: 1}
 
 
 
