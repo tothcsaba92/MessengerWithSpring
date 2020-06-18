@@ -27,4 +27,8 @@ body {
     border-color: #ced4da !important;
 }
 
+.errorClass{
+    background-color: black;
+}
+
 

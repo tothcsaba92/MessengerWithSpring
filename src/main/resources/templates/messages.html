@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
 
+    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
     <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -68,7 +69,7 @@
         <tr data-th-each="message: ${messages}">
             <td data-th-text="${message.text}"></td>
             <td data-th-text="${message.sender}"></td>
-            <td data-th-text="${message.dateTime}"></td>
+            <td data-th-text="${{message.dateTime}}"></td>
 
             <td>
                 <a data-th-href="@{/messages/{messageId}(messageId=${message.id})}"><p data-th-text="${message.id}"></p></a>

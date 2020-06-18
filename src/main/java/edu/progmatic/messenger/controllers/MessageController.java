@@ -4,13 +4,16 @@ import edu.progmatic.messenger.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
-public class MessageController {
+public class MessageController implements WebMvcConfigurer {
 
     static List<Message> messageList;
 
@@ -52,7 +55,7 @@ public class MessageController {
         }
         return "single_message";
     }
-    //??? kellene erre az oldalra egy get request h megjelenjen az oldal
+
 
     @GetMapping(value = "/new_message")
     public String showNewMessage(Model model){
@@ -61,7 +64,11 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/new_message", method = RequestMethod.POST)
-    public String createNewMessage(@ModelAttribute(value ="newMessage") Message newMessage){
+    public String createNewMessage(@ModelAttribute(value ="newMessage") @Valid Message newMessage,
+                                   BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/new_message";
+        }
         messageList.add(newMessage);
         return "redirect:/messages";
     }

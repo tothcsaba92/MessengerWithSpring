@@ -1,11 +1,22 @@
 package edu.progmatic.messenger.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 
 public class Message {
+    public static final String DATE_FORMAT = "yyyy/MM/dd HH:mm";
+    @NotNull
+    @Size(min = 1, max = 255)
     private String text;
+    @NotNull
+    @Size(min = 1, max = 50)
     private String sender;
+
+    @DateTimeFormat(pattern = DATE_FORMAT)
     private LocalDateTime dateTime;
     private static int idCounter;
     private int id;
