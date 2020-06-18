@@ -16,4 +16,15 @@ body {
     background-color: rgba(0,0,0,0.1);
 }
 
-.form-control::-webkit-input-placeholder { color: white; }
+.form-control::-webkit-input-placeholder { color: #efb8af !important; }
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #3cb97f !important;
+    border-color: #ced4da !important;
+}
+.btn-primary:hover{
+    background-color: #079755 !important;
+    border-color: #ced4da !important;
+}
+
+

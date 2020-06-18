@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -17,11 +14,14 @@ public class MessageController {
 
     static List<Message> messageList;
 
+
     static {
-        messageList = Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
+        messageList = new ArrayList<>();
+        messageList.addAll(Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
                 new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
                 new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
-                new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti"));
+                new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
+
     }
 
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
@@ -52,7 +52,13 @@ public class MessageController {
         }
         return "single_message";
     }
+    //??? kellene erre az oldalra egy get request h megjelenjen az oldal
 
+    @GetMapping(value = "/new_message")
+    public String showNewMessage(Model model){
+        model.addAttribute("newMessage", new Message(null,null));
+        return "new_message";
+    }
 
     @RequestMapping(value = "/new_message", method = RequestMethod.POST)
     public String createNewMessage(@ModelAttribute(value ="newMessage") Message newMessage){
