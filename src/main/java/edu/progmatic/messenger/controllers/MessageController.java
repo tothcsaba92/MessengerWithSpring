@@ -31,7 +31,7 @@ public class MessageController implements WebMvcConfigurer {
     public String limitedMessages(
             @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE +"") int limit,
             @RequestParam(value = "orderby", required = false, defaultValue = "author") String order,
-            @RequestParam(value = "direction", required = false, defaultValue = "desc") String dir, Model model) {
+            @RequestParam(value = "direction", required = false, defaultValue = "asc") String dir, Model model) {
 
         if (limit <= messageList.size()) {
             List<Message> resultList = switcher(order, model, limit, dir);
@@ -95,7 +95,7 @@ public class MessageController implements WebMvcConfigurer {
                 break;
         }
         if (!isAsc) {
-            comparator.reversed();
+           return sortList(comparator.reversed(), limit, model) ;
         }
         results = sortList(comparator, limit, model);
         return results;
