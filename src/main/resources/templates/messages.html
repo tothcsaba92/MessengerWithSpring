@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <!--TODO ha az uzenetekben vagy es rakattintasz az uznetekre, nem nyilik le a dropwdown!!!!!!!!-->
+<html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <title>Üzenetek olvasása</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="css/message.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
 
+    <link href="css/message.css" rel="stylesheet"/>
     <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
     <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>-->
+<!--Pontosan nem tudom, hogy ezek a scriptek mire jók, de emiatt nem jön le a dropdown menu, ahogy látom, enélkül is rendesen funkcionál az oldal. Így működik rendesen!-->
 
 </head>
 <body>
@@ -56,7 +57,6 @@
             </form>
         </div>
     </div>
-
 </nav>
 
 <div class="container mt-3">
@@ -85,22 +85,22 @@
     <input type="text" id="myFilter" class="form-control" onkeyup="myFunction()" placeholder="Keress név alapján..">
 
     <div id="myItems" class="mt-3">
-    <div class="card-columns">
-        <div class="col mb-4">
-            <div class="card" data-th-each="message: ${messages}" id="myCards">
-                <img class="card-img-top"
-                     src="https://img.freepik.com/free-vector/businessman-profile-cartoon_18591-58479.jpg?size=338&ext=jpg"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title" data-th-text="${message.sender}"></h5>
-                    <p class="card-text" data-th-text="${message.text}"></p>
-                    <p class="card-text"><small class="text-muted" data-th-text="${{message.dateTime}}"></small></p>
-                    <a class="btn btn-dark" data-th-href="@{/messages/{messageId}(messageId=${message.id})}"><p
-                            data-th-text="${message.id}"></p></a>
+        <div class="card-columns">
+            <div class="col mb-4">
+                <div class="card" data-th-each="message: ${messages}" id="myCards">
+                    <img class="card-img-top"
+                         src="https://img.freepik.com/free-vector/businessman-profile-cartoon_18591-58479.jpg?size=338&ext=jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" data-th-text="${message.sender}"></h5>
+                        <p class="card-text" data-th-text="${message.text}"></p>
+                        <p class="card-text"><small class="text-muted" data-th-text="${{message.dateTime}}"></small></p>
+                        <a class="btn btn-dark" data-th-href="@{/messages/{messageId}(messageId=${message.id})}"><p
+                                data-th-text="${message.id}"></p></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 </div>
