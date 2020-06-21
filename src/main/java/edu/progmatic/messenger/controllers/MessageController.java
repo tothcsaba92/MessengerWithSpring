@@ -34,9 +34,9 @@ public class MessageController implements WebMvcConfigurer {
     @RequestMapping(value="/messages/{messageId}", method=RequestMethod.GET)
     public String showSelectedMessageId(
             @PathVariable("messageId") int msgId, Model model) {
-        List<Message> messages = messageService.showSelectedMessageById(msgId);
-        if (!messages.isEmpty()) {
-            model.addAttribute("message",messages.get(0));
+        Message message = messageService.showSelectedMessageById(msgId);
+        if (message!=null) {
+            model.addAttribute("message",message);
         }
         else{
             Message nonExistMessage = new Message(null,null);

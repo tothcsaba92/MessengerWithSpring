@@ -17,7 +17,6 @@ public class MessageService {
                 new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
                 new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
                 new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
-
     }
 
     public List<Message> showMessages(String order, Model model, int limit, String direction) {
@@ -46,11 +45,10 @@ public class MessageService {
         return results;
     }
 
-    public List<Message> showSelectedMessageById(int msgId){
+    public Message showSelectedMessageById(int msgId){
        return messages.stream()
                 .filter(message -> message.getId() == msgId)
-                .collect(Collectors.toList());
-
+                .collect(Collectors.toList()).get(0);
     }
 
     public void createNewMessage(Message newMessage){
