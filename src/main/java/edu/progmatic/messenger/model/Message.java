@@ -12,8 +12,7 @@ public class Message {
     @NotNull
     @Size(min = 1, max = 255)
     private String text;
-    @NotNull
-    @Size(min = 1, max = 50)
+
     private String sender;
 
     @DateTimeFormat(pattern = DATE_FORMAT)

@@ -23,18 +23,20 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.formLogin()
-                .loginPage("/loginpage").permitAll()
-                .loginProcessingUrl("/login")
+       http
+                .formLogin()
+                .loginProcessingUrl("/login_page")
+                .defaultSuccessUrl("/home")
+                .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/loginpage")
+                .logoutSuccessUrl("/login_page")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/loginpage/beforelogin").permitAll()
+                .antMatchers("/messages","/single_message/{userId}","/home","css/message.css?version=1").permitAll()
                 .anyRequest().authenticated();
     }
 
@@ -44,4 +46,5 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
     public static PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
 }
