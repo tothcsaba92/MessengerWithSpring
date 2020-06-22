@@ -28,12 +28,12 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
        http
                 .formLogin()
-                .loginProcessingUrl("/login_page")
+                .loginPage("/login")
                 .defaultSuccessUrl("/home")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login_page")
+                .logoutSuccessUrl("/login")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/messages","/single_message/{userId}","/home","css/message.css?version=1").permitAll()
