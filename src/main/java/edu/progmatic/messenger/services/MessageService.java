@@ -1,6 +1,8 @@
 package edu.progmatic.messenger.services;
 
 import edu.progmatic.messenger.model.Message;
+import edu.progmatic.messenger.model.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -52,6 +54,8 @@ public class MessageService {
     }
 
     public void createNewMessage(Message newMessage){
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        newMessage.setSender(user.toString());
         messages.add(newMessage);
     }
 

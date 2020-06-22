@@ -57,14 +57,14 @@
 
     <div class="container">
     <form action="#" th:action="@{/new_message}" th:object="${newMessage}" method="post" class="needs-validation" novalidate>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Feladó:</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" data-th-field="*{sender}"
-                   placeholder="Add meg az neved!" data-th-classappend="${#fields.hasErrors('sender')} ? is-invalid : ''"/>
-            <div class="invalid-feedback">
-                1-50 hosszu lehet a neved
-            </div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label for="exampleFormControlInput1">Feladó:</label>-->
+<!--            <input type="text" class="form-control" id="exampleFormControlInput1" data-th-field="*{sender}"-->
+<!--                   placeholder="Add meg az neved!" data-th-classappend="${#fields.hasErrors('sender')} ? is-invalid : ''"/>-->
+<!--            <div class="invalid-feedback">-->
+<!--                1-50 hosszu lehet a neved-->
+<!--            </div>-->
+<!--        </div>-->
 
 
         <div class="form-group">
