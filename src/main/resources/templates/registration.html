@@ -51,8 +51,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="${newUser.passwordConfirm}">Text Error">>
 
                 </span>
-                <input class="text" type="text" name="Username" placeholder="Email cim" required="" th:field="${newUser.email}">
-                <input class="text" type="text" name="Username" placeholder="Születési dátum" required="" th:field="${newUser.birthday}">
+                <input class="text" type="text" name="Username" placeholder="Email cim" required="">
+                <input class="text" type="text" name="Username" placeholder="Születési dátum" required="">
 
                 <!--                <div class="wthree-text">-->
                 <!--                    <label class="anim">-->
@@ -61,7 +61,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <!--                    </label>-->
                 <!--                    <div class="clear"> </div>-->
                 <!--                </div>-->
-                <input type="submit" value="REGISZTRÁCIÓ">
+                <input type="submit" value="BEJELENTKEZÉS">
             </form>
             <p>Van már fiókod? <a href="login"> Jelentkezz be!</a></p>
         </div>

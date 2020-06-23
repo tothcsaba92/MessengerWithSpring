@@ -48,6 +48,8 @@ public class MessageController implements WebMvcConfigurer {
     }
 
 
+
+
     @GetMapping(value = "/new_message")
     public String showNewMessage(Model model){
         model.addAttribute("newMessage", new Message(null,null));

@@ -27,6 +27,7 @@ public class RegistrationDTO {
         this.email = email;
     }
 
+
     public String getName() {
         return name;
     }

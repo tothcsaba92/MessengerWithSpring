@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8"/>
     <title>Főoldal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
 
     <link href="css/message.css?version=1" rel="stylesheet"/>
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
@@ -50,18 +49,19 @@
                 </ul>
             </form>
         </div>
-        <form th:action="@{/login}" method="POST" >
-            <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
-        </form>
     </div>
+
 </nav>
 
 <div class="container align-content-center">
 
-    <div class="jumbotron" style="background-color: #66000000">
-        <h1 style="text-align: center" class="display-4" >Üdvözlünk az üzenetküldő alkalamazásunkban!</h1>
-    </div>
 
+    <h1 th:text="${error}"></h1>
+
+    <p th:text="${timestamp}"></p>
+    <p th:text="${path}"></p>
+    <p th:text="${status}"></p>
+    <p th:text="${message}"></p>
 
 </div>
 
