@@ -8,22 +8,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 
 public class User  implements UserDetails {
-    public static final String DATE_FORMAT = "yyyy/MM/dd HH:mm";
-    private String username;
+    public static final String DATE_FORMAT = "yyyy/MM/dd";
+    private String name;
     private String password;
+    private String passwordConfirm;
     private Set<GrantedAuthority> authorities = new HashSet<>();
     @DateTimeFormat(pattern = DATE_FORMAT)
     private LocalDate birthDate;
     private String email;
 
-    public User(String username, String password, LocalDate birthDate, String email) {
-        this.username = username;
+    public User(String name, String password, String passwordConfirm,LocalDate birthDate, String email) {
+        this.name = name;
         this.password = password;
+        this.passwordConfirm = passwordConfirm;
         this.birthDate = birthDate;
         this.email = email;
     }
@@ -45,7 +45,7 @@ public class User  implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return name;
     }
 
     @Override
@@ -68,8 +68,8 @@ public class User  implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPassword(String password) {
@@ -96,6 +96,11 @@ public class User  implements UserDetails {
         this.email = email;
     }
 
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
 
-
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 }

@@ -44,7 +44,6 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
         if(userService.userNameValidation(newUser.getName())){
             bindingResult.addError(new FieldError("newUser", "name", "A felhasznalo nev mar foglalt"));
             return "registration";
@@ -52,7 +51,8 @@ public class UserController {
             bindingResult.addError(new FieldError("newUser", "password", "Nem egyezik a két jelszó"));
             return "registration";
         } else {
-            userService.createUser(newUser.getName(), newUser.getPassword(), "USER");
+            userService.createUser(newUser.getName(),newUser.getPassword(),newUser.getPasswordConfirm(),
+                    newUser.getBirthday(),newUser.getEmail());
             return "redirect:/login";
         }
 
