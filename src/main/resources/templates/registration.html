@@ -24,11 +24,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <h1>Creative SignUp Form</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <form th:action="@{/registration}" method="post" th:object="newUser">
-                <input class="text" type="text" name="Username" placeholder="Felhasználó név" required="" th:field="${newUser.name}">
-                <input class="text" type="password" name="password" placeholder="Jelszó" required="" th:field="${newUser.password}">
+            <form th:action="@{/registration}" method="post" th:object="newUser" class="needs-validation" novalidate>
+                <input class="text" type="text" name="Username" placeholder="Felhasználó név" required="" th:field="${newUser.name}"
+                       th:classappend="${#fields.hasErrors('name')} ? is-invalid : '' " >
+                <input class="text" type="password" name="password" placeholder="Jelszó" required="" th:field="${newUser.password}"
+                       th:classappend="${#fields.hasErrors('password')} ? is-invalid : '' ">
                 <input class="text w3lpass" type="password" name="password" placeholder="Erősitsd meg a jelszavad" required=""
-                       th:field="${newUser.passwordConfirm}">
+                       th:field="${newUser.passwordConfirm}" th:classappend="${#fields.hasErrors('passwordConfirm')} ? is-invalid : '' ">
 <!--                <div class="wthree-text">-->
 <!--                    <label class="anim">-->
 <!--                        <input type="checkbox" class="checkbox" required="">-->
