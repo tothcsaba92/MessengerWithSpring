@@ -1,7 +1,6 @@
 package edu.progmatic.messenger.controllers;
 
 import edu.progmatic.messenger.dto.RegistrationDTO;
-import edu.progmatic.messenger.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,31 +19,33 @@ import javax.validation.Valid;
 public class UserController {
 
 
-        UserDetailsManager userDetailsManager;
+    UserDetailsManager userDetailsManager;
 
-        @Autowired
-        public UserController(UserDetailsService userDetailsService) {
-            this.userDetailsManager = (UserDetailsManager) userDetailsService;
-        }
+    @Autowired
+    public UserController(UserDetailsService userDetailsService) {
+        this.userDetailsManager = (UserDetailsManager) userDetailsService;
+    }
 
 
-        @GetMapping(value = "/login")
-    public String loginUser(){
+    @GetMapping(value = "/login")
+    public String loginUser() {
         return "login";
     }
 
     @GetMapping(value = "/registration")
-    public String registerUser(Model model){
-        model.addAttribute("newUser",new RegistrationDTO());
+    public String registerUser(Model model) {
+        model.addAttribute("newUser", new RegistrationDTO());
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registrationUser(@ModelAttribute(value ="newUser") @Valid RegistrationDTO newUser,
-                                   BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "/registration";
+    public String registrationUser(@ModelAttribute(value = "newUser") @Valid RegistrationDTO newUser,
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "registration";
         }
+
+        userDetailsManager.createUser(User.withUsername(newUser.getName()).password(newUser.getPassword()).roles("USER").build());
         return "redirect:/login";
     }
 
