@@ -23,20 +23,20 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        http.formLogin()
-                .loginPage("/loginpage").permitAll()
-                .loginProcessingUrl("/login")
-                .and()
-                .logout()
-                .logoutSuccessUrl("/loginpage")
-                .and()
-                .authorizeRequests()
-                .antMatchers("/loginpage/beforelogin").permitAll()
-                .anyRequest().authenticated();
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//
+//        http.formLogin()
+//                .loginPage("/login").permitAll()
+//                .loginProcessingUrl("/login")
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/login")
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/login/beforelogin").permitAll()
+//                .anyRequest().authenticated();
+//    }
 
 
     @SuppressWarnings("deprecation")
