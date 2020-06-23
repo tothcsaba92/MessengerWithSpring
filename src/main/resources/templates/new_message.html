@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -51,7 +52,7 @@
             </form>
         </div>
         <form th:action="@{/login}" method="POST" >
-            <button type="submit" class="btn btn-outline-info">Kijelentkezés</button>
+            <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
         </form>
     </div>
 </nav>
@@ -83,7 +84,7 @@
         </div>
 
         <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="Küldés">
+            <input class="btn btn-primary" type="submit"  value="Küldés">
         </div>
     </form>
 </div>

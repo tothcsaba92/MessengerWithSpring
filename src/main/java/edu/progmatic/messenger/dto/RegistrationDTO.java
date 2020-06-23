@@ -8,6 +8,7 @@ public class RegistrationDTO {
     private String passwordConfirm;
 
 
+
     public String getName() {
         return name;
     }
