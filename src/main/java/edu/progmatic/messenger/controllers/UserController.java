@@ -3,6 +3,8 @@ package edu.progmatic.messenger.controllers;
 import edu.progmatic.messenger.dto.RegistrationDTO;
 import edu.progmatic.messenger.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +36,7 @@ public class UserController {
         model.addAttribute("newUser", new RegistrationDTO());
         return "registration";
     }
-
+    @PreAuthorize("hasAuthority('GLOBAL_ADMINISTRATOR')")
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationUser(@ModelAttribute(value = "newUser")  RegistrationDTO newUser,
                                    BindingResult bindingResult) {
@@ -44,10 +46,10 @@ public class UserController {
         }
 
         if(userService.userNameValidation(newUser.getName())){
-            bindingResult.addError(new FieldError("newUser", "name", "van már ilyen név"));
+            bindingResult.addError(new FieldError("newUser", "name", "A felhasznalo nev mar foglalt"));
             return "registration";
         } else if(!userService.userPasswordValidation(newUser.getPassword(),newUser.getPasswordConfirm())) {
-            bindingResult.addError(new FieldError("newUser", "password", "nem egyezik a két jelszó"));
+            bindingResult.addError(new FieldError("newUser", "password", "Nem egyezik a két jelszó"));
             return "registration";
         } else {
             userService.createUser(newUser.getName(), newUser.getPassword(), "USER");

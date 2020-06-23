@@ -48,6 +48,11 @@ body {
     background-attachment: fixed;
     padding-top: 90px;
 }
+ .btn-primary, .btn-primary:active, .btn-primary:visited,  .btn-outline-info {
+     background-color: #3cb97f !important;
+     border-color: #ced4da !important;
+     color: white;
+ }
 
 
 
