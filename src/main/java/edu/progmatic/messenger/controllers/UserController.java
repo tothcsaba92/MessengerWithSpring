@@ -36,27 +36,24 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registrationUser(@ModelAttribute(value = "newUser") @Valid RegistrationDTO newUser,
+    public String registrationUser(@ModelAttribute(value = "newUser")  RegistrationDTO newUser,
                                    BindingResult bindingResult) {
-
-        FieldError fieldError = new FieldError("nameError", "name", "van már ilyen név");
-        FieldError fieldError2 = new FieldError("passwordError", "password", "nem egyezik a két jelszó");
-        FieldError fieldError3 = new FieldError("passwordError", "passwordConfirm", "nem egyezik a két jelszó");
-
-        bindingResult.addError(fieldError);
-        bindingResult.addError(fieldError2);
-        bindingResult.addError(fieldError3);
-
-        boolean isNameValid = userService.userNameValidation(newUser.getName());
-        boolean isPasswordValid = userService.userPasswordValidation(newUser.getPassword(), newUser.getPasswordConfirm());
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
+        if(userService.userNameValidation(newUser.getName())){
+            bindingResult.addError(new FieldError("newUser", "name", "van már ilyen név"));
+            return "registration";
+        } else if(!userService.userPasswordValidation(newUser.getPassword(),newUser.getPasswordConfirm())) {
+            bindingResult.addError(new FieldError("newUser", "password", "nem egyezik a két jelszó"));
+            return "registration";
+        } else {
+            userService.createUser(newUser.getName(), newUser.getPassword(), "USER");
+            return "redirect:/login";
+        }
 
-        userService.createUser(newUser.getName(), newUser.getPassword(), "USER");
-        return "redirect:/login";
     }
 
 }

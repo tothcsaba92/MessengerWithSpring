@@ -33,15 +33,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <form th:action="@{/registration}" method="post" th:object="${newUser}" class="needs-validation" novalidate>
 
                 <input class="text" type="text" name="Username" placeholder="Felhasználó név" required=""
-                       th:field="${newUser.name}"
-                       data-th-classappend="${#fields.hasErrors('name')} ? is-invalid : ''">
+                       th:field="${newUser.name}">
                 <span
                         th:if="${#fields.hasErrors('name')}" th:errors="${newUser.name}">Text Error">>
 
                 </span>
                 <input class="text" type="password" name="password" placeholder="Jelszó" required=""
-                       th:field="${newUser.password}"
-                       data-th-classappend="${#fields.hasErrors('password')} ? is-invalid : ''">
+                       th:field="${newUser.password}">
                 <span
                         th:if="${#fields.hasErrors('password')}" th:errors="${newUser.password}">Text Error">>
 

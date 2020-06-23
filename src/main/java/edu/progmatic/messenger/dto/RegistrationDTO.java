@@ -1,22 +1,15 @@
 package edu.progmatic.messenger.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 public class RegistrationDTO {
-    @NotEmpty
-    @NotNull
+
     private String name;
 
-    @NotEmpty
-    @NotNull
-    @Size(min = 6, max = 10)
+
     private String password;
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 6, max = 10)
+
     private String passwordConfirm;
 
     public String getName() {
