@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8"/>
@@ -49,15 +50,18 @@
                 </ul>
             </form>
         </div>
+        <form th:action="@{/login}" method="POST" >
+            <button type="submit" class="btn btn-outline-info" sec:authorize="isAuthenticated()">Kijelentkezés</button>
+        </form>
     </div>
-
 </nav>
 
 <div class="container align-content-center">
 
     <div class="jumbotron" style="background-color: #66000000">
-        <h1 style="text-align: center" class="display-4">Üdvözlünk az üzenetküldő alkalamazásunkban!</h1>
+        <h1 style="text-align: center" class="display-4" >Üdvözlünk az üzenetküldő alkalamazásunkban!</h1>
     </div>
+
 
 </div>
 

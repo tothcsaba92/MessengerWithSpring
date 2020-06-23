@@ -166,6 +166,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     background-repeat: no-repeat;
     color: #fff;
     font-family: 'Roboto', sans-serif;
+    margin: 2em 0;
 }
 
 input.email, input.text.w3lpass {
@@ -211,9 +212,9 @@ input.email, input.text.w3lpass {
 input[type="submit"] {
     font-size: .9em;
     color: #fff;
-    background: #76b852;
+    background: #f3724f;
     outline: none;
-    border: 1px solid #76b852;
+    border: 1px solid #c74e17;
     cursor: pointer;
     padding: 0.9em;
     -webkit-appearance: none;
@@ -228,7 +229,7 @@ input[type="submit"]:hover {
     -o-transition: .5s all;
     -ms-transition: .5s all;
     transition: .5s all;
-    background: #8DC26F;
+    background: #e75615;
 }
 
 .agileits-top p {
@@ -534,6 +535,9 @@ input.checkbox:checked:after {
 @media(max-width:1440px) {
     input[type="text"], input[type="email"], input[type="password"] {
         width: 94%;
+        margin: 2em 0;
+
+
     }
 }
 
@@ -590,6 +594,7 @@ input.checkbox:checked:after {
 
     input[type="text"], input[type="email"], input[type="password"] {
         width: 93%;
+
     }
 }
 

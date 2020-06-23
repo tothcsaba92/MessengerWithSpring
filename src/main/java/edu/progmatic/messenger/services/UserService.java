@@ -2,7 +2,6 @@ package edu.progmatic.messenger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
@@ -25,6 +24,11 @@ public class UserService {
     }
 
     public void createUser(String userName, String password, String role) {
+
         userDetailsManager.createUser(User.withUsername(userName).password(password).roles(role).build());
+
+
     }
+
+
 }

@@ -1,16 +1,12 @@
 package edu.progmatic.messenger.dto;
 
 
-
 public class RegistrationDTO {
 
     private String name;
-
-
     private String password;
-
-
     private String passwordConfirm;
+
 
     public String getName() {
         return name;
@@ -35,4 +31,6 @@ public class RegistrationDTO {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+
+
 }
