@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class MessageService {
 
     static List<Message> messages;
+
     static {
         messages = new ArrayList<>();
         messages.addAll(Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
@@ -41,20 +42,20 @@ public class MessageService {
                 break;
         }
         if (!isAsc) {
-            return sortList(comparator.reversed(), limit, model) ;
+            return sortList(comparator.reversed(), limit, model);
         }
         results = sortList(comparator, limit, model);
         return results;
     }
 
-    public Message showSelectedMessageById(int msgId){
-       return messages.stream()
+    public Message showSelectedMessageById(int msgId) {
+        return messages.stream()
                 .filter(message -> message.getId() == msgId)
                 .collect(Collectors.toList()).get(0);
     }
 
-    public void createNewMessage(Message newMessage){
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public void createNewMessage(Message newMessage) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
         messages.add(newMessage);
     }
@@ -64,6 +65,12 @@ public class MessageService {
         List<Message> results = messages.stream().limit(limit).collect(Collectors.toList());
         model.addAttribute("messages", results);
         return results;
+    }
+
+    //.filter(producer -> producer.getPod().equals(pod))
+    public void deleteMessage(int id) {
+        //messages.stream().
+        messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.remove(message));
     }
 
 

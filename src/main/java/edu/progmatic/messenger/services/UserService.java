@@ -29,9 +29,8 @@ public class UserService {
         User user = new User(userName,password,passwordConfirm,birthday,email);
         user.addAuthority("ROLE_USER");
         userDetailsManager.createUser(user);
-
-
     }
+
 
 
 }

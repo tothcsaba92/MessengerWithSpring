@@ -28,6 +28,7 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         User user = new User("user","password","password",
                 LocalDate.of(1992,10,22),"toth@gmail.com");
+        user.addAuthority("ROLE_ADMIN");
         manager.createUser(user);
         return manager;
     }
