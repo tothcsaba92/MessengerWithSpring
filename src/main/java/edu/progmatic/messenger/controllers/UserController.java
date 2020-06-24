@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registrationUser(@ModelAttribute(value = "newUser")  RegistrationDTO newUser,
+    public String registrationUser(@ModelAttribute(value = "newUser")  @Valid RegistrationDTO newUser,
                                    BindingResult bindingResult) {
         logger.info("registration started");
         if (bindingResult.hasErrors()) {
@@ -62,8 +62,6 @@ public class UserController {
             userService.createUser(newUser.getName(),newUser.getPassword(),newUser.getPasswordConfirm(),
                     newUser.getBirthday(),newUser.getEmail());
             logger.info("user created");
-//            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            //TODO Ezzel mit lehet kezdeni?
             return "redirect:/login";
         }
 

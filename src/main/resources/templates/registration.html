@@ -53,8 +53,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </span>
                 <input class="text" type="text" name="Username" placeholder="Email cim" required=""
                        th:field="${newUser.email}">
+                <span
+                        th:if="${#fields.hasErrors('email')}" th:errors="${newUser.email}">Text Error
+
+                </span>
                 <input class="text" type="text" name="Username" placeholder="Születési dátum" required=""
                        th:field="${newUser.birthday}">
+                <span
+                        th:if="${#fields.hasErrors('birthday')}" th:errors="${{newUser.birthday}}">Text Error
+
+                </span>
 
                 <!--                <div class="wthree-text">-->
                 <!--                    <label class="anim">-->
