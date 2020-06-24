@@ -1,6 +1,7 @@
 package edu.progmatic.messenger.controllers;
 
 import edu.progmatic.messenger.model.Message;
+import edu.progmatic.messenger.model.Status;
 import edu.progmatic.messenger.services.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +27,14 @@ public class MessageController implements WebMvcConfigurer {
     public String limitedMessages(SecurityContextHolderAwareRequestWrapper request,
                                   @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE + "") int limit,
                                   @RequestParam(value = "orderby", required = false, defaultValue = "sender") String order,
-                                  @RequestParam(value = "direction", required = false, defaultValue = "asc") String dir, Model model) {
-        logger.info("eler e ide?");
+                                  @RequestParam(value = "direction", required = false, defaultValue = "asc") String dir,
+                                  @RequestParam(value = "status",required = false,defaultValue = "MIND")Status status,
+                                  Model model) {
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
         if (isAdmin) {
             List<Message> messages = messageService.showMessages(order, model, limit, dir);
-            model.addAttribute("messages", messages);
+            List<Message> filteredMessages = messageService.filterByStatus(status, messages);
+            model.addAttribute("messages", filteredMessages);
             logger.info("recognized as admin");
         } else {
             List<Message> messages = messageService.showNonDeletedMessages(order, model, limit, dir);

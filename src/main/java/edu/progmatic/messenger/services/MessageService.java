@@ -87,6 +87,17 @@ public class MessageService {
         return results;
     }
 
+    public List<Message> filterByStatus(Status status, List<Message> messages){
+        if(status.equals(TÖRÖLT)) {
+            return messages.stream()
+                    .filter(message -> message.getDeleted().equals(TÖRÖLT)).collect(Collectors.toList());
+        } else if(status.equals(NEM_TÖRÖLT)) {
+            return messages.stream()
+                    .filter(message -> message.getDeleted().equals(NEM_TÖRÖLT)).collect(Collectors.toList());
+        }
+        return messages;
+    }
+
     public Message showSelectedMessageById(int msgId) {
         return messages.stream()
                 .filter(message -> message.getId() == msgId)
