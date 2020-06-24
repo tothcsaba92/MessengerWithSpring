@@ -23,6 +23,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- web font -->
     <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
     <!-- //web font -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+
+    <link href="css/message.css" rel="stylesheet"/>
+    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+    <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
+    <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <!-- main -->
@@ -32,36 +41,48 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="agileits-top">
             <form th:action="@{/registration}" method="post" th:object="${newUser}" class="needs-validation" novalidate>
 
-                <input class="text" type="text" name="Username" placeholder="Felhasználó név" required=""
+                <input th:if="${#fields.hasErrors('name')}" type="text" class="form-control is-invalid"
+                       name="Username" placeholder="Felhasználó név" required
+                       th:field="${newUser.name}">
+                <input th:unless="${#fields.hasErrors('name')}" type="text" class="form-control "
+                       name="Username" placeholder="Felhasználó név" required
                        th:field="${newUser.name}">
                 <span
                         th:if="${#fields.hasErrors('name')}" th:errors="${newUser.name}">Text Error
-
                 </span>
-                <input class="text" type="password" name="password" placeholder="Jelszó" required=""
-                       th:field="${newUser.password}">
+
+
+                <input th:if= "${#fields.hasErrors('password')}" class="form-control is-invalid"  type="password"
+                       name="password" placeholder="Jelszó" required="" th:field="${newUser.password}">
+                <input th:unless= "${#fields.hasErrors('password')}" class="form-control" type="password"
+                       name="password" placeholder="Jelszó" required="" th:field="${newUser.password}">
                 <span
                         th:if="${#fields.hasErrors('password')}" th:errors="${newUser.password}">Text Error
-
                 </span>
-                <input class="text w3lpass" type="password" name="password" placeholder="Erősitsd meg a jelszavad"
-                       required=""
-                       th:field="${newUser.passwordConfirm}">
+
+
+                <input th:if="${#fields.hasErrors('passwordConfirm')}" class="form-control is-invalid" type="password" name="password"
+                       placeholder="Erősitsd meg a jelszavad" required="" th:field="${newUser.passwordConfirm}">
+                <input th:unless="${#fields.hasErrors('passwordConfirm')}" class="form-control " type="password" name="password"
+                       placeholder="Erősitsd meg a jelszavad" required="" th:field="${newUser.passwordConfirm}">
                 <span
                         th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="${newUser.passwordConfirm}">Text Error
-
                 </span>
-                <input class="text" type="text" name="Username" placeholder="Email cim" required=""
+
+
+                <input th:if="${#fields.hasErrors('email')}" class="form-control is-invalid" type="text" name="Username" placeholder="Email cim" required=""
+                       th:field="${newUser.email}">
+                <input th:unless="${#fields.hasErrors('email')}" class="form-control " type="text" name="Username" placeholder="Email cim" required=""
                        th:field="${newUser.email}">
                 <span
                         th:if="${#fields.hasErrors('email')}" th:errors="${newUser.email}">Text Error
-
                 </span>
-                <input class="text" type="text" name="Username" placeholder="Születési dátum" required=""
-                       th:field="${newUser.birthday}">
+                <input th:if="${#fields.hasErrors('birthday')}" class="form-control is-invalid" type="text" name="Username" placeholder="Születési dátum"
+                       required="" th:field="${newUser.birthday}">
+                <input th:unless="${#fields.hasErrors('birthday')}" class="form-control" type="text" name="Username" placeholder="Születési dátum"
+                       required="" th:field="${newUser.birthday}">
                 <span
                         th:if="${#fields.hasErrors('birthday')}" th:errors="${{newUser.birthday}}">Text Error
-
                 </span>
 
                 <!--                <div class="wthree-text">-->
