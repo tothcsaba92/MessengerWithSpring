@@ -38,6 +38,9 @@ public class User implements UserDetails {
     public void addAuthority(String authority) {
         authorities.add(new SimpleGrantedAuthority(authority));
     }
+    public void removeAuthority() {
+        authorities.clear();
+    }
 
     @Override
     public String getPassword() {
