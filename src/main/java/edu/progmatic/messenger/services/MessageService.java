@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static edu.progmatic.messenger.model.Status.NEM_TÖRÖLT;
 import static edu.progmatic.messenger.model.Status.TÖRÖLT;
 
 @Service
@@ -50,6 +51,51 @@ public class MessageService {
         }
         results = sortList(comparator, limit, model);
         return results;
+    }
+
+    public List<Message> showNonDeletedMessages(String order, Model model, int limit, String direction) {
+        boolean isAsc = false;
+        List<Message> results;
+        if (direction.equals("asc")) {
+            isAsc = true;
+        }
+        Comparator<Message> comparator;
+        switch (order) {
+            case "time":
+                comparator = Comparator.comparing(Message::getDateTime);
+                break;
+            case "message":
+                comparator = Comparator.comparing(Message::getText);
+                break;
+            case "sender":
+            default:
+                comparator = Comparator.comparing(Message::getSender);
+                break;
+        }
+        if (!isAsc) {
+            return sortListForNonDeleted(comparator.reversed(), limit, model);
+        }
+        results = sortListForNonDeleted(comparator, limit, model);
+        return results;
+    }
+
+    private List<Message> sortListForNonDeleted(Comparator comp, int limit, Model model) {
+        Collections.sort(messages, comp);
+        List<Message> results = messages.stream().filter(message -> message.getDeleted().equals(NEM_TÖRÖLT))
+                .limit(limit).collect(Collectors.toList());
+        model.addAttribute("messages", results);
+        return results;
+    }
+
+    public List<Message> filterByStatus(Status status, List<Message> messages){
+        if(status.equals(TÖRÖLT)) {
+            return messages.stream()
+                    .filter(message -> message.getDeleted().equals(TÖRÖLT)).collect(Collectors.toList());
+        } else if(status.equals(NEM_TÖRÖLT)) {
+            return messages.stream()
+                    .filter(message -> message.getDeleted().equals(NEM_TÖRÖLT)).collect(Collectors.toList());
+        }
+        return messages;
     }
 
     public Message showSelectedMessageById(int msgId) {

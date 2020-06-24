@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class User  implements UserDetails {
+public class User implements UserDetails {
 
     private String name;
     private String password;
@@ -21,7 +21,7 @@ public class User  implements UserDetails {
     private LocalDate birthDate;
     private String email;
 
-    public User(String name, String password, String passwordConfirm,LocalDate birthDate, String email) {
+    public User(String name, String password, String passwordConfirm, LocalDate birthDate, String email) {
         this.name = name;
         this.password = password;
         this.passwordConfirm = passwordConfirm;
@@ -37,6 +37,9 @@ public class User  implements UserDetails {
 
     public void addAuthority(String authority) {
         authorities.add(new SimpleGrantedAuthority(authority));
+    }
+    public void removeAuthority() {
+        authorities.clear();
     }
 
     @Override
@@ -104,4 +107,5 @@ public class User  implements UserDetails {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+
 }

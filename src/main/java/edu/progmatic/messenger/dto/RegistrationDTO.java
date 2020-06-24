@@ -2,6 +2,8 @@ package edu.progmatic.messenger.dto;
 
 
 import edu.progmatic.messenger.constans.DateConfig;
+import edu.progmatic.messenger.passwordValidation.ValidPassword;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +16,7 @@ public class RegistrationDTO {
     @Size(min = 3, max = 20)
     @NotNull
     private String name;
+    @ValidPassword
     @Size(min = 6, max = 20)
     @NotNull
     private String password;
@@ -26,6 +29,7 @@ public class RegistrationDTO {
 
     @NotEmpty
     @NotNull
+    @Email
     private String email;
 
     public LocalDate getBirthday() {
