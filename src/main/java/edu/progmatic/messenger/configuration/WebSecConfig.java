@@ -49,7 +49,8 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/messages", "/single_message/{userId}", "/home",
                         "/pics/msg_background.jpeg","/webjars/**", "/registration", "/css/**")
                 .permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                ;
     }
 
 

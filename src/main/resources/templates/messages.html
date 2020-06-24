@@ -53,7 +53,7 @@
                 </ul>
             </form>
         </div>
-        <form th:action="@{/login}" method="POST" >
+        <form th:action="@{/login}" method="POST">
             <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
         </form>
     </div>
@@ -62,7 +62,8 @@
 <div class="container mt-3">
 
     <div class="form-group">
-        <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Keress szöveg alapján..">
+        <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
+               placeholder="Keress szöveg alapján..">
     </div>
 
     <div class="form-group">
@@ -87,7 +88,7 @@
                 <legend class="col-form-label col-sm-2 pt-0">Üzenetek sorrendje:</legend>
                 <div class="col-sm-10">
                     <div class="form-check">
-                        <input class="form-check-input"  type="radio" name="direction" id="asc" value="asc">
+                        <input class="form-check-input" type="radio" name="direction" id="asc" value="asc">
                         <label class="form-check-label active" for="asc">Növekvő</label>
                     </div>
                     <div class="form-check">
@@ -97,7 +98,7 @@
                 </div>
 
             </div>
-<!--            <input type="submit" value="Subscribe" th:attr="value=Submit"/>-->
+            <!--            <input type="submit" value="Subscribe" th:attr="value=Submit"/>-->
             <input class="btn btn-primary" type="submit" value="Keresés">
         </fieldset>
     </form>
@@ -118,12 +119,18 @@
             <td data-th-text="${message.text}"></td>
             <td data-th-text="${message.sender}"></td>
             <td data-th-text="${{message.dateTime}}"></td>
+
             <td>
                 <a data-th-href="@{/messages/{messageId}(messageId=${message.id})}"><p data-th-text="${message.id}"></p>
                 </a>
             </td>
-            <td><button type="submit" class="btn btn-primary" data-sec-authorize="hasRole('ADMIN')">Törlés</button></td>
+            <td>
+            <a  th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
+                  data-sec-authorize="hasRole('ADMIN')">
 
+                    <p type="submit" class="btn btn-primary" >Törlés</p>
+            </a>
+            </td>
         </tr>
         </tbody>
     </table>
