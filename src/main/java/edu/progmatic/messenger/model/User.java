@@ -1,5 +1,6 @@
 package edu.progmatic.messenger.model;
 
+import edu.progmatic.messenger.constans.DateConfig;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,12 +12,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class User  implements UserDetails {
-    public static final String DATE_FORMAT = "yyyy/MM/dd";
+
     private String name;
     private String password;
     private String passwordConfirm;
     private Set<GrantedAuthority> authorities = new HashSet<>();
-    @DateTimeFormat(pattern = DATE_FORMAT)
+    @DateTimeFormat(pattern = DateConfig.DATE_FORMAT)
     private LocalDate birthDate;
     private String email;
 

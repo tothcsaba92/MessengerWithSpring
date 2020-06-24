@@ -1,22 +1,11 @@
-
-
-                                                                                                         hhhhhhh
-                                                                                                         h:::::h
-                                                                                                         h:::::h
-                                                                                                         h:::::h
-   mmmmmmm    mmmmmmm       eeeeeeeeeeee    nnnn  nnnnnnnn        ssssssssss     aaaaaaaaaaaaa            h::::h hhhhh       uuuuuu    uuuuuu
- mm:::::::m  m:::::::mm   ee::::::::::::ee  n:::nn::::::::nn    ss::::::::::s    a::::::::::::a           h::::hh:::::hhh    u::::u    u::::u
-m::::::::::mm::::::::::m e::::::eeeee:::::een::::::::::::::nn ss:::::::::::::s   aaaaaaaaa:::::a          h::::::::::::::hh  u::::u    u::::u
-m::::::::::::::::::::::me::::::e     e:::::enn:::::::::::::::ns::::::ssss:::::s           a::::a          h:::::::hhh::::::h u::::u    u::::u
-m:::::mmm::::::mmm:::::me:::::::eeeee::::::e  n:::::nnnn:::::n s:::::s  ssssss     aaaaaaa:::::a          h::::::h   h::::::hu::::u    u::::u
-m::::m   m::::m   m::::me:::::::::::::::::e   n::::n    n::::n   s::::::s        aa::::::::::::a          h:::::h     h:::::hu::::u    u::::u
-m::::m   m::::m   m::::me::::::eeeeeeeeeee    n::::n    n::::n      s::::::s    a::::aaaa::::::a          h:::::h     h:::::hu::::u    u::::u
-m::::m   m::::m   m::::me:::::::e             n::::n    n::::nssssss   s:::::s a::::a    a:::::a          h:::::h     h:::::hu:::::uuuu:::::u
-m::::m   m::::m   m::::me::::::::e            n::::n    n::::ns:::::ssss::::::sa::::a    a:::::a          h:::::h     h:::::hu:::::::::::::::uu
-m::::m   m::::m   m::::m e::::::::eeeeeeee    n::::n    n::::ns::::::::::::::s a:::::aaaa::::::a  ......  h:::::h     h:::::h u:::::::::::::::u
-m::::m   m::::m   m::::m  ee:::::::::::::e    n::::n    n::::n s:::::::::::ss   a::::::::::aa:::a .::::.  h:::::h     h:::::h  uu::::::::uu:::u
-mmmmmm   mmmmmm   mmmmmm    eeeeeeeeeeeeee    nnnnnn    nnnnnn  sssssssssss      aaaaaaaaaa  aaaa ......  hhhhhhh     hhhhhhh    uuuuuuuu  uuuu
-
+ ________  ________  _________  ________  ________
+|\   __  \|\   __  \|\___   ___\\   __  \|\   ____\
+\ \  \|\ /\ \  \|\  \|___ \  \_\ \  \|\  \ \  \___|_
+ \ \   __  \ \  \\\  \   \ \  \ \ \  \\\  \ \_____  \
+  \ \  \|\  \ \  \\\  \   \ \  \ \ \  \\\  \|____|\  \
+   \ \_______\ \_______\   \ \__\ \ \_______\____\_\  \
+    \|_______|\|_______|    \|__|  \|_______|\_________\
+                                            \|_________|
 
 
 

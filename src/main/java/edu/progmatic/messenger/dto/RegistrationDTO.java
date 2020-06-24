@@ -1,6 +1,9 @@
 package edu.progmatic.messenger.dto;
 
 
+import edu.progmatic.messenger.constans.DateConfig;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class RegistrationDTO {
@@ -8,6 +11,7 @@ public class RegistrationDTO {
     private String name;
     private String password;
     private String passwordConfirm;
+    @DateTimeFormat(pattern = DateConfig.DATE_FORMAT)
     private LocalDate birthday;
     private String email;
 

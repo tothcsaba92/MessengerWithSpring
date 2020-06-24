@@ -35,24 +35,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <input class="text" type="text" name="Username" placeholder="Felhasználó név" required=""
                        th:field="${newUser.name}">
                 <span
-                        th:if="${#fields.hasErrors('name')}" th:errors="${newUser.name}">Text Error">>
+                        th:if="${#fields.hasErrors('name')}" th:errors="${newUser.name}">Text Error
 
                 </span>
                 <input class="text" type="password" name="password" placeholder="Jelszó" required=""
                        th:field="${newUser.password}">
                 <span
-                        th:if="${#fields.hasErrors('password')}" th:errors="${newUser.password}">Text Error">>
+                        th:if="${#fields.hasErrors('password')}" th:errors="${newUser.password}">Text Error
 
                 </span>
                 <input class="text w3lpass" type="password" name="password" placeholder="Erősitsd meg a jelszavad"
                        required=""
                        th:field="${newUser.passwordConfirm}">
                 <span
-                        th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="${newUser.passwordConfirm}">Text Error">>
+                        th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="${newUser.passwordConfirm}">Text Error
 
                 </span>
-                <input class="text" type="text" name="Username" placeholder="Email cim" required="">
-                <input class="text" type="text" name="Username" placeholder="Születési dátum" required="">
+                <input class="text" type="text" name="Username" placeholder="Email cim" required=""
+                       th:field="${newUser.email}">
+                <input class="text" type="text" name="Username" placeholder="Születési dátum" required=""
+                       th:field="${newUser.birthday}">
 
                 <!--                <div class="wthree-text">-->
                 <!--                    <label class="anim">-->

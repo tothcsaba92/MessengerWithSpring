@@ -1,5 +1,6 @@
 package edu.progmatic.messenger.configuration;
 
+import edu.progmatic.messenger.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,13 +9,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import java.time.LocalDate;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -24,8 +26,9 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user").
-                password("password").roles("USER").build());
+        User user = new User("user","password","password",
+                LocalDate.of(1992,10,22),"toth@gmail.com");
+        manager.createUser(user);
         return manager;
     }
 
@@ -42,7 +45,9 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/messages", "/single_message/{userId}", "/home", "/pics/msg_background.jpeg","/webjars/**", "/registration", "/css/**").permitAll()
+                .antMatchers("/messages", "/single_message/{userId}", "/home",
+                        "/pics/msg_background.jpeg","/webjars/**", "/registration", "/css/**")
+                .permitAll()
                 .anyRequest().authenticated();
     }
 
