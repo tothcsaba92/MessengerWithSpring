@@ -15,6 +15,7 @@ public class Message {
     private String text;
 
     private String sender;
+    private boolean isDeleted;
 
     @DateTimeFormat(pattern = DateConfig.DATE_TIME_FORMAT)
     private LocalDateTime dateTime;
@@ -28,6 +29,13 @@ public class Message {
         this.id = idCounter++;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 
     public String getText() {
         return text;

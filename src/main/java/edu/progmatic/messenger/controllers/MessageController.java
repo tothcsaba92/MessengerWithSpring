@@ -20,6 +20,8 @@ public class MessageController implements WebMvcConfigurer {
     MessageService messageService = new MessageService();
 
 
+
+
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
     public String limitedMessages(
             @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE +"") int limit,
@@ -31,6 +33,7 @@ public class MessageController implements WebMvcConfigurer {
 
         return "messages";
     }
+
     @RequestMapping(value="/messages/{messageId}", method=RequestMethod.GET)
     public String showSelectedMessageId(
             @PathVariable("messageId") int msgId, Model model) {
@@ -63,6 +66,4 @@ public class MessageController implements WebMvcConfigurer {
         messageService.createNewMessage(newMessage);
         return "redirect:/messages";
     }
-
-
 }

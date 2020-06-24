@@ -111,11 +111,13 @@
             <td>Üzenet ideje:</td>
             <td>Üzenet ID:</td>
             <td data-sec-authorize="hasRole('ADMIN')">Üzenet törlése:</td>
+            <td data-sec-authorize="hasRole('ADMIN')">Üzenet állapota:</td>
 
         </tr>
         </thead>
         <tbody>
-        <tr data-th-each="message: ${messages}">
+
+        <tr  data-th-each="message: ${messages}">
             <td data-th-text="${message.text}"></td>
             <td data-th-text="${message.sender}"></td>
             <td data-th-text="${{message.dateTime}}"></td>
@@ -127,10 +129,11 @@
             <td>
             <a  th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
                   data-sec-authorize="hasRole('ADMIN')">
-
-                    <p type="submit" class="btn btn-primary" >Törlés</p>
+                    <p type="submit" class="btn btn-primary">Törlés</p>
             </a>
             </td>
+
+<!--            <td data-th-text="${message.isDeleted}" data-sec-authorize="hasRole('ADMIN')"></td>-->
         </tr>
         </tbody>
     </table>

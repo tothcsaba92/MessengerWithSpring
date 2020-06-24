@@ -18,10 +18,18 @@ public class AdminController {
     public AdminController(MessageService messageService){
         this.messageService = messageService;
     }
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    /*@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value="/messages/delete/{messageId}")
     public String deleteMessage(@PathVariable("messageId") int msgId) {
         messageService.deleteMessage(msgId);
         return "redirect:/messages";
+    }*/
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping(value="/messages/delete/{messageId}")
+    public String showAllMessage(@PathVariable("messageId") int msgId) {
+        messageService.setMessageForDeletion(msgId);
+        return "redirect:/messages";
     }
+
 }

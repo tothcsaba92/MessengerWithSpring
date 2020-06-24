@@ -73,5 +73,9 @@ public class MessageService {
         messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.remove(message));
     }
 
+    public void setMessageForDeletion(int id){
+        messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(true));
+    }
+
 
 }
