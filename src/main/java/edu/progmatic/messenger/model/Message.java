@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-
 public class Message {
 
     @NotNull
@@ -15,7 +14,7 @@ public class Message {
     private String text;
 
     private String sender;
-    private boolean isDeleted;
+    private Status deleted = Status.NEM_TÖRÖLT;
 
     @DateTimeFormat(pattern = DateConfig.DATE_TIME_FORMAT)
     private LocalDateTime dateTime;
@@ -29,12 +28,12 @@ public class Message {
         this.id = idCounter++;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public Status getDeleted() {
+        return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(Status deleted) {
+        this.deleted = deleted;
     }
 
     public String getText() {

@@ -1,6 +1,7 @@
 package edu.progmatic.messenger.services;
 
 import edu.progmatic.messenger.model.Message;
+import edu.progmatic.messenger.model.Status;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static edu.progmatic.messenger.model.Status.TÖRÖLT;
 
 @Service
 public class MessageService {
@@ -21,6 +24,7 @@ public class MessageService {
                 new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
                 new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
     }
+
 
     public List<Message> showMessages(String order, Model model, int limit, String direction) {
         boolean isAsc = false;
@@ -74,7 +78,7 @@ public class MessageService {
     }
 
     public void setMessageForDeletion(int id){
-        messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(true));
+        messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
     }
 
 
