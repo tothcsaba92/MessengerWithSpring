@@ -1,7 +1,10 @@
 package edu.progmatic.messenger.services;
 
+import edu.progmatic.messenger.controllers.MessageController;
 import edu.progmatic.messenger.model.Message;
 import edu.progmatic.messenger.constans.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ import static edu.progmatic.messenger.constans.Status.TÖRÖLT;
 
 @Service
 public class MessageService {
+
+    Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     static List<Message> messages;
 
@@ -95,7 +100,11 @@ public class MessageService {
     }
 
     public void setMessageForDeletion(int id){
-        messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
+        logger.info(id+" ez az ID amit torolni akarunk");
+        logger.info(messages.get(id).getId()+ " ez az id a toroltnek");
+
+        messages.stream().forEach(message -> {if (message.getId()==id){message.setDeleted(TÖRÖLT);}});
+        //messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
     }
 
     /**

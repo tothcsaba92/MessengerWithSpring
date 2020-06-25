@@ -31,11 +31,10 @@ public class AdminController {
         return "redirect:/messages";
     }*/
 
-    // TODO jobb lenne post request
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/messages/delete/{messageId}")
-    public String showAllMessage(@PathVariable("messageId") int msgId) {
-        messageService.setMessageForDeletion(msgId);
+    public String setForDeletion(@PathVariable("messageId") int msgId) {
+       messageService.setMessageForDeletion(msgId);
         return "redirect:/messages";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
