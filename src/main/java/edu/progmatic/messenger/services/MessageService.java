@@ -1,7 +1,7 @@
 package edu.progmatic.messenger.services;
 
 import edu.progmatic.messenger.model.Message;
-import edu.progmatic.messenger.model.Status;
+import edu.progmatic.messenger.constans.Status;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static edu.progmatic.messenger.model.Status.NEM_TÖRÖLT;
-import static edu.progmatic.messenger.model.Status.TÖRÖLT;
+import static edu.progmatic.messenger.constans.Status.NEM_TÖRÖLT;
+import static edu.progmatic.messenger.constans.Status.TÖRÖLT;
 
 @Service
 public class MessageService {

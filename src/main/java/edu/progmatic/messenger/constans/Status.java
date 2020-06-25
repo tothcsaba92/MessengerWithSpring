@@ -1,4 +1,4 @@
-package edu.progmatic.messenger.model;
+package edu.progmatic.messenger.constans;
 
 public enum Status {
     TÖRÖLT, NEM_TÖRÖLT, MIND

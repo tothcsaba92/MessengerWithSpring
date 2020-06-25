@@ -1,6 +1,7 @@
 package edu.progmatic.messenger.model;
 
-import edu.progmatic.messenger.constans.DateConfig;
+import edu.progmatic.messenger.constans.DateFormats;
+import edu.progmatic.messenger.constans.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ public class Message {
     private String sender;
     private Status deleted = Status.NEM_TÖRÖLT;
 
-    @DateTimeFormat(pattern = DateConfig.DATE_TIME_FORMAT)
+    @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
     private LocalDateTime dateTime;
     private static int idCounter;
     private int id;
