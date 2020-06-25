@@ -142,9 +142,10 @@
                 </a>
             </td>
             <td >
-                <a th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
+                <a th:switch="${message.deleted}" th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
                    data-sec-authorize="hasRole('ADMIN')">
-                    <p  type="submit" class="btn btn-primary">Törlés</p>
+                    <p th:case="${T(edu.progmatic.messenger.constans.Status).NEM_TOROLT}" type="submit" class="btn btn-primary">Törlés</p>
+                    <p th:case="*" type="submit" class="btn btn-primary">Visszavonas</p>
                 </a>
             </td>
 

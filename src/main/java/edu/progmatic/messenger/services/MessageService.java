@@ -13,8 +13,8 @@ import org.springframework.ui.Model;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static edu.progmatic.messenger.constans.Status.NEM_TÖRÖLT;
-import static edu.progmatic.messenger.constans.Status.TÖRÖLT;
+import static edu.progmatic.messenger.constans.Status.NEM_TOROLT;
+import static edu.progmatic.messenger.constans.Status.TOROLT;
 
 @Service
 public class MessageService {
@@ -57,19 +57,19 @@ public class MessageService {
 
     private List<Message> sortListForNonDeleted(Comparator comp, int limit, Model model) {
         Collections.sort(messages, comp);
-        List<Message> results = messages.stream().filter(message -> message.getDeleted().equals(NEM_TÖRÖLT))
+        List<Message> results = messages.stream().filter(message -> message.getDeleted().equals(NEM_TOROLT))
                 .limit(limit).collect(Collectors.toList());
         model.addAttribute("messages", results);
         return results;
     }
 
     public List<Message> filterByStatus(Status status, List<Message> messages){
-        if(status.equals(TÖRÖLT)) {
+        if(status.equals(TOROLT)) {
             return messages.stream()
-                    .filter(message -> message.getDeleted().equals(TÖRÖLT)).collect(Collectors.toList());
-        } else if(status.equals(NEM_TÖRÖLT)) {
+                    .filter(message -> message.getDeleted().equals(TOROLT)).collect(Collectors.toList());
+        } else if(status.equals(NEM_TOROLT)) {
             return messages.stream()
-                    .filter(message -> message.getDeleted().equals(NEM_TÖRÖLT)).collect(Collectors.toList());
+                    .filter(message -> message.getDeleted().equals(NEM_TOROLT)).collect(Collectors.toList());
         }
         return messages;
     }
@@ -103,7 +103,8 @@ public class MessageService {
         logger.info(id+" ez az ID amit torolni akarunk");
         logger.info(messages.get(id).getId()+ " ez az id a toroltnek");
 
-        messages.stream().forEach(message -> {if (message.getId()==id){message.setDeleted(TÖRÖLT);}});
+        messages.stream().forEach(message -> {if (message.getId()==id && message.getDeleted()== NEM_TOROLT){message.setDeleted(TOROLT);}
+        else {message.setDeleted(NEM_TOROLT);}});
         //messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
     }
 
