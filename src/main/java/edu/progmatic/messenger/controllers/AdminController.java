@@ -31,6 +31,7 @@ public class AdminController {
         return "redirect:/messages";
     }*/
 
+    // TODO jobb lenne post request
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/messages/delete/{messageId}")
     public String showAllMessage(@PathVariable("messageId") int msgId) {

@@ -1,7 +1,7 @@
 package edu.progmatic.messenger.controllers;
 
 import edu.progmatic.messenger.model.Message;
-import edu.progmatic.messenger.model.Status;
+import edu.progmatic.messenger.constans.Status;
 import edu.progmatic.messenger.services.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
