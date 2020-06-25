@@ -43,7 +43,6 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" th:href="@{/messages}">Üzenetek olvasás</a>
                             <a class="dropdown-item" th:href="@{/new_message}">Üzenet írás</a>
-
                         </div>
                     </li>
                 </ul>
@@ -54,14 +53,19 @@
 </nav>
 
 <div class="container align-content-center">
-
-
+    <img src="../static/images/errorpic.jpg" alt="">
+    
     <h1 th:text="${error}"></h1>
 
     <p th:text="${timestamp}"></p>
     <p th:text="${path}"></p>
     <p th:text="${status}"></p>
     <p th:text="${message}"></p>
+
+
+
+    <h5 th:text="${exception}"></h5>
+    
 
 </div>
 
