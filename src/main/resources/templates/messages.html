@@ -106,7 +106,7 @@
             <input class="btn btn-primary" type="submit" value="Keresés">
         </fieldset>
     </form>
-    <form action="#" th:attr="action=@{/messages}">
+    <form action="#" th:attr="action=@{/messages}" data-sec-authorize="hasRole('ADMIN')">
     <div class="form-group">
         <label for="status">Állapot szerinti kimutatás</label>
         <select class="form-control" id="status" name="status">

@@ -28,24 +28,9 @@ public class MessageService {
 
 
     public List<Message> showMessages(String order, Model model, int limit, String direction) {
-        boolean isAsc = false;
         List<Message> results;
-        if (direction.equals("asc")) {
-            isAsc = true;
-        }
-        Comparator<Message> comparator;
-        switch (order) {
-            case "time":
-                comparator = Comparator.comparing(Message::getDateTime);
-                break;
-            case "message":
-                comparator = Comparator.comparing(Message::getText);
-                break;
-            case "sender":
-            default:
-                comparator = Comparator.comparing(Message::getSender);
-                break;
-        }
+        boolean isAsc = isItInAscendingOrder(direction);
+        Comparator<Message> comparator = decideOrder(order);;
         if (!isAsc) {
             return sortList(comparator.reversed(), limit, model);
         }
@@ -54,24 +39,10 @@ public class MessageService {
     }
 
     public List<Message> showNonDeletedMessages(String order, Model model, int limit, String direction) {
-        boolean isAsc = false;
         List<Message> results;
-        if (direction.equals("asc")) {
-            isAsc = true;
-        }
-        Comparator<Message> comparator;
-        switch (order) {
-            case "time":
-                comparator = Comparator.comparing(Message::getDateTime);
-                break;
-            case "message":
-                comparator = Comparator.comparing(Message::getText);
-                break;
-            case "sender":
-            default:
-                comparator = Comparator.comparing(Message::getSender);
-                break;
-        }
+        boolean isAsc = isItInAscendingOrder(direction);
+
+        Comparator<Message> comparator = decideOrder(order);
         if (!isAsc) {
             return sortListForNonDeleted(comparator.reversed(), limit, model);
         }
@@ -125,6 +96,32 @@ public class MessageService {
 
     public void setMessageForDeletion(int id){
         messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
+    }
+
+    /**
+     * helper method
+     * */
+    private Comparator<Message> decideOrder(String order){
+        switch (order) {
+            case "time":
+                return Comparator.comparing(Message::getDateTime);
+            case "message":
+                return Comparator.comparing(Message::getText);
+            case "sender":
+            default:
+                return Comparator.comparing(Message::getSender);
+        }
+    }
+
+    /**
+     * helper method
+     * */
+    private boolean isItInAscendingOrder(String direction){
+        boolean isAsc = false;
+        if (direction.equals("asc")) {
+            isAsc = true;
+        }
+        return isAsc;
     }
 
 
