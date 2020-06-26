@@ -8,15 +8,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 public class AdminController {
     MessageService messageService;
     UserService userService;
-
 
 
     @Autowired
@@ -33,11 +35,12 @@ public class AdminController {
 
     // TODO jobb lenne post request
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping(value = "/messages/delete/{messageId}")
-    public String showAllMessage(@PathVariable("messageId") int msgId) {
+    @PostMapping(value = "/messages/delete/{messageId}")
+    public String deleteAMessage(@PathVariable("messageId") int msgId) {
         messageService.setMessageForDeletion(msgId);
         return "redirect:/messages";
     }
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members")
     public String viewMembers(Model model) {

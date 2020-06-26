@@ -141,7 +141,8 @@
                 </a>
             </td>
             <td>
-            <a  th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
+
+                <a  th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
                   data-sec-authorize="hasRole('ADMIN')">
                     <p type="submit" class="btn btn-primary">Törlés</p>
             </a>
@@ -156,7 +157,7 @@
 <script>
     function myFunction() {
         // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
+        let input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
         table = document.getElementById("myTable");
@@ -178,7 +179,7 @@
 
     function myFunction2() {
         // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
+        let input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput2");
         filter = input.value.toUpperCase();
         table = document.getElementById("myTable");

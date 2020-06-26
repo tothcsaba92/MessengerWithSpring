@@ -1,0 +1,29 @@
+body {
+    background-image: url('../pics/err.jpeg');
+    background-attachment: fixed;
+    padding-top: 90px;
+}
+
+.collapse{
+    opacity: 0.5
+}
+
+
+#container {
+    background: #FFF;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    border: 1px solid rgb(128, 128, 128);
+    position: relative;
+    margin: 0 0 0 -50px;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited,  .btn-outline-info {
+    background-color: #d71635 !important;
+    border-color: #ced4da !important;
+    color: white;
+}
+
+
+
