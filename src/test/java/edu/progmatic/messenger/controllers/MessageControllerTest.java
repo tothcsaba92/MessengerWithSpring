@@ -28,17 +28,45 @@ public class MessageControllerTest {
     @MockBean
     private MessageService messageService;
 
-    @WithUserDetails("user")
     @Test
-    public void  testShowMessages() throws Exception {
-        List<Message> messages = new ArrayList<>();
-        messages.add(new Message("hello","Aladar"));
-        Mockito.when(messageService.showMessages(null,null,1,null)).thenReturn(messages);
+    public void testShownNonDeletedMessagesForUsers() throws Exception {
+        List<Message> msgs = new ArrayList<>();
+        msgs.add(new Message("hello", "aladár"));
+        Mockito.when(messageService.showNonDeletedMessages(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(msgs);
         mockMvc.perform(MockMvcRequestBuilders.get("/messages"))
                 .andExpect(MockMvcResultMatchers.view().name("messages"))
-                .andExpect(MockMvcResultMatchers.model().attribute("messages",messages));
-        Mockito.verify(messageService,Mockito.times(1))
-                .showMessages(null,null,1,null);
+                .andExpect(MockMvcResultMatchers.model().attribute("messages", msgs));
+        Mockito.verify(messageService, Mockito.times(1))
+                .showNonDeletedMessages(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+    }
+
+    @WithUserDetails("user")
+    @Test
+    public void testShowMessagesForAdmin() throws Exception {
+        List<Message> msgs = new ArrayList<>();
+        msgs.add(new Message("hello", "aladár"));
+        Mockito.when(messageService.filterByStatus(Mockito.any(), Mockito.any())).thenReturn(msgs);
+        mockMvc.perform(MockMvcRequestBuilders.get("/messages"))
+                .andExpect(MockMvcResultMatchers.view().name("messages"))
+                .andExpect(MockMvcResultMatchers.model().attribute("messages", msgs));
+        Mockito.verify(messageService, Mockito.times(1))
+                .filterByStatus(Mockito.any(), Mockito.any());
+    }
+
+    @Test
+    public void testShownASingleMessageForUsers() throws Exception {
+        Message msg = new Message("asédflkj", "aladár");
+
+        //mvcResult = mockMvc.perform(put("/some/uri/{foo}/{bar}", "foo", ""))
+        int msgId = 2;
+        msg.setId(msgId);
+        Mockito.when(messageService.showSelectedMessageById(msgId)).thenReturn(msg);
+        mockMvc.perform(MockMvcRequestBuilders.get("/messages/2"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("single_message"))
+                .andExpect(MockMvcResultMatchers.model().attribute("message", msg));
+        Mockito.verify(messageService, Mockito.times(1))
+                .showSelectedMessageById(msgId);
     }
 
 }
