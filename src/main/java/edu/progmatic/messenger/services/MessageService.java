@@ -18,8 +18,9 @@ import static edu.progmatic.messenger.constans.Status.TOROLT;
 
 @Service
 public class MessageService {
-
+        //TODO IDE RAKNI A STATIKUS ID GENERETORT
     Logger logger = LoggerFactory.getLogger(MessageController.class);
+    private static int idCounter;
 
     static List<Message> messages;
 
@@ -83,6 +84,7 @@ public class MessageService {
     public void createNewMessage(Message newMessage) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
+        newMessage.setId(idCounter++);
         messages.add(newMessage);
     }
 

@@ -19,14 +19,13 @@ public class Message {
 
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
     private LocalDateTime dateTime;
-    private static int idCounter;
+
     private int id;
 
     public Message(String text, String sender) {
         this.text = text;
         this.sender = sender;
         this.dateTime = LocalDateTime.now().withNano(0);
-        this.id = idCounter++;
     }
 
     public Status getDeleted() {
