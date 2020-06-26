@@ -5,6 +5,7 @@ import edu.progmatic.messenger.constans.Status;
 import edu.progmatic.messenger.services.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,13 @@ import java.util.List;
 public class MessageController implements WebMvcConfigurer {
 
     Logger logger = LoggerFactory.getLogger(MessageController.class);
-    MessageService messageService = new MessageService();
+
+    @Autowired
+    MessageService messageService;
+
+    public MessageController(MessageService messageService){
+        this.messageService = messageService;
+    }
 
 
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
@@ -32,7 +39,7 @@ public class MessageController implements WebMvcConfigurer {
                                   Model model) {
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
         if (isAdmin) {
-            List<Message> messages = messageService.showMessages(order, model, limit, dir);
+                List<Message> messages = messageService.showMessages(order, model, limit, dir);
             List<Message> filteredMessages = messageService.filterByStatus(status, messages);
             model.addAttribute("messages", filteredMessages);
             logger.info("recognized as admin");

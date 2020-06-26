@@ -50,7 +50,7 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/messages", "/single_message/{userId}", "/home",
+                .antMatchers("/messages", "/messages/**", "/home",
                         "/pics/msg_background.jpeg","/webjars/**", "/registration", "/css/**","/members", "/statics/pics/**","/")
                 .permitAll()
                 .anyRequest().authenticated()

@@ -32,7 +32,7 @@ public class MessageService {
     }
 
 
-    public List<Message> showMessages(String order, Model model, int limit, String direction) {
+    public List<Message> showMessages(String order, Model model, Integer limit, String direction) {
         List<Message> results;
         boolean isAsc = isItInAscendingOrder(direction);
         Comparator<Message> comparator = decideOrder(order);;
@@ -43,7 +43,7 @@ public class MessageService {
         return results;
     }
 
-    public List<Message> showNonDeletedMessages(String order, Model model, int limit, String direction) {
+    public List<Message> showNonDeletedMessages(String order, Model model, Integer limit, String direction) {
         List<Message> results;
         boolean isAsc = isItInAscendingOrder(direction);
 
@@ -55,7 +55,7 @@ public class MessageService {
         return results;
     }
 
-    private List<Message> sortListForNonDeleted(Comparator comp, int limit, Model model) {
+    private List<Message> sortListForNonDeleted(Comparator comp, Integer limit, Model model) {
         Collections.sort(messages, comp);
         List<Message> results = messages.stream().filter(message -> message.getDeleted().equals(NEM_TOROLT))
                 .limit(limit).collect(Collectors.toList());
