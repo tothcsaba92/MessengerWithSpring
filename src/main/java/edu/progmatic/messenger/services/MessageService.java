@@ -22,21 +22,21 @@ public class MessageService {
     Logger logger = LoggerFactory.getLogger(MessageController.class);
     private static int idCounter;
 
-    static List<Message> messages;
+    static List<Message> messages= new ArrayList<>();
 
-    static {
-        messages = new ArrayList<>();
-        messages.addAll(Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
-                new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
-                new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
-                new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
-    }
+//    static {
+//        messages = new ArrayList<>();
+//        messages.addAll(Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
+//                new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
+//                new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
+//                new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
+//    }
 
 
     public List<Message> showMessages(String order, Model model, Integer limit, String direction) {
         List<Message> results;
         boolean isAsc = isItInAscendingOrder(direction);
-        Comparator<Message> comparator = decideOrder(order);;
+        Comparator<Message> comparator = decideOrder(order);
         if (!isAsc) {
             return sortList(comparator.reversed(), limit, model);
         }
@@ -104,7 +104,6 @@ public class MessageService {
     public void setMessageForDeletion(int id){
         logger.info(id+" ez az ID amit torolni akarunk");
         logger.info(messages.get(id).getId()+ " ez az id a toroltnek");
-
         messages.stream().forEach(message -> {if (message.getId()==id && message.getDeleted()== NEM_TOROLT){message.setDeleted(TOROLT);}
         else {message.setDeleted(NEM_TOROLT);}});
         //messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
