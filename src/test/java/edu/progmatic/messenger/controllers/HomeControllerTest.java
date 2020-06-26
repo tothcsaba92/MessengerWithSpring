@@ -11,23 +11,24 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = HomeController.class)
-class HomeControllerTest {
+public class HomeControllerTest {
+
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    //@WithUserDetails("user")
-    public void testHomePage() throws Exception{
-       /* mockMvc.perform(MockMvcRequestBuilders.get("/"))
-                .andExpect(MockMvcResultMatchers.view().name("home"));*/
-
+    //@WithUserDetails ez kell ha specifikalni akarjuk az usert!
+    public void testHomePage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/home"))
                 .andExpect(MockMvcResultMatchers.view().name("home"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.view().name("home"));
     }
+
+
 
 }

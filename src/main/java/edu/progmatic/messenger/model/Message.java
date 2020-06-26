@@ -15,7 +15,7 @@ public class Message {
     private String text;
 
     private String sender;
-    private Status deleted = Status.NEM_TÖRÖLT;
+    private Status deleted = Status.NEM_TOROLT;
 
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
     private LocalDateTime dateTime;
@@ -68,4 +68,5 @@ public class Message {
     public void setId(int id) {
         this.id = id;
     }
+
 }

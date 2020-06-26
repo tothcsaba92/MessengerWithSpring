@@ -36,6 +36,7 @@ public class UserController {
         return "login";
     }
 
+
     @GetMapping(value = "/registration")
     public String registerUser(Model model) {
         model.addAttribute("newUser", new RegistrationDTO());
