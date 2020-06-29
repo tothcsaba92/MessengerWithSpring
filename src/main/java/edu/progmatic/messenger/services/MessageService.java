@@ -40,25 +40,47 @@ public class MessageService {
 
 
     public List<Message> showMessages(String order, Model model, Integer limit, String direction) {
-        List<Message> results;
-        boolean isAsc = isItInAscendingOrder(direction);
-        Comparator<Message> comparator = decideOrder(order);
-        if (!isAsc) {
-            return sortList(comparator.reversed(), limit, model);
+        switch(order){
+            case "time":
+                order = "date_time";
+                break;
+            case "message":
+                order = "text";
+                break;
+            default:
+                order = "sender";
+                break;
         }
-        results = sortList(comparator, limit, model);
-        return results;
+
+        List<Message> resultList = em.createQuery(
+                "SELECT m FROM Message m ORDER BY " + order)
+                .setMaxResults(limit)
+                .getResultList();
+    /*List<Message> results;
+    boolean isAsc = isItInAscendingOrder(direction);
+    Comparator<Message> comparator = decideOrder(order);
+    if (!isAsc) {
+        return sortList(comparator.reversed(), limit, model);
+    }
+    results = sortList(comparator, limit, model);
+    return results;*/
+        return resultList;
     }
 
     public List<Message> showNonDeletedMessages(String order, Model model, Integer limit, String direction) {
-        List<Message> results;
-        boolean isAsc = isItInAscendingOrder(direction);
+        List<Message> results = em.createQuery(
+                "SELECT m FROM Message m")
+                .setMaxResults(limit)
+                .getResultList();
 
-        Comparator<Message> comparator = decideOrder(order);
-        if (!isAsc) {
-            return sortListForNonDeleted(comparator.reversed(), limit, model);
-        }
-        results = sortListForNonDeleted(comparator, limit, model);
+//        List<Message> results;
+//        boolean isAsc = isItInAscendingOrder(direction);
+//
+//        Comparator<Message> comparator = decideOrder(order);
+//        if (!isAsc) {
+//            return sortListForNonDeleted(comparator.reversed(), limit, model);
+//        }
+//        results = sortListForNonDeleted(comparator, limit, model);
         return results;
     }
 

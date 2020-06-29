@@ -4,9 +4,7 @@ import edu.progmatic.messenger.constans.DateFormats;
 import edu.progmatic.messenger.constans.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -21,7 +19,9 @@ public class Message {
     private String sender;
     private Status deleted = Status.NEM_TOROLT;
 
+
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
+    //@Column( columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
     @Id
     @GeneratedValue
