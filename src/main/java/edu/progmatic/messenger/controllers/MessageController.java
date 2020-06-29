@@ -22,7 +22,7 @@ public class MessageController implements WebMvcConfigurer {
 
     Logger logger = LoggerFactory.getLogger(MessageController.class);
 
-    @Autowired
+
     MessageService messageService;
 
     public MessageController(MessageService messageService){
@@ -35,19 +35,16 @@ public class MessageController implements WebMvcConfigurer {
                                   @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE + "") int limit,
                                   @RequestParam(value = "orderby", required = false, defaultValue = "sender") String order,
                                   @RequestParam(value = "direction", required = false, defaultValue = "asc") String dir,
-                                  @RequestParam(value = "status",required = false,defaultValue = "MIND")Status status,
+                                  //@RequestParam(value = "status",required = false,defaultValue = "false")boolean status,
                                   Model model) {
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
+        List<Message> messages;
         if (isAdmin) {
-                List<Message> messages = messageService.showMessages(order, limit, dir);
-            List<Message> filteredMessages = messageService.filterByStatus(status, messages);
-            model.addAttribute("messages", filteredMessages);
-            logger.info("recognized as admin");
+            messages = messageService.showMessages(order, limit, dir);
         } else {
-            List<Message> messages = messageService.showNonDeletedMessages(order, model, limit, dir);
-            model.addAttribute("messages", messages);
-            logger.info("recognized as user");
+            messages = messageService.showNonDeletedMessages(order, limit, dir);
         }
+        model.addAttribute("messages", messages);
 
         return "messages";
     }

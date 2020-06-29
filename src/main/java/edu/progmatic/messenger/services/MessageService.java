@@ -27,17 +27,8 @@ public class MessageService {
     EntityManager em;
 
     Logger logger = LoggerFactory.getLogger(MessageController.class);
-    private static int idCounter;
 
-    static List<Message> messages= new ArrayList<>();
 
-//    static {
-//        messages = new ArrayList<>();
-//        messages.addAll(Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
-//                new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
-//                new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
-//                new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
-//    }
 
 
     public List<Message> showMessages(String order, Integer limit, String direction) {
@@ -60,117 +51,71 @@ public class MessageService {
 
 
         List<Message> resultList = em.createQuery(
-                "SELECT m FROM Message m ORDER BY " + order + " " + direction)
+                "SELECT m FROM Message m WHERE m.isDeleted = : isDeleted1 OR m.isDeleted = : isDeleted2  ORDER BY " + order + " " + direction)
+                .setParameter("isDeleted1", false).setParameter("isDeleted2",true)
                 .setMaxResults(limit)
                 .getResultList();
-    /*List<Message> results;
-    boolean isAsc = isItInAscendingOrder(direction);
-    Comparator<Message> comparator = decideOrder(order);
-    if (!isAsc) {
-        return sortList(comparator.reversed(), limit, model);
-    }
-    results = sortList(comparator, limit, model);
-    return results;*/
         return resultList;
     }
 
-    public List<Message> showNonDeletedMessages(String order, Model model, Integer limit, String direction) {
+    public List<Message> showNonDeletedMessages(String order, Integer limit, String direction) {
         //TODO adatbazisos cucc,csak raszurni a deleted oszlopra
-        List<Message> results = em.createQuery(
-                "SELECT m FROM Message m")
+        switch(order){
+            case "time":
+                order = "date_time";
+                break;
+            case "message":
+                order = "text";
+                break;
+            default:
+                order = "sender";
+                break;
+        }
+        if ("desc".equals(direction)) {
+            direction = "desc";
+        } else {
+            direction = "asc";
+        }
+
+
+        List<Message> resultList = em.createQuery(
+                "SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
+                .setParameter("isDeleted",false)
                 .setMaxResults(limit)
                 .getResultList();
 
-//        List<Message> results;
-//        boolean isAsc = isItInAscendingOrder(direction);
-//
-//        Comparator<Message> comparator = decideOrder(order);
-//        if (!isAsc) {
-//            return sortListForNonDeleted(comparator.reversed(), limit, model);
-//        }
-//        results = sortListForNonDeleted(comparator, limit, model);
-        return results;
+        return resultList;
     }
 
-    private List<Message> sortListForNonDeleted(Comparator comp, Integer limit, Model model) {
-        Collections.sort(messages, comp);
-        List<Message> results = messages.stream().filter(message -> message.getDeleted().equals(NEM_TOROLT))
-                .limit(limit).collect(Collectors.toList());
-        model.addAttribute("messages", results);
-        return results;
-    }
-
-    public List<Message> filterByStatus(Status status, List<Message> messages){
-        if(status.equals(TOROLT)) {
-            return messages.stream()
-                    .filter(message -> message.getDeleted().equals(TOROLT)).collect(Collectors.toList());
-        } else if(status.equals(NEM_TOROLT)) {
-            return messages.stream()
-                    .filter(message -> message.getDeleted().equals(NEM_TOROLT)).collect(Collectors.toList());
-        }
-        return messages;
-    }
-
+    @Transactional
     public Message showSelectedMessageById(int msgId) {
-        return messages.stream()
-                .filter(message -> message.getId() == msgId)
-                .collect(Collectors.toList()).get(0);
+       return (Message) em.createQuery(
+                "SELECT m FROM Message m WHERE m.id = :msgId")
+                .setParameter("msgId",msgId)
+                .getResultList().get(0);
     }
     @Transactional
     public void createNewMessage(Message newMessage) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
-        newMessage.setDateTime(LocalDateTime.now());
         em.persist( newMessage);
-        messages.add(newMessage);
     }
 
-    private List<Message> sortList(Comparator comp, int limit, Model model) {
-        Collections.sort(messages, comp);
-        List<Message> results = messages.stream().limit(limit).collect(Collectors.toList());
-        model.addAttribute("messages", results);
-        return results;
-    }
 
-    //.filter(producer -> producer.getPod().equals(pod))
-    public void deleteMessage(int id) {
-        //messages.stream().
-        messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.remove(message));
-    }
+    @Transactional
+    public void setMessageForDeletion(long id){
+//        em.createQuery("SELECT m, CASE m.isDeleted WHEN TRUE THEN FALSE" +
+//                " WHEN FALSE THEN TRUE ELSE m.isDeleted END from Message m where m.id = : msgId")
+//        .setParameter("msgId",id);
 
-    public void setMessageForDeletion(int id){
-        logger.info(id+" ez az ID amit torolni akarunk");
-        logger.info(messages.get(id).getId()+ " ez az id a toroltnek");
-        messages.stream().forEach(message -> {if (message.getId()==id && message.getDeleted()== NEM_TOROLT){message.setDeleted(TOROLT);}
-        else {message.setDeleted(NEM_TOROLT);}});
-        //messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
-    }
+            Message m = em.find(Message.class, id);
+            if(m.isDeleted()){
+                m.setDeleted(false);
+            } else {
+                m.setDeleted(true);
+            }
 
-    /**
-     * helper method
-     * */
-    private Comparator<Message> decideOrder(String order){
-        switch (order) {
-            case "time":
-                return Comparator.comparing(Message::getDateTime);
-            case "message":
-                return Comparator.comparing(Message::getText);
-            case "sender":
-            default:
-                return Comparator.comparing(Message::getSender);
-        }
-    }
 
-    /**
-     * helper method
-     * */
-    private boolean isItInAscendingOrder(String direction){
-        boolean isAsc = false;
-        if (direction.equals("asc")) {
-            isAsc = true;
-        }
-        return isAsc;
     }
-
 
 }

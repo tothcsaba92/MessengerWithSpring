@@ -109,10 +109,9 @@
     <form action="#" th:attr="action=@{/messages}" data-sec-authorize="hasRole('ADMIN')">
         <div class="form-group">
             <label for="status">Állapot szerinti kimutatás</label>
-            <select class="form-control" id="status" name="status">
-                <option th:value="MIND">Minden</option>
-                <option th:value="TÖRÖLT">Töröltek</option>
-                <option th:value="NEM_TÖRÖLT">Nem töröltek</option>
+            <select class="form-control" id="status" name="isDeleted">
+                <option th:value="${true}">Töröltek</option>
+                <option th:value="${false}">Nem töröltek</option>
             </select>
         </div>
         <input class="btn btn-primary" type="submit" value="Szűrés">
@@ -142,13 +141,11 @@
             </td>
             <td >
 
-<!--                <a  th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"-->
-<!--                    data-sec-authorize="hasRole('ADMIN')">-->
-<!--                    <p type="submit" class="btn btn-primary">Törlés</p></a>-->
+
                 <a th:switch="${message.deleted}" th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
                    data-sec-authorize="hasRole('ADMIN')">
-                    <p th:case="${T(edu.progmatic.messenger.constans.Status).NEM_TOROLT}" type="submit" class="btn btn-primary">Törlés</p>
-                    <p th:case="*" type="submit" class="btn btn-primary">Visszavonas</p>
+                    <p th:case="${false}" type="submit" class="btn btn-primary">Törlés</p>
+                    <p th:case="${true}" type="submit" class="btn btn-primary">Visszavonas</p>
                 </a>
             </td>
 
