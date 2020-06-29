@@ -18,6 +18,8 @@ public class Message {
 
     private String sender;
 
+    @ManyToOne
+    private Topic topic;
 
     private boolean isDeleted ;
 
@@ -65,6 +67,18 @@ public class Message {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

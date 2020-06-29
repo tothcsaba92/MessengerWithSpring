@@ -2,6 +2,7 @@ package edu.progmatic.messenger.controllers;
 
 import edu.progmatic.messenger.model.Message;
 import edu.progmatic.messenger.constans.Status;
+import edu.progmatic.messenger.model.Topic;
 import edu.progmatic.messenger.services.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class MessageController implements WebMvcConfigurer {
 
     MessageService messageService;
 
-    public MessageController(MessageService messageService){
+    public MessageController(MessageService messageService) {
         this.messageService = messageService;
     }
 
@@ -45,6 +46,7 @@ public class MessageController implements WebMvcConfigurer {
             messages = messageService.showNonDeletedMessages(order, limit, dir);
         }
         model.addAttribute("messages", messages);
+
 
         return "messages";
     }
@@ -78,6 +80,21 @@ public class MessageController implements WebMvcConfigurer {
             return "/new_message";
         }
         messageService.createNewMessage(newMessage);
+        return "redirect:/messages";
+    }
+
+    @GetMapping(value = "/new_topic")
+    public String showNewTopic(Model model) {
+        model.addAttribute("newTopic", new Topic(null));
+        return "new_message";
+    }
+
+    @RequestMapping(value = "/new_topic", method = RequestMethod.POST)
+    public String createNewTopic(@ModelAttribute(value = "newTopic") @Valid Topic newTopic, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "/new_message";
+        }
+        messageService.createNewTopic(newTopic);
         return "redirect:/messages";
     }
 }

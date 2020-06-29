@@ -2,23 +2,17 @@ package edu.progmatic.messenger.services;
 
 import edu.progmatic.messenger.controllers.MessageController;
 import edu.progmatic.messenger.model.Message;
-import edu.progmatic.messenger.constans.Status;
+import edu.progmatic.messenger.model.Topic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static edu.progmatic.messenger.constans.Status.NEM_TOROLT;
-import static edu.progmatic.messenger.constans.Status.TOROLT;
 
 @Service
 public class MessageService {
@@ -26,9 +20,9 @@ public class MessageService {
     @PersistenceContext
     EntityManager em;
 
+    private static List<Topic> topicList = new ArrayList<>();
+
     Logger logger = LoggerFactory.getLogger(MessageController.class);
-
-
 
 
     public List<Message> showMessages(String order, Integer limit, String direction) {
@@ -99,6 +93,12 @@ public class MessageService {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
         em.persist( newMessage);
+    }
+
+    @Transactional
+    public void createNewTopic(Topic topic){
+        topicList.add(topic);
+        em.persist(topic);
     }
 
 
