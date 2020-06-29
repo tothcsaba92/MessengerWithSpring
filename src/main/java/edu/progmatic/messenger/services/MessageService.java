@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,20 +20,25 @@ import static edu.progmatic.messenger.constans.Status.NEM_TOROLT;
 import static edu.progmatic.messenger.constans.Status.TOROLT;
 
 @Service
+@PersistenceContext
+
+
 public class MessageService {
-        //TODO IDE RAKNI A STATIKUS ID GENERETORT
+    EntityManager em;
+
+    //TODO IDE RAKNI A STATIKUS ID GENERETORT
     Logger logger = LoggerFactory.getLogger(MessageController.class);
     private static int idCounter;
 
-    static List<Message> messages= new ArrayList<>();
+    static List<Message> messages = new ArrayList<>();
 
-//    static {
-//        messages = new ArrayList<>();
-//        messages.addAll(Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
-//                new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
-//                new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
-//                new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
-//    }
+    static {
+        messages = new ArrayList<>();
+        messages.addAll(Arrays.asList(new Message("Szia!", "Dezso"), new Message("Csá!", "Jani"),
+                new Message("Szeva!", "Geza"), new Message("Csá!", "Jani"),
+                new Message("Jo napot!", "Kati"), new Message("Udv!", "Laci"),
+                new Message("Csao!", "Robi"), new Message("Szevasz!", "Peti")));
+    }
 
 
     public List<Message> showMessages(String order, Model model, Integer limit, String direction) {
@@ -64,11 +72,11 @@ public class MessageService {
         return results;
     }
 
-    public List<Message> filterByStatus(Status status, List<Message> messages){
-        if(status.equals(TOROLT)) {
+    public List<Message> filterByStatus(Status status, List<Message> messages) {
+        if (status.equals(TOROLT)) {
             return messages.stream()
                     .filter(message -> message.getDeleted().equals(TOROLT)).collect(Collectors.toList());
-        } else if(status.equals(NEM_TOROLT)) {
+        } else if (status.equals(NEM_TOROLT)) {
             return messages.stream()
                     .filter(message -> message.getDeleted().equals(NEM_TOROLT)).collect(Collectors.toList());
         }
@@ -81,10 +89,12 @@ public class MessageService {
                 .collect(Collectors.toList()).get(0);
     }
 
+    @Transactional
     public void createNewMessage(Message newMessage) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
         newMessage.setId(idCounter++);
+        em.persist(newMessage);
         messages.add(newMessage);
     }
 
@@ -101,18 +111,23 @@ public class MessageService {
         messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.remove(message));
     }
 
-    public void setMessageForDeletion(int id){
-        logger.info(id+" ez az ID amit torolni akarunk");
-        logger.info(messages.get(id).getId()+ " ez az id a toroltnek");
-        messages.stream().forEach(message -> {if (message.getId()==id && message.getDeleted()== NEM_TOROLT){message.setDeleted(TOROLT);}
-        else {message.setDeleted(NEM_TOROLT);}});
+    public void setMessageForDeletion(int id) {
+        logger.info(id + " ez az ID amit torolni akarunk");
+        logger.info(messages.get(id).getId() + " ez az id a toroltnek");
+        messages.stream().forEach(message -> {
+            if (message.getId() == id && message.getDeleted() == NEM_TOROLT) {
+                message.setDeleted(TOROLT);
+            } else {
+                message.setDeleted(NEM_TOROLT);
+            }
+        });
         //messages.stream().filter(message -> message.getId() == id).findFirst().ifPresent(message -> messages.get(message.getId()).setDeleted(TÖRÖLT));
     }
 
     /**
      * helper method
-     * */
-    private Comparator<Message> decideOrder(String order){
+     */
+    private Comparator<Message> decideOrder(String order) {
         switch (order) {
             case "time":
                 return Comparator.comparing(Message::getDateTime);
@@ -126,8 +141,8 @@ public class MessageService {
 
     /**
      * helper method
-     * */
-    private boolean isItInAscendingOrder(String direction){
+     */
+    private boolean isItInAscendingOrder(String direction) {
         boolean isAsc = false;
         if (direction.equals("asc")) {
             isAsc = true;
