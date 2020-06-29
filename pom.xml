@@ -105,7 +105,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -119,7 +118,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.progmatic.messagesb.springconfig.Application</mainClass>
+                    <mainClass>com.progmatic.messages.springconfig.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -4,41 +4,36 @@ import edu.progmatic.messenger.constans.DateFormats;
 import edu.progmatic.messenger.constans.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="MESSAGE")
 public class Message {
-    @Column(name="TEXT")
+
     @NotNull
     @Size(min = 1, max = 255)
     private String text;
 
-    @Column(name="SENDER")
     private String sender;
-
-    @Column(name="DELETED")
     private Status deleted = Status.NEM_TOROLT;
 
-    @Column(name="DATE_TIME")
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
     private LocalDateTime dateTime;
-
     @Id
     @GeneratedValue
     private int id;
-
-    private Message(){
-
-    }
 
     public Message(String text, String sender) {
         this.text = text;
         this.sender = sender;
         this.dateTime = LocalDateTime.now().withNano(0);
+    }
+
+    public Message() {
     }
 
     public Status getDeleted() {
