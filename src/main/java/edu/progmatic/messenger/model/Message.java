@@ -17,29 +17,30 @@ public class Message {
     private String text;
 
     private String sender;
-    private Status deleted = Status.NEM_TOROLT;
+
+
+    private boolean isDeleted ;
 
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
-    private LocalDateTime dateTime;
+    private LocalDateTime dateTime = LocalDateTime.now();
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
 
     public Message(String text, String sender) {
         this.text = text;
         this.sender = sender;
-        this.dateTime = LocalDateTime.now();
     }
 
     public Message() {
     }
 
-    public Status getDeleted() {
-        return deleted;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setDeleted(Status deleted) {
-        this.deleted = deleted;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public String getText() {
@@ -66,7 +67,7 @@ public class Message {
         this.dateTime = dateTime;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

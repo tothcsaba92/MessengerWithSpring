@@ -23,12 +23,6 @@ public class AdminController {
         this.messageService = messageService;
         this.userService = userService;
     }
-    /*@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping(value="/messages/delete/{messageId}")
-    public String deleteMessage(@PathVariable("messageId") int msgId) {
-        messageService.deleteMessage(msgId);
-        return "redirect:/messages";
-    }*/
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/messages/delete/{messageId}")
@@ -37,14 +31,6 @@ public class AdminController {
         return "redirect:/messages";
     }
 
-    /*
-       @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping(value = "/messages/delete/{messageId}")
-    public String deleteAMessage(@PathVariable("messageId") int msgId) {
-        messageService.setMessageForDeletion(msgId);
-        return "redirect:/messages";
-    }
-    */
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members")

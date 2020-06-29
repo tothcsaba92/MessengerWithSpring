@@ -1,5 +1,5 @@
 package edu.progmatic.messenger.constans;
 
 public enum Status {
-    TOROLT, NEM_TOROLT, MIND
+    TOROLT, NEM_TOROLT
 }
