@@ -39,7 +39,7 @@ public class MessageController implements WebMvcConfigurer {
                                   Model model) {
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
         if (isAdmin) {
-                List<Message> messages = messageService.showMessages(order, model, limit, dir);
+                List<Message> messages = messageService.showMessages(order, limit, dir);
             List<Message> filteredMessages = messageService.filterByStatus(status, messages);
             model.addAttribute("messages", filteredMessages);
             logger.info("recognized as admin");
