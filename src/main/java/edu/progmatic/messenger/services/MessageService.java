@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,7 +21,10 @@ import static edu.progmatic.messenger.constans.Status.TOROLT;
 
 @Service
 public class MessageService {
-        //TODO IDE RAKNI A STATIKUS ID GENERETORT
+
+    @PersistenceContext
+    EntityManager em;
+
     Logger logger = LoggerFactory.getLogger(MessageController.class);
     private static int idCounter;
 
@@ -80,11 +86,12 @@ public class MessageService {
                 .filter(message -> message.getId() == msgId)
                 .collect(Collectors.toList()).get(0);
     }
-
+    @Transactional
     public void createNewMessage(Message newMessage) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
         newMessage.setId(idCounter++);
+        em.persist( newMessage);
         messages.add(newMessage);
     }
 

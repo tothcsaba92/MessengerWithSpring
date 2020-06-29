@@ -4,10 +4,14 @@ import edu.progmatic.messenger.constans.DateFormats;
 import edu.progmatic.messenger.constans.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+@Entity
 public class Message {
 
     @NotNull
@@ -19,13 +23,17 @@ public class Message {
 
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
     private LocalDateTime dateTime;
-
+    @Id
+    @GeneratedValue
     private int id;
 
     public Message(String text, String sender) {
         this.text = text;
         this.sender = sender;
         this.dateTime = LocalDateTime.now().withNano(0);
+    }
+
+    public Message() {
     }
 
     public Status getDeleted() {
