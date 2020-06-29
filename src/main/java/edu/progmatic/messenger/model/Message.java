@@ -19,9 +19,7 @@ public class Message {
     private String sender;
     private Status deleted = Status.NEM_TOROLT;
 
-
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
-    //@Column( columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
     @Id
     @GeneratedValue
@@ -30,7 +28,7 @@ public class Message {
     public Message(String text, String sender) {
         this.text = text;
         this.sender = sender;
-        this.dateTime = LocalDateTime.now().withNano(0);
+        this.dateTime = LocalDateTime.now();
     }
 
     public Message() {

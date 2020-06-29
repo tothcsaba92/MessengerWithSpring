@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,7 +40,7 @@ public class MessageService {
 //    }
 
 
-    public List<Message> showMessages(String order, Model model, Integer limit, String direction) {
+    public List<Message> showMessages(String order, Integer limit, String direction) {
         switch(order){
             case "time":
                 order = "date_time";
@@ -51,9 +52,15 @@ public class MessageService {
                 order = "sender";
                 break;
         }
+        if ("desc".equals(direction)) {
+            direction = "desc";
+        } else {
+            direction = "asc";
+        }
+
 
         List<Message> resultList = em.createQuery(
-                "SELECT m FROM Message m ORDER BY " + order)
+                "SELECT m FROM Message m ORDER BY " + order + " " + direction)
                 .setMaxResults(limit)
                 .getResultList();
     /*List<Message> results;
@@ -68,6 +75,7 @@ public class MessageService {
     }
 
     public List<Message> showNonDeletedMessages(String order, Model model, Integer limit, String direction) {
+        //TODO adatbazisos cucc,csak raszurni a deleted oszlopra
         List<Message> results = em.createQuery(
                 "SELECT m FROM Message m")
                 .setMaxResults(limit)
@@ -112,7 +120,7 @@ public class MessageService {
     public void createNewMessage(Message newMessage) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
-        newMessage.setId(idCounter++);
+        newMessage.setDateTime(LocalDateTime.now());
         em.persist( newMessage);
         messages.add(newMessage);
     }
