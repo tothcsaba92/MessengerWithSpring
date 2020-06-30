@@ -24,4 +24,10 @@ public class TopicService {
         return em.createQuery("SELECT t FROM Topic t")
                 .getResultList();
     }
+
+    public Topic findById(Long id){
+        return (Topic) em.createQuery("SELECT t FROM Topic t WHERE t.id = :topicId")
+                .setParameter("topicId",id)
+                .getResultList().get(0);
+    }
 }

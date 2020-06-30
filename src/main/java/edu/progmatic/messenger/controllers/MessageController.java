@@ -34,7 +34,7 @@ public class MessageController implements WebMvcConfigurer {
                                @RequestParam(value = "orderby", required = false, defaultValue = "sender") String order,
                                @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction,
                                Model model) {
-
+        Topic topic = new Topic();
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
         List<Message> messages;
         if (isAdmin) {
@@ -43,6 +43,9 @@ public class MessageController implements WebMvcConfigurer {
             messages = messageService.showMessagesForUser(order, limit, direction);
         }
         model.addAttribute("messages", messages);
+        model.addAttribute("topic", topic);
+        model.addAttribute("topicList", topicService.findAllTopics());
+
         return "messages";
     }
 
