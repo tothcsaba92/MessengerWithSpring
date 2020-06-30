@@ -4,6 +4,8 @@ import edu.progmatic.messenger.model.Message;
 import edu.progmatic.messenger.model.Topic;
 import edu.progmatic.messenger.services.MessageService;
 import edu.progmatic.messenger.services.TopicService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,7 @@ import java.util.List;
 
 @Controller
 public class MessageController implements WebMvcConfigurer {
-
+    Logger logger = LoggerFactory.getLogger(TopicController.class);
     MessageService messageService;
     TopicService topicService;
     @Autowired
@@ -33,14 +35,16 @@ public class MessageController implements WebMvcConfigurer {
                                @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE + "") long limit,
                                @RequestParam(value = "orderby", required = false, defaultValue = "sender") String order,
                                @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction,
+                               @RequestParam(value = "topicId", required = false) Long topicId,
                                Model model) {
         Topic topic = new Topic();
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
+        logger.info(topicId+" topicId");
         List<Message> messages;
         if (isAdmin) {
-            messages = messageService.showMessagesForAdmin(order, limit, direction);
+            messages = messageService.showMessagesForAdmin(order, limit, direction,topicId);
         } else {
-            messages = messageService.showMessagesForUser(order, limit, direction);
+            messages = messageService.showMessagesForUser(order, limit, direction,topicId);
         }
         model.addAttribute("messages", messages);
         model.addAttribute("topic", topic);

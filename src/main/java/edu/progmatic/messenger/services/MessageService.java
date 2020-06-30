@@ -1,7 +1,10 @@
 package edu.progmatic.messenger.services;
 
+import edu.progmatic.messenger.controllers.TopicController;
 import edu.progmatic.messenger.model.Message;
 import edu.progmatic.messenger.model.Topic;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -15,23 +18,25 @@ public class MessageService {
 
     @PersistenceContext
     EntityManager em;
-
-    public List<Message> showMessagesForAdmin(String order, Long limit, String direction) {
+    Logger logger = LoggerFactory.getLogger(TopicController.class);
+    public List<Message> showMessagesForAdmin(String order, Long limit, String direction,Long topicId) {
         orderBySelect(order);
         orderDirectionSelect(direction);
+        logger.info(topicId+" serviceben bent az id");
         return em.createQuery(
-                "SELECT m FROM Message m WHERE m.isDeleted = : isDeleted1 OR m.isDeleted = : isDeleted2  ORDER BY " + order + " " + direction)
-                .setParameter("isDeleted1", false).setParameter("isDeleted2", true)
+                "SELECT m FROM Message m WHERE m.topic.id = :topicId AND (m.isDeleted = : isDeleted1 OR m.isDeleted = : isDeleted2)" +
+                        " ORDER BY " + order + " " + direction)
+                .setParameter("isDeleted1", false).setParameter("isDeleted2", true).setParameter("topicId",topicId)
                 .setMaxResults(Math.toIntExact(limit))
                 .getResultList();
     }
 
-    public List<Message> showMessagesForUser(String order, Long limit, String direction) {
+    public List<Message> showMessagesForUser(String order, Long limit, String direction,Long topicId) {
         orderBySelect(order);
         orderDirectionSelect(direction);
         return em.createQuery(
-                "SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
-                .setParameter("isDeleted", false)
+                "SELECT m FROM Message m WHERE m.isDeleted = :isDeleted AND m.topic.id = :topicId ORDER BY " + order + " " + direction)
+                .setParameter("isDeleted", false).setParameter("topicId",topicId)
                 .setMaxResults(Math.toIntExact(limit))
                 .getResultList();
     }

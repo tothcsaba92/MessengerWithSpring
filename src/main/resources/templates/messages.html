@@ -87,7 +87,7 @@
         </div>
 
         <label for="topics">Topic lista</label>
-        <select class="form-control" id="topics" data-th-field="*{topic.id}">
+        <select class="form-control" id="topics" name="topicId">
             <option th:each="topic : ${topicList}"
                     th:text="${topic.name}"
                     th:value="${topic.id}">
