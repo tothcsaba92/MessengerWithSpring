@@ -20,8 +20,6 @@ public class MessageService {
     @PersistenceContext
     EntityManager em;
 
-    private static List<Topic> topicList = new ArrayList<>();
-
     Logger logger = LoggerFactory.getLogger(MessageController.class);
 
 
@@ -96,8 +94,9 @@ public class MessageService {
     }
 
     @Transactional
-    public void createNewTopic(Topic topic){
-        topicList.add(topic);
+    public void createNewTopic(String name){
+        Topic topic = new Topic();
+        topic.setName(name);
         em.persist(topic);
     }
 

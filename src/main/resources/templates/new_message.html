@@ -93,10 +93,8 @@
         </div>
     </form>
 
-
-
-    <form th:action="@{/new_topic}" th:object="${newTopic}" method="post">
-<!--        <label for="topics">Topic lista</label>-->
+    <form action="#" th:action="@{/new_topic}" th:object="${topic}" method="post">
+        <!--        <label for="topics">Topic lista</label>-->
         <!--        <select class="form-control" id="topics">-->
         <!--            <option th:each="topic : ${topicList}"-->
         <!--                    th:value="${topic.name}">-->
@@ -104,12 +102,15 @@
         <!--        </select>-->
 
         <div class="form-group">
-            <label>Topic:</label>
-            <input  class="form-control" id="myInput" type="text" th:field="*{name}" placeholder="Add meg a topic nevét">
+            <label for="myInput2">Topic:</label>
+            <textarea class="form-control" id="myInput2" type="text" th:field="*{name}" placeholder="Add meg a topic nevét"></textarea>
         </div>
         <input class="btn btn-primary" type="submit" value="Létrehozás">
 
     </form>
+
+
+
 
 </div>
 

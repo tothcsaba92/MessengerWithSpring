@@ -83,18 +83,9 @@ public class MessageController implements WebMvcConfigurer {
         return "redirect:/messages";
     }
 
-    @GetMapping(value = "/new_topic")
-    public String showNewTopic(Model model) {
-        model.addAttribute("newTopic", new Topic(null));
-        return "new_message";
-    }
-
     @RequestMapping(value = "/new_topic", method = RequestMethod.POST)
-    public String createNewTopic(@ModelAttribute(value = "newTopic") @Valid Topic newTopic, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            return "/new_message";
-        }
-        messageService.createNewTopic(newTopic);
+    public String createNewTopic(@ModelAttribute(value = "topic") Topic topic) {
+        messageService.createNewTopic(topic.getName());
         return "redirect:/messages";
     }
 }
