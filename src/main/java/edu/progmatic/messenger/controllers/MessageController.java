@@ -36,13 +36,15 @@ public class MessageController implements WebMvcConfigurer {
                                @RequestParam(value = "orderby", required = false, defaultValue = "sender") String order,
                                @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction,
                                @RequestParam(value = "topicId", required = false) Long topicId,
+                               @RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted,
                                Model model) {
         Topic topic = new Topic();
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
         logger.info(topicId+" topicId");
+        logger.info(isDeleted+" torolt e");
         List<Message> messages;
         if (isAdmin) {
-            messages = messageService.showMessagesForAdmin(order, limit, direction,topicId);
+            messages = messageService.showMessagesForAdmin(order, limit, direction,topicId,isDeleted);
         } else {
             messages = messageService.showMessagesForUser(order, limit, direction,topicId);
         }

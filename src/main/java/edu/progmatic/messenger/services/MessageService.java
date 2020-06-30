@@ -19,14 +19,15 @@ public class MessageService {
     @PersistenceContext
     EntityManager em;
     Logger logger = LoggerFactory.getLogger(TopicController.class);
-    public List<Message> showMessagesForAdmin(String order, Long limit, String direction,Long topicId) {
+    public List<Message> showMessagesForAdmin(String order, Long limit, String direction,Long topicId, boolean isDeleted) {
         orderBySelect(order);
         orderDirectionSelect(direction);
         logger.info(topicId+" serviceben bent az id");
+        logger.info(isDeleted+"serviceben a boolean");
         return em.createQuery(
-                "SELECT m FROM Message m WHERE m.topic.id = :topicId AND (m.isDeleted = : isDeleted1 OR m.isDeleted = : isDeleted2)" +
+                "SELECT m FROM Message m WHERE m.topic.id = :topicId AND m.isDeleted = :isDeleted" +
                         " ORDER BY " + order + " " + direction)
-                .setParameter("isDeleted1", false).setParameter("isDeleted2", true).setParameter("topicId",topicId)
+                .setParameter("isDeleted", isDeleted).setParameter("topicId",topicId)
                 .setMaxResults(Math.toIntExact(limit))
                 .getResultList();
     }
