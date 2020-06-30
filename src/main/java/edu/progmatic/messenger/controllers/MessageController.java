@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -69,7 +70,12 @@ public class MessageController implements WebMvcConfigurer {
 
     @GetMapping(value = "/new_message")
     public String showNewMessage(Model model) {
-        model.addAttribute("newMessage", new Message(null, null));
+        Message msg = new Message(null, null);
+        Topic topic = new Topic();
+        msg.setTopic(topic);
+        model.addAttribute("newMessage", msg);
+        model.addAttribute("topic", topic);
+        model.addAttribute("topicList", messageService.findAllTopic());
         return "new_message";
     }
 
@@ -79,6 +85,7 @@ public class MessageController implements WebMvcConfigurer {
         if (bindingResult.hasErrors()) {
             return "/new_message";
         }
+
         messageService.createNewMessage(newMessage);
         return "redirect:/messages";
     }

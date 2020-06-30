@@ -66,15 +66,14 @@
 <div class="container">
     <form action="#" th:action="@{/new_message}" th:object="${newMessage}" method="post" class="needs-validation"
           novalidate>
-        <!--        <div class="form-group">-->
-        <!--            <label for="exampleFormControlInput1">Feladó:</label>-->
-        <!--            <input type="text" class="form-control" id="exampleFormControlInput1" data-th-field="*{sender}"-->
-        <!--                   placeholder="Add meg az neved!" data-th-classappend="${#fields.hasErrors('sender')} ? is-invalid : ''"/>-->
-        <!--            <div class="invalid-feedback">-->
-        <!--                1-50 hosszu lehet a neved-->
-        <!--            </div>-->
-        <!--        </div>-->
 
+        <label for="topics">Topic lista</label>
+        <select class="form-control" id="topics" data-th-field="*{topic.id}">
+            <option th:each="topic : ${topicList}"
+                    th:text="${topic.name}"
+                    th:value="${topic.id}">
+            </option>
+        </select>
 
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Üzenet:</label>
@@ -84,7 +83,7 @@
 
 
             <div class="invalid-feedback">
-                1-250 karakter hosszu lehet a szoveg
+                1-250 karakter hosszu lehet a szove
             </div>
         </div>
 
@@ -93,20 +92,20 @@
         </div>
     </form>
 
-    <form action="#" th:action="@{/new_topic}" th:object="${topic}" method="post">
-        <!--        <label for="topics">Topic lista</label>-->
-        <!--        <select class="form-control" id="topics">-->
-        <!--            <option th:each="topic : ${topicList}"-->
-        <!--                    th:value="${topic.name}">-->
-        <!--            </option>-->
-        <!--        </select>-->
 
+<!--    <div class="form-group blu-margin">-->
+<!--        <select class="form-control" th:field="${operator.opeId}"  id="dropOperator">-->
+<!--            <option value="0">select operator</option>-->
+<!--            <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.operatorName}"></option>-->
+<!--        </select>-->
+<!--    </div>-->
+
+    <form th:action="@{/new_topic}" th:object="${topic}" method="post">
         <div class="form-group">
             <label for="myInput2">Topic:</label>
             <textarea class="form-control" id="myInput2" type="text" th:field="*{name}" placeholder="Add meg a topic nevét"></textarea>
         </div>
         <input class="btn btn-primary" type="submit" value="Létrehozás">
-
     </form>
 
 

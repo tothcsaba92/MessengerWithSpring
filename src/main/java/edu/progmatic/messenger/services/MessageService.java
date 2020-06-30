@@ -90,7 +90,9 @@ public class MessageService {
     public void createNewMessage(Message newMessage) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newMessage.setSender(user.getUsername());
-        em.persist( newMessage);
+        Topic topic = em.find(Topic.class, newMessage.getTopic().getId());
+        newMessage.setTopic(topic);
+        em.persist(newMessage);
     }
 
     @Transactional
@@ -100,6 +102,11 @@ public class MessageService {
         em.persist(topic);
     }
 
+
+    public List<Topic> findAllTopic(){
+        return em.createQuery("SELECT t FROM Topic t")
+                .getResultList();
+}
 
     @Transactional
     public void setMessageForDeletion(long id){
