@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
 
 @Controller
@@ -26,7 +25,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/messages/delete/{messageId}")
-    public String setForDeletion(@PathVariable("messageId") int msgId) {
+    public String setMessageForDeletion(@PathVariable("messageId") int msgId) {
        messageService.setMessageForDeletion(msgId);
         return "redirect:/messages";
     }
@@ -35,7 +34,7 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members")
     public String viewMembers(Model model) {
-        List<User> list = userService.getUsers();
+        List<User> list = userService.findAllUsers();
         model.addAttribute("members", list);
         return "members";
     }
@@ -43,7 +42,7 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members/promote/{username}")
     public String promoteToAdmin(@PathVariable("username") String username) {
-        userService.promote(username);
+        userService.promoteToAdmin(username);
         return "redirect:/members";
     }
 

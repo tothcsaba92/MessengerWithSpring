@@ -1,10 +1,8 @@
 package edu.progmatic.messenger.passwordValidation;
 
 import org.passay.*;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.security.DigestInputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +16,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
    @Override
    public boolean isValid(String password, ConstraintValidatorContext context) {
       PasswordValidator validator = new PasswordValidator(Arrays.asList(
-              // at least 8 characters
+              // at least 6 characters
               new LengthRule(6, 30),
 
               // at least one upper-case character

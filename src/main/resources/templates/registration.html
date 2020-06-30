@@ -41,14 +41,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="agileits-top">
             <form th:action="@{/registration}" method="post" th:object="${newUser}" class="needs-validation" novalidate>
 
-                <input th:if="${#fields.hasErrors('name')}" type="text" class="form-control is-invalid"
+                <input th:if="${#fields.hasErrors('username')}" type="text" class="form-control is-invalid"
                        name="Username" placeholder="Felhasználó név" required
-                       th:field="${newUser.name}">
-                <input th:unless="${#fields.hasErrors('name')}" type="text" class="form-control "
+                       th:field="${newUser.username}">
+                <input th:unless="${#fields.hasErrors('username')}" type="text" class="form-control "
                        name="Username" placeholder="Felhasználó név" required
-                       th:field="${newUser.name}">
+                       th:field="${newUser.username}">
                 <span
-                        th:if="${#fields.hasErrors('name')}" th:errors="${newUser.name}">Text Error
+                        th:if="${#fields.hasErrors('username')}" th:errors="${newUser.username}">Text Error
                 </span>
 
 

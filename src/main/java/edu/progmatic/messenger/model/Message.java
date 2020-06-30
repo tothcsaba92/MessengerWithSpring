@@ -1,10 +1,11 @@
 package edu.progmatic.messenger.model;
 
 import edu.progmatic.messenger.constans.DateFormats;
-import edu.progmatic.messenger.constans.Status;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -15,14 +16,10 @@ public class Message {
     @NotNull
     @Size(min = 1, max = 255)
     private String text;
-
     private String sender;
-
     @ManyToOne
     private Topic topic;
-
-    private boolean isDeleted ;
-
+    private boolean isDeleted;
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
     private LocalDateTime dateTime = LocalDateTime.now();
     @Id
