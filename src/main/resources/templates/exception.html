@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,19 +15,95 @@
     <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
+<body>
 
+<nav class="navbar fixed-top navbar-expand-lg navbar-light" style=background-color:#CD5C2E>
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/home}">Üzengető <img
+                src="https://img.icons8.com/flat_round/64/000000/phone-message--v2.png"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link active" th:href="@{/home}">Főoldal<span
+                                class="form-control mr-sm-2 sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" th:href="@{/home}"
+                           role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Üzenetek
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/messages}">Üzenetek olvasás</a>
+                            <a class="dropdown-item" th:href="@{/new_message}">Üzenet írás</a>
+
+                        </div>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " th:href="@{/members}"
+                           data-sec-authorize="hasRole('ADMIN')">Felhasznalok<span
+                                class="form-control mr-sm-2 sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <form th:action="@{/login}" method="POST">
+            <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
+        </form>
+    </div>
+
+    <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/login}" sec:authorize="isAnonymous()">
+        <div class="col-auto pl-0">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >✉</span>
+                </div>
+
+                <input th:if="${param.error}" class="form-control is-invalid" type="text" name="username"
+                       placeholder="Felhasználó">
+                <input th:uness="${param.error}" class="form-control " type="text" name="username"
+                       placeholder="Felhasználó">
+            </div>
+        </div>
+        <div class="col-auto pl-0">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >✎</span>
+                </div>
+                <input type="password" class="form-control" name="password" placeholder="Jelszó">
+            </div>
+        </div>
+        <div class="col-auto pl-0 pr-0">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Bejelentkezes</button>
+        </div>
+    </form>
+
+</nav>
 
     <div class = "container">
-        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
-           aria-expanded="false"
-           aria-controls="multiCollapseExample1">Hiba típusa</a>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
-                aria-expanded="false" aria-controls="multiCollapseExample2">Stack Trace
+    <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
+       aria-expanded="false"
+       aria-controls="multiCollapseExample1">Hiba típusa</a>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
+            aria-expanded="false" aria-controls="multiCollapseExample2">Stack Trace
+    </button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5"
+                aria-expanded="false" aria-controls="multiCollapseExample3">Cause
         </button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
-                aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Mindent mutat
-        </button>
-    </div>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
+            aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2 multiCollapseExample3">Mindent mutat
+    </button>
+
+</div>
 
 
 <div class="row">
@@ -41,6 +118,13 @@
         <div class="collapse multi-collapse" id="multiCollapseExample2">
             <div class="card card-body">
                 <p th:text="${excStackTrace}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample3">
+            <div class="card card-body">
+                <p th:text="${cause}"></p>
             </div>
         </div>
     </div>

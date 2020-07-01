@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
 
-    <link href="css/message.css?version=1" rel="stylesheet"/>
+    <link href="css/exception.css?version=1" rel="stylesheet"/>
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
     <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -53,19 +53,68 @@
 </nav>
 
 <div class="container align-content-center">
-    <img src="../static/images/errorpic.jpg" alt="">
-    
-    <h1 th:text="${error}"></h1>
+    <div class="container">
+        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
+           aria-expanded="false"
+           aria-controls="multiCollapseExample1">Hiba</a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
+                aria-expanded="false" aria-controls="multiCollapseExample2">TimeStamp
+        </button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3"
+                aria-expanded="false" aria-controls="multiCollapseExample2">Path
+        </button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4"
+                aria-expanded="false" aria-controls="multiCollapseExample2">Status
+        </button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5"
+                aria-expanded="false" aria-controls="multiCollapseExample2">Message
+        </button>
 
-    <p th:text="${timestamp}"></p>
-    <p th:text="${path}"></p>
-    <p th:text="${status}"></p>
-    <p th:text="${message}"></p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
+                aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2 multiCollapseExample3 multiCollapseExample4 multiCollapseExample5 ">Mindent mutat
+        </button>
+    </div>
 
 
+    <div class="row">
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                <div class="card card-body">
+                    <p th:text="${error}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                <div class="card card-body">
+                    <p th:text="${timestamp}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample3">
+                <div class="card card-body">
+                    <p th:text="${path}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample4">
+                <div class="card card-body">
+                    <p th:text="${status}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample5">
+                <div class="card card-body">
+                    <p th:text="${message}"></p>
+                </div>
+            </div>
+        </div>
 
-    <h5 th:text="${exception}"></h5>
-    
+    </div>
+
 
 </div>
 
