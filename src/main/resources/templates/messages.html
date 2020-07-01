@@ -65,17 +65,18 @@
 </nav>
 
 <div class="container mt-3">
+    <div class="border-class">
+    <form action="#" th:attr="action=@{/messages}" >
 
-    <div class="form-group">
-        <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
-               placeholder="Keress szöveg alapján..">
-    </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
+                   placeholder="Keress szöveg alapján..">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="myInput2" onkeyup="myFunction2()"
+                   placeholder="Keress feladó alapján..">
+        </div>
 
-    <div class="form-group">
-        <input type="text" class="form-control" id="myInput2" onkeyup="myFunction2()"
-               placeholder="Keress feladó alapján..">
-    </div>
-    <form action="#" th:attr="action=@{/messages}">
 
         <div class="form-group">
             <label for="orderby">Keresés</label>
@@ -128,7 +129,8 @@
         <input class="btn btn-primary" type="submit" value="Szűrés">
     </form>
 
-    <form th:action="@{/messages/deleteTopic}" method="post" th:object="${topicToDelete}">
+
+    <form th:action="@{/messages/deleteTopic}" method="post" th:object="${topicToDelete}" data-sec-authorize="hasRole('ADMIN')">
         <label for="topics">Topic lista</label>
         <select class="form-control" data-th-field="*{id}" >
             <option th:each="topic : ${topicList}"
@@ -138,6 +140,7 @@
         </select>
         <input class="btn btn-primary" type="submit" value="Torles">
     </form>
+    </div>
     <table class="table table-striped table-dark" id="myTable">
         <thead>
         <tr>

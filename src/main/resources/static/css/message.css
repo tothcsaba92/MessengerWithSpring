@@ -54,6 +54,18 @@ body {
      color: white;
  }
 
+ .border-class
+ {
+
+     border-color: #c64510;
+     border-style: groove;
+     border-radius: 12px;
+     margin:20px 0px;
+     padding:20px;
+     background-color: rgba(206, 212, 218, 0.31);
+     ;
+ }
+
 
 
 
