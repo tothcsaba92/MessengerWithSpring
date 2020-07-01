@@ -33,7 +33,26 @@ public class ErrorPageController implements ErrorController {
         model.addAttribute("path", error.get("path"));
         model.addAttribute("status", error.get("status"));
 
-        return "detailedError";
+        Object status = error.get("status");
+        String code = status.toString();
+        if(code.equals("404")){
+            return notFound(model, request);
+        }
+        else{
+            return "detailedError";
+        }
+    }
+
+    public String notFound(Model model, HttpServletRequest request){
+        ServletWebRequest requestAttributes = new ServletWebRequest(request);
+        Map<String, Object> error = this.errorAttributes.getErrorAttributes(requestAttributes, true);
+
+        model.addAttribute("timestamp", error.get("timestamp"));
+        model.addAttribute("error", error.get("error"));
+        model.addAttribute("message", error.get("message"));
+        model.addAttribute("path", error.get("path"));
+        model.addAttribute("status", error.get("status"));
+        return "404";
     }
 
 
