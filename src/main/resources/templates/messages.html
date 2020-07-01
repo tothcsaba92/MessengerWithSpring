@@ -70,13 +70,13 @@
 
             <div class="row">
                 <div class="col">
-                <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
-                       placeholder="Keress szöveg alapján..">
+                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
+                           placeholder="Keress szöveg alapján..">
                 </div>
                 <div class="col">
 
-                <input type="text" class="form-control" id="myInput2" onkeyup="myFunction2()"
-                       placeholder="Keress feladó alapján..">
+                    <input type="text" class="form-control" id="myInput2" onkeyup="myFunction2()"
+                           placeholder="Keress feladó alapján..">
 
                 </div>
             </div>
@@ -89,7 +89,17 @@
                     <option th:value="date_time">Dátum</option>
                 </select>
             </div>
+            <div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="direction" id="asc" value="asc">
+                <label class="form-check-label active" for="asc">Növekvő</label>
+            </div>
 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="direction" id="desc" value="desc">
+                <label class="form-check-label" for="desc">Csökkenő</label>
+            </div>
+            </div>
             <label for="topics">Topic lista</label>
             <select class="form-control" id="topics" name="topicId">
                 <option th:each="topic : ${topicList}"
@@ -97,25 +107,6 @@
                         th:value="${topic.id}">
                 </option>
             </select>
-
-
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Üzenetek sorrendje:</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="direction" id="asc" value="asc">
-                            <label class="form-check-label active" for="asc">Növekvő</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="direction" id="desc" value="desc">
-                            <label class="form-check-label" for="desc">Csökkenő</label>
-                        </div>
-                    </div>
-
-                </div>
-
-            </fieldset>
 
 
             <div class="form-group" data-sec-authorize="hasRole('ADMIN')">
