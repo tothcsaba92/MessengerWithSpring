@@ -1,15 +1,19 @@
 package edu.progmatic.messenger.services;
 
+import edu.progmatic.messenger.controllers.TopicController;
 import edu.progmatic.messenger.model.Topic;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class TopicService {
-
+    Logger logger = LoggerFactory.getLogger(TopicController.class);
     @PersistenceContext
     EntityManager em;
 
@@ -24,10 +28,9 @@ public class TopicService {
         return em.createQuery("SELECT t FROM Topic t")
                 .getResultList();
     }
-
-    public Topic findById(Long id){
-        return (Topic) em.createQuery("SELECT t FROM Topic t WHERE t.id = :topicId")
-                .setParameter("topicId",id)
-                .getResultList().get(0);
+    @Transactional
+    public void deleteById(Long  topicId){
+        Topic topicToDelete = em.find(Topic.class, topicId);
+        em.remove(topicToDelete);
     }
 }

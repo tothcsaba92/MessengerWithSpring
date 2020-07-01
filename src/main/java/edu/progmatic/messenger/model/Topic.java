@@ -1,15 +1,12 @@
 package edu.progmatic.messenger.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Topic {
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(cascade= CascadeType.REMOVE,mappedBy = "topic")
     private List<Message> messages = new ArrayList<>();
 
     private String name;

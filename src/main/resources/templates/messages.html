@@ -95,6 +95,7 @@
         </select>
 
 
+
         <fieldset class="form-group">
             <div class="row">
                 <legend class="col-form-label col-sm-2 pt-0">Üzenetek sorrendje:</legend>
@@ -125,6 +126,17 @@
         </div>
 
         <input class="btn btn-primary" type="submit" value="Szűrés">
+    </form>
+
+    <form th:action="@{/messages/deleteTopic}" method="post" th:object="${topicToDelete}">
+        <label for="topics">Topic lista</label>
+        <select class="form-control" data-th-field="*{id}" >
+            <option th:each="topic : ${topicList}"
+                    th:text="${topic.name}"
+                    th:value="${topic.id}">
+            </option>
+        </select>
+        <input class="btn btn-primary" type="submit" value="Torles">
     </form>
     <table class="table table-striped table-dark" id="myTable">
         <thead>
