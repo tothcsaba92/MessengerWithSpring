@@ -24,12 +24,20 @@ public class MessageService {
         orderDirectionSelect(direction);
         logger.info(topicId+" serviceben bent az id");
         logger.info(isDeleted+"serviceben a boolean");
-        return em.createQuery(
-                "SELECT m FROM Message m WHERE m.topic.id = :topicId AND m.isDeleted = :isDeleted" +
-                        " ORDER BY " + order + " " + direction)
-                .setParameter("isDeleted", isDeleted).setParameter("topicId",topicId)
-                .setMaxResults(Math.toIntExact(limit))
-                .getResultList();
+        if(topicId != null){
+            return em.createQuery(
+                    "SELECT m FROM Message m WHERE m.topic.id = :topicId AND m.isDeleted = :isDeleted" +
+                            " ORDER BY " + order + " " + direction)
+                    .setParameter("isDeleted", isDeleted).setParameter("topicId",topicId)
+                    .setMaxResults(Math.toIntExact(limit))
+                    .getResultList();
+        } else{
+            logger.info("topic id null");
+           return em.createQuery("SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
+                    .setParameter("isDeleted", isDeleted)
+                    .setMaxResults(Math.toIntExact(limit))
+                    .getResultList();
+        }
     }
 
     public List<Message> showMessagesForUser(String order, Long limit, String direction,Long topicId) {
