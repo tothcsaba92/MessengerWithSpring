@@ -142,10 +142,10 @@
     </div>
 
     <div class="limiter">
-        <div class="container-table100">
-            <div class="wrap-table100">
-                <div class="table100 ver1 m-b-110">
-                    <table data-vertable="ver1">
+
+
+                <div class="table100 ver2 m-b-110">
+                    <table data-vertable="ver2" id="myTable">
                         <thead>
                         <tr class="row100 head">
                             <th class="column100 column1" data-column="column1">Üzenet szövege:</th>
@@ -171,13 +171,12 @@
                                 <p th:case="${true}" type="submit" class="btn btn-primary">Visszavonas</p>
                             </a></td>
                             <td class="column100 column7" data-column="column7" data-th-text="${message.deleted}?'Törölt' : 'Nem törölt'" data-sec-authorize="hasRole('ADMIN')">5:00 PM</td>
-                            <td class="column100 column8" data-column="column8">8:00 AM</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
+
+
     </div>
     <!--===============================================================================================-->
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
