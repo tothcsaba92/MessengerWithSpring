@@ -11,15 +11,13 @@ import java.util.Arrays;
 @ControllerAdvice
 public class ExceptionAdviceController {
     Logger logger = LoggerFactory.getLogger(ExceptionAdviceController.class);
+
     @ExceptionHandler(Exception.class)
     public String exception(Exception ex, Model model) {
         model.addAttribute("exception", ex.getMessage());
         String s = Arrays.toString(ex.getStackTrace());
         model.addAttribute("excStackTrace", s);
-    logger.error("error",ex);
+        logger.error("error", ex);
         return "exception";
     }
-
 }
-
-

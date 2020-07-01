@@ -103,6 +103,4 @@ public class MessageController implements WebMvcConfigurer {
         topicService.deleteById(topicDeleteDTO.getId());
         return "redirect:/messages";
     }
-
-
 }

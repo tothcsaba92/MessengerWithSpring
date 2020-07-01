@@ -33,8 +33,19 @@ public class ErrorPageController implements ErrorController {
         model.addAttribute("path", error.get("path"));
         model.addAttribute("status", error.get("status"));
 
-        return "detailedError";
+        Object status = error.get("status");
+        String code = status.toString();
+        if(code.equals("404")){
+            return "404";
+        }
+        if(code.equals("500")){
+            return "500";
+        }
+        else{
+            return "detailedError";
+        }
     }
+
 
 
     @Override

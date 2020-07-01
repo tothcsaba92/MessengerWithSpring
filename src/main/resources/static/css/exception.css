@@ -1,29 +1,58 @@
+.navbar-nav > li > .dropdown-menu {
+    background-color: #f36d26;
+}
+
+.navbar-nav > li > .dropdown-menu a:hover { background-color: #faad1f;}
+
+#multiCollapseExample1 {
+    opacity: 0.7;
+}
+
+#multiCollapseExample2{
+    opacity: 0.7;
+}
+
+.form-control::-webkit-input-placeholder { color: #efb8af !important; }
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #3cb97f !important;
+    border-color: #ced4da !important;
+}
+
+
+
+.card-deck {
+    margin: 0 -15px;
+    justify-content: space-between;
+}
+
+.card-deck .card {
+    margin: 0 0 1rem;
+}
+
+.card { background-color: rgba(255, 255, 255, 0.5);}
+
+
+.card-header, .card-footer { opacity: 1}
+.btn-primary:hover{
+    background-color: #079755 !important;
+    border-color: #ced4da !important;
+}
 body {
-    background-image: url('../pics/err.jpeg');
+    background-image: url('../pics/newErr.jpg');
+    background-color: #f36d26 !important;
+    background-repeat: no-repeat;
     background-attachment: fixed;
+    background-position: center;
     padding-top: 90px;
 }
-
-.collapse{
-    opacity: 0.5
-}
-
-
-#container {
-    background: #FFF;
-    left: 50%;
-    top: 50%;
-    height: 100%;
-    border: 1px solid rgb(128, 128, 128);
-    position: relative;
-    margin: 0 0 0 -50px;
-}
-
 .btn-primary, .btn-primary:active, .btn-primary:visited,  .btn-outline-info {
-    background-color: #d71635 !important;
+    background-color: #3cb97f !important;
     border-color: #ced4da !important;
-    color: white;
 }
+
+
+
 
 
 
