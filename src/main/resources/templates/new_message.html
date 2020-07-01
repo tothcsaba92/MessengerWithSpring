@@ -64,6 +64,7 @@
 
 
 <div class="container">
+    <div class="border-class">
         <form action="#" th:action="@{/new_message}" th:object="${newMessage}" method="post" class="needs-validation"
           novalidate>
 
@@ -92,14 +93,6 @@
         </div>
     </form>
 
-
-<!--    <div class="form-group blu-margin">-->
-<!--        <select class="form-control" th:field="${operator.opeId}"  id="dropOperator">-->
-<!--            <option value="0">select operator</option>-->
-<!--            <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.operatorName}"></option>-->
-<!--        </select>-->
-<!--    </div>-->
-
     <form th:action="@{/new_topic}" th:object="${topic}" method="post">
         <div class="form-group">
             <label for="myInput2">Topic:</label>
@@ -110,7 +103,7 @@
 
 
 
-
+</div>
 </div>
 
 </body>
