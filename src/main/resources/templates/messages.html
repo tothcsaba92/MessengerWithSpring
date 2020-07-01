@@ -128,9 +128,9 @@
         <input class="btn btn-primary" type="submit" value="Szűrés">
     </form>
 
-    <form th:action="@{/messages/deleteTopic}" method="post" >
+    <form th:action="@{/messages/deleteTopic}" method="post" th:object="${topicToDelete}">
         <label for="topics">Topic lista</label>
-        <select class="form-control" name="topicToDelete" >
+        <select class="form-control" data-th-field="*{id}" >
             <option th:each="topic : ${topicList}"
                     th:text="${topic.name}"
                     th:value="${topic.id}">

@@ -30,10 +30,7 @@ public class TopicService {
     }
     @Transactional
     public void deleteById(Long  topicId){
-        logger.info(topicId +" =topic id");
-        logger.info("meghivod a topic delete metodusa");
         Topic topicToDelete = em.find(Topic.class, topicId);
-        logger.info(topicToDelete.getName() +" =topic neve");
         em.remove(topicToDelete);
     }
 }

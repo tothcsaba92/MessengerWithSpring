@@ -99,8 +99,8 @@ public class MessageController implements WebMvcConfigurer {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/messages/deleteTopic")
-    public String deleteTopic(@RequestParam(value = "topicToDelete") Long topicId){
-        topicService.deleteById(topicId);
+    public String deleteTopic(@ModelAttribute(value = "topicToDelete") TopicDeleteDTO topicDeleteDTO){
+        topicService.deleteById(topicDeleteDTO.getId());
         return "redirect:/messages";
     }
 
