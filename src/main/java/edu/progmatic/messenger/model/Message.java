@@ -16,8 +16,7 @@ public class Message {
     private boolean isDeleted;
     @DateTimeFormat(pattern = DateFormats.DATE_TIME_FORMAT)
     private LocalDateTime dateTime = LocalDateTime.now();
-    @ManyToOne
-    User user;
+
     @Id
     @GeneratedValue
     private long id;

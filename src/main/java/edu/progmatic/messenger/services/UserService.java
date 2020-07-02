@@ -54,7 +54,8 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> findAllUsers() {
-        return em.createQuery("SELECT u FROM User u")
+        return em.createQuery("SELECT u FROM User u WHERE u.roles.size = :number")
+                .setParameter("number",1)
                 .getResultList();
     }
 
@@ -63,9 +64,7 @@ public class UserService implements UserDetailsService {
         User user = em.createQuery("SELECT u FROM User u WHERE u.name = :username", User.class)
                 .setParameter("username", username)
                 .getResultList().get(0);
-        Role role = new Role();
-        role.setName("Admin");
-       // user.addRole(role);
+        user.getRoles().add(new Role("ROLE_ADMIN"));
         em.persist(user);
     }
 
@@ -74,11 +73,5 @@ public class UserService implements UserDetailsService {
         return (UserDetails) em.createQuery("SELECT u FROM User u WHERE u.name = :s")
                 .setParameter("s", s)
                 .getResultList().get(0);
-    }
-
-    private Collection< ? extends GrantedAuthority> mapRolesToAuthorities(Collection < Role > roles) {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
     }
 }

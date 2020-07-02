@@ -71,14 +71,12 @@
         <tr>
             <td>Felhasznalo nev</td>
             <td>Email</td>
-            <td>Jelszo</td>
         </tr>
         </thead>
         <tbody>
         <tr th:each ="member : ${members}">
             <td th:utext="${member.username}">...</td>
             <td th:utext="${member.email}">...</td>
-            <td th:utext="${member.password}">...</td>
             <td>
                 <a  th:href="@{/members/promote/{username}(username=${member.username})}"
                     data-sec-authorize="hasRole('ADMIN')">
