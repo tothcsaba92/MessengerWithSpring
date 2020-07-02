@@ -18,7 +18,7 @@ public class MessageService {
 
     @PersistenceContext
     EntityManager em;
-    Logger logger = LoggerFactory.getLogger(TopicController.class);
+    Logger logger = LoggerFactory.getLogger(MessageService.class);
     public List<Message> showMessagesForAdmin(String order, Long limit, String direction,Long topicId, boolean isDeleted) {
         orderBySelect(order);
         orderDirectionSelect(direction);

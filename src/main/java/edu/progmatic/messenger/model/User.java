@@ -20,8 +20,14 @@ public class User implements UserDetails {
     private String email;
     @OneToMany(mappedBy = "user")
     private List<Message> messageList = new ArrayList<>();
-    @ManyToMany(mappedBy = "userSet")
-    private  Set<Role> roleSet = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private  Collection<Role> roles ;
     @Id
     @GeneratedValue
     private Long id;
@@ -32,12 +38,23 @@ public class User implements UserDetails {
         this.birthDate = birthDate;
         this.email = email;
     }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
     public User(){
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roleSet;
+        return roles;
     }
+
     @Override
     public String getPassword() {
         return password;
@@ -86,9 +103,7 @@ public class User implements UserDetails {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
-    public void addRole(Role role){
-        roleSet.add(role);
-    }
+
 
     public String getName() {
         return name;
@@ -102,13 +117,9 @@ public class User implements UserDetails {
         this.messageList = messageList;
     }
 
-    public Set<Role> getRoleSet() {
-        return roleSet;
-    }
 
-    public void setRoleSet(Set<Role> roleSet) {
-        this.roleSet = roleSet;
-    }
+
+
 
     public Long getId() {
         return id;
