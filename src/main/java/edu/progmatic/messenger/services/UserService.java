@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,7 +47,9 @@ public class UserService implements UserDetailsService {
         User user = new User(registrationDTO.getUsername(), bCryptPasswordEncoder.encode(registrationDTO.getPassword()),
                 bCryptPasswordEncoder.encode(registrationDTO.getPasswordConfirm())
                 , registrationDTO.getBirthday(), registrationDTO.getEmail());
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role("ROLE_USER"));
+        user.setRoles(roles);
         em.persist(user);
     }
 
