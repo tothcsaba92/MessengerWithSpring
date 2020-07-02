@@ -3,10 +3,11 @@ package edu.progmatic.messenger.services;
 import edu.progmatic.messenger.controllers.TopicController;
 import edu.progmatic.messenger.model.Message;
 import edu.progmatic.messenger.model.Topic;
+import edu.progmatic.messenger.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -60,8 +61,11 @@ public class MessageService {
 
     @Transactional
     public void createNewMessage(Message newMessage) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        newMessage.setSender(user.getUsername());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        logger.info(auth.getPrincipal().toString()+ " ez az username");
+        Object principal = auth.getPrincipal();
+        User user = (User) principal;
+        newMessage.setSender(user.getName());
         Topic topic = em.find(Topic.class, newMessage.getTopic().getId());
         newMessage.setTopic(topic);
         em.persist(newMessage);
