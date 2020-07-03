@@ -32,11 +32,13 @@ public class UserService implements UserDetailsService {
     public boolean userNameValidation(String userName) {
         List<User> users = em.createQuery("SELECT u FROM User u WHERE u.name = :userName", User.class)
                 .setParameter("userName", userName).getResultList();
-        if (!users.isEmpty()) {
-            return users.get(0) == null;
-        }
-        return false;
-        //TODO validaciokat megnezni
+        return !users.isEmpty();
+    }
+
+    public boolean emailValidation(String email){
+        List<User> emails = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                .setParameter("email", email).getResultList();
+        return !emails.isEmpty();
     }
 
     public boolean userPasswordValidation(String password, String passwordConfirmation) {

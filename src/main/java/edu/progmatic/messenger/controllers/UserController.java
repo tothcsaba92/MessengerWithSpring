@@ -56,7 +56,11 @@ public class UserController {
             bindingResult.addError(new FieldError("newUser", "password", "Nem egyezik a két jelszó"));
             logger.debug("error with password matching");
             return "registration";
-        } else {
+        }
+        else if(userService.emailValidation(newUser.getEmail())){
+           bindingResult.addError(new FieldError("newUser","email","Az email cim mar foglalt"));
+           return "registration";
+        }  else{
             userService.createNewUser(newUser);
             logger.info("user created");
             return "redirect:/login";
