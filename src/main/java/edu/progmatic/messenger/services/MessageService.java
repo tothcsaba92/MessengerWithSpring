@@ -52,7 +52,6 @@ public class MessageService {
                     .setMaxResults(Math.toIntExact(limit))
                     .getResultList();
         } else{
-            logger.info("topic id null");
             return em.createQuery("SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
                     .setParameter("isDeleted", false)
                     .setMaxResults(Math.toIntExact(limit))

@@ -34,7 +34,7 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members")
     public String viewMembers(Model model) {
-        List<User> list = userService.findAllUsers();
+        List<User> list = userService.findNonAdminUsers();
         model.addAttribute("members", list);
         return "members";
     }
