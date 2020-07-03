@@ -20,6 +20,12 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
+        authenticationMgr.inMemoryAuthentication()
+                .withUser("jános").password("jános1234!B").authorities("ROLE_USER","ROLE_ADMIN");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http

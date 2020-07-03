@@ -1,7 +1,8 @@
 package edu.progmatic.messenger.services;
 
-import edu.progmatic.messenger.controllers.TopicController;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import edu.progmatic.messenger.model.Message;
+import edu.progmatic.messenger.model.QMessage;
 import edu.progmatic.messenger.model.Topic;
 import edu.progmatic.messenger.model.User;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -20,42 +22,78 @@ public class MessageService {
     @PersistenceContext
     EntityManager em;
     Logger logger = LoggerFactory.getLogger(MessageService.class);
-    public List<Message> showMessagesForAdmin(String order, Long limit, String direction,Long topicId, boolean isDeleted) {
+
+    public List<Message> showMessagesForAdmin(String order, Long limit, String direction, Long topicId, boolean isDeleted) {
         orderBySelect(order);
         orderDirectionSelect(direction);
-        logger.info(topicId+" serviceben bent az id");
-        logger.info(isDeleted+"serviceben a boolean");
-        if(topicId != null){
+        logger.info(topicId + " serviceben bent az id");
+        logger.info(isDeleted + "serviceben a boolean");
+        if (topicId != null) {
             return em.createQuery(
                     "SELECT m FROM Message m WHERE m.topic.id = :topicId AND m.isDeleted = :isDeleted" +
                             " ORDER BY " + order + " " + direction)
-                    .setParameter("isDeleted", isDeleted).setParameter("topicId",topicId)
+                    .setParameter("isDeleted", isDeleted).setParameter("topicId", topicId)
                     .setMaxResults(Math.toIntExact(limit))
                     .getResultList();
-        } else{
+        } else {
             logger.info("topic id null");
-           return em.createQuery("SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
+            return em.createQuery("SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
                     .setParameter("isDeleted", isDeleted)
                     .setMaxResults(Math.toIntExact(limit))
                     .getResultList();
         }
     }
 
-    public List<Message> showMessagesForUser(String order, Long limit, String direction,Long topicId) {
+    public List<Message> showMessagesForUser(String order, Long limit, String direction, Long topicId) {
         orderBySelect(order);
         orderDirectionSelect(direction);
-        if(topicId != null){
+        if (topicId != null) {
             return em.createQuery(
                     "SELECT m FROM Message m WHERE m.topic.id = :topicId AND m.isDeleted = :isDeleted" +
                             " ORDER BY " + order + " " + direction)
-                    .setParameter("isDeleted", false).setParameter("topicId",topicId)
+                    .setParameter("isDeleted", false).setParameter("topicId", topicId)
                     .setMaxResults(Math.toIntExact(limit))
                     .getResultList();
-        } else{
+        } else {
             return em.createQuery("SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
                     .setParameter("isDeleted", false)
                     .setMaxResults(Math.toIntExact(limit))
                     .getResultList();
+        }
+    }
+
+    public List<Message> showMessagesForAdminWithQueryDsl(String order, Long limit, String direction, Long topicId, boolean isDeleted) {
+        orderBySelect(order);
+        orderDirectionSelect(direction);
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        if(topicId != null){
+            return queryFactory.selectFrom(QMessage.message)
+                    .where(QMessage.message.topic.id.eq(topicId), QMessage.message.isDeleted.eq(isDeleted))
+                    //.orderBy(QMessage.message.)
+                    .fetch();
+        } else{
+            return queryFactory.selectFrom(QMessage.message)
+                    .where(QMessage.message.isDeleted.eq(isDeleted))
+                    .limit(limit)
+                    .fetch();
+        }
+    }
+
+    public List<Message> showMessagesForUserWithQueryDsl(String order, Long limit, String direction, Long topicId) {
+        orderBySelect(order);
+        orderDirectionSelect(direction);
+        //TODO order by-t meg kell oldani
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        if(topicId != null){
+            return queryFactory.selectFrom(QMessage.message)
+                    .where(QMessage.message.topic.id.eq(topicId), QMessage.message.isDeleted.eq(false))
+                    //.orderBy(QMessage.message.sender.asc())
+                    .fetch();
+        } else{
+            return queryFactory.selectFrom(QMessage.message)
+                    .where(QMessage.message.isDeleted.eq(false))
+                    .limit(limit)
+                    .fetch();
         }
     }
 
