@@ -44,11 +44,20 @@ public class MessageService {
     public List<Message> showMessagesForUser(String order, Long limit, String direction,Long topicId) {
         orderBySelect(order);
         orderDirectionSelect(direction);
-        return em.createQuery(
-                "SELECT m FROM Message m WHERE m.isDeleted = :isDeleted AND m.topic.id = :topicId ORDER BY " + order + " " + direction)
-                .setParameter("isDeleted", false).setParameter("topicId",topicId)
-                .setMaxResults(Math.toIntExact(limit))
-                .getResultList();
+        if(topicId != null){
+            return em.createQuery(
+                    "SELECT m FROM Message m WHERE m.topic.id = :topicId AND m.isDeleted = :isDeleted" +
+                            " ORDER BY " + order + " " + direction)
+                    .setParameter("isDeleted", false).setParameter("topicId",topicId)
+                    .setMaxResults(Math.toIntExact(limit))
+                    .getResultList();
+        } else{
+            logger.info("topic id null");
+            return em.createQuery("SELECT m FROM Message m WHERE m.isDeleted = :isDeleted ORDER BY " + order + " " + direction)
+                    .setParameter("isDeleted", false)
+                    .setMaxResults(Math.toIntExact(limit))
+                    .getResultList();
+        }
     }
 
     @Transactional
@@ -62,7 +71,6 @@ public class MessageService {
     @Transactional
     public void createNewMessage(Message newMessage) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        logger.info(auth.getPrincipal().toString()+ " ez az username");
         Object principal = auth.getPrincipal();
         User user = (User) principal;
         newMessage.setSender(user.getName());
