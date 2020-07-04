@@ -1,5 +1,6 @@
 package edu.progmatic.messenger.services;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Path;
@@ -27,22 +28,21 @@ public class MessageService {
 
 
     public List<Message> showMessagesForAdmin(String order, Long limit, String direction, Long topicId, boolean isDeleted) {
+        logger.info(topicId+" ez a topic id");
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         QMessage message = QMessage.message;
         QTopic topic = QTopic.topic;
-        if(topicId != null){
-            return queryFactory.selectFrom(message).join(message.topic, topic)
-                    .where(message.topic.id.eq(topicId), message.isDeleted.eq(isDeleted))
-                    .orderBy(orderSpecifier(direction,orderBySelect(order)))
-                    .limit(limit)
-                    .fetch();
-        } else{
-            return queryFactory.selectFrom(message).join(message.topic, topic)
-                    .where(message.isDeleted.eq(isDeleted))
-                    .orderBy(orderSpecifier(direction,orderBySelect(order)))
-                    .limit(limit)
-                    .fetch();
+        BooleanBuilder whereCondition = new BooleanBuilder();
+        if (topicId != 0) {
+            whereCondition.and(message.topic.id.eq(topicId));
         }
+            return queryFactory.selectFrom(message).join(message.topic, topic)
+                    .where( whereCondition,message.isDeleted.eq(isDeleted))
+                    .orderBy(orderSpecifier(direction, orderBySelect(order)))
+                    .limit(limit)
+                    .fetch();
+
+
     }
 
     public List<Message> showMessagesForUser(String order, Long limit, String direction, Long topicId) {

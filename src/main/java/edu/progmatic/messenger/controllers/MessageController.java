@@ -37,7 +37,7 @@ public class MessageController implements WebMvcConfigurer {
                                @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE + "") long limit,
                                @RequestParam(value = "orderby", required = false, defaultValue = "sender") String order,
                                @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction,
-                               @RequestParam(value = "topicId", required = false) Long topicId,
+                               @RequestParam(value = "topicId", required = false, defaultValue = "0") Long topicId,
                                @RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted,
                                Model model) {
         Topic topic = new Topic();

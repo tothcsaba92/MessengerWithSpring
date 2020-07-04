@@ -109,6 +109,7 @@
             </div>
             <label for="topics">Topic lista</label>
             <select class="form-control" id="topics" name="topicId">
+                <option value="0">Mind</option>
                 <option th:each="topic : ${topicList}"
                         th:text="${topic.name}"
                         th:value="${topic.id}">
