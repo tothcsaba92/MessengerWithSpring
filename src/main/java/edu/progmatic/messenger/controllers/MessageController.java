@@ -38,7 +38,7 @@ public class MessageController implements WebMvcConfigurer {
                                @RequestParam(value = "orderby", required = false, defaultValue = "sender") String order,
                                @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction,
                                @RequestParam(value = "topicId", required = false, defaultValue = "0") Long topicId,
-                               @RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted,
+                               @RequestParam(value = "isDeleted", required = false, defaultValue = "") Boolean isDeleted,
                                @RequestParam(value = "text", required = false) String text,
                                @RequestParam(value = "sender", required = false) String sender,
                                Model model) {
@@ -49,7 +49,7 @@ public class MessageController implements WebMvcConfigurer {
         if (isAdmin) {
             messages = messageService.showMessagesForAdmin(order, limit, direction,topicId,isDeleted,text,sender);
         } else {
-            messages = messageService.showMessagesForUser(order, limit, direction,topicId);
+            messages = messageService.showMessagesForUser(order, limit, direction,topicId,text,sender);
         }
         model.addAttribute("messages", messages);
         model.addAttribute("topicToDelete", null);

@@ -26,10 +26,8 @@ public class MessageService {
     Logger logger = LoggerFactory.getLogger(MessageService.class);
 
 
-    public List<Message> showMessagesForAdmin(String order, Long limit, String direction, Long topicId, boolean isDeleted,
+    public List<Message> showMessagesForAdmin(String order, Long limit, String direction, Long topicId, Boolean isDeleted,
                                               String text, String sender) {
-        logger.info(topicId + " ez a topic id");
-        logger.info(text+"ez a text");
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         QMessage message = QMessage.message;
         QTopic topic = QTopic.topic;
@@ -38,16 +36,17 @@ public class MessageService {
             whereCondition.and(message.topic.id.eq(topicId));
         }
         if (!StringUtils.isEmpty(text)){
-            logger.info("nem ures a text");
             whereCondition.and(message.text.contains(text));
         }
         if (!StringUtils.isEmpty(sender)){
-            logger.info("nem ures a felado ");
             whereCondition.and(message.sender.contains(sender));
+        }
+        if(isDeleted != null){
+            whereCondition.and(message.isDeleted.eq(isDeleted));
         }
 
             return queryFactory.selectFrom(message).join(message.topic, topic)
-                    .where(whereCondition, message.isDeleted.eq(isDeleted))
+                    .where(whereCondition)
                     .orderBy(orderSpecifier(direction, orderBySelect(order)))
                     .limit(limit)
                     .fetch();
@@ -55,21 +54,28 @@ public class MessageService {
 
     }
 
-    public List<Message> showMessagesForUser(String order, Long limit, String direction, Long topicId) {
+    public List<Message> showMessagesForUser(String order, Long limit, String direction, Long topicId,
+                                            String text, String sender) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        if (topicId != null) {
-            return queryFactory.selectFrom(QMessage.message)
-                    .where(QMessage.message.topic.id.eq(topicId), QMessage.message.isDeleted.eq(false))
-                    .orderBy(orderSpecifier(direction, orderBySelect(order)))
-                    .limit(limit)
-                    .fetch();
-        } else {
-            return queryFactory.selectFrom(QMessage.message)
-                    .where(QMessage.message.isDeleted.eq(false))
-                    .orderBy(orderSpecifier(direction, orderBySelect(order)))
-                    .limit(limit)
-                    .fetch();
+        QMessage message = QMessage.message;
+        QTopic topic = QTopic.topic;
+        BooleanBuilder whereCondition = new BooleanBuilder();
+        if (topicId != 0) {
+            whereCondition.and(message.topic.id.eq(topicId));
         }
+        if (!StringUtils.isEmpty(text)){
+            whereCondition.and(message.text.contains(text));
+        }
+        if (!StringUtils.isEmpty(sender)){
+            whereCondition.and(message.sender.contains(sender));
+        }
+
+        return queryFactory.selectFrom(message).join(message.topic, topic)
+                .where(whereCondition, message.isDeleted.eq(false))
+                .orderBy(orderSpecifier(direction, orderBySelect(order)))
+                .limit(limit)
+                .fetch();
+
     }
 
     @Transactional

@@ -120,6 +120,7 @@
             <div class="form-group" data-sec-authorize="hasRole('ADMIN')">
                 <label for="status">Állapot szerinti kimutatás</label>
                 <select class="form-control" id="status" name="isDeleted">
+                    <option th:value="${null}">Mind</option>
                     <option th:value="${false}">Nem töröltek</option>
                     <option th:value="${true}">Töröltek</option>
                 </select>
