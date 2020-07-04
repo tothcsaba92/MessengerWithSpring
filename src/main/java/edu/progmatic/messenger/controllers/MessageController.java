@@ -18,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -44,8 +43,6 @@ public class MessageController implements WebMvcConfigurer {
         Topic topic = new Topic();
         TopicDeleteDTO topicDeleteDTO = new TopicDeleteDTO();
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
-        logger.info(topicId+" topicId");
-        logger.info(isDeleted+" torolt e");
         List<Message> messages;
         if (isAdmin) {
             messages = messageService.showMessagesForAdmin(order, limit, direction,topicId,isDeleted);
