@@ -15,7 +15,11 @@ import org.thymeleaf.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static edu.progmatic.messenger.constans.DateFormats.DATE_TIME_FORMAT_FOR_DATEPICKER;
 
 @Service
 public class MessageService {
@@ -26,11 +30,13 @@ public class MessageService {
 
 
     public List<Message> showMessages(String order, Long limit, String direction, Long topicId, Boolean isDeleted,
-                                      String text, String sender, boolean isAdmin) {
+                                      String text, String sender, boolean isAdmin, String dateFrom, String dateTo) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         BooleanBuilder whereCondition = new BooleanBuilder();
         QMessage message = QMessage.message;
         QTopic topic = QTopic.topic;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_DATEPICKER);
+
         if (topicId != 0) {
             whereCondition.and(message.topic.id.eq(topicId));
         }
@@ -42,6 +48,12 @@ public class MessageService {
         }
         if (isDeleted != null && isAdmin) {
             whereCondition.and(message.isDeleted.eq(isDeleted));
+        }
+        if (dateFrom != null) {
+            whereCondition.and(message.dateTime.after(LocalDateTime.parse(dateFrom, formatter)));
+        }
+        if (dateTo != null) {
+            whereCondition.and(message.dateTime.before(LocalDateTime.parse(dateTo, formatter)));
         }
 
         return queryFactory.selectFrom(message).join(message.topic, topic)

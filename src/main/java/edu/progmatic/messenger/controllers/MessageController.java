@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -42,11 +43,15 @@ public class MessageController implements WebMvcConfigurer {
                                @RequestParam(value = "isDeleted", required = false, defaultValue = "") Boolean isDeleted,
                                @RequestParam(value = "text", required = false) String text,
                                @RequestParam(value = "sender", required = false) String sender,
+                               @RequestParam(value = "dateFrom", required = false) String dateFrom,
+                               @RequestParam(value = "dateTo", required = false) String dateTo,
                                Model model) {
         Topic topic = new Topic();
         TopicDeleteDTO topicDeleteDTO = new TopicDeleteDTO();
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
-        List<Message> messages = messageService.showMessages(order, limit, direction, topicId, isDeleted, text, sender, isAdmin);
+        List<Message> messages = messageService.showMessages(order, limit, direction, topicId, isDeleted, text,
+                                                            sender, isAdmin,dateFrom,dateTo);
+        logger.info(dateFrom+ dateTo+"datum");
 
         model.addAttribute("messages", messages);
         model.addAttribute("topicToDelete", null);
