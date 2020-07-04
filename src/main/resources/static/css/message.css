@@ -71,6 +71,12 @@ body {
      background-color : rgba(113, 119, 132, 0.60);
 
  }
+ input[type=date], input[type=datetime-local], input[type=month], input[type=time] {
+     -webkit-appearance: listbox;
+     background-color : rgba(113, 119, 132, 0.60);
+     border-radius: 6px;
+
+ }
  select option {
      margin: 40px;
      background:rgba(113, 119, 132, 0.60);
