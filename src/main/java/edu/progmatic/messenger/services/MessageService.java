@@ -3,12 +3,10 @@ package edu.progmatic.messenger.services;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import edu.progmatic.messenger.model.Message;
-import edu.progmatic.messenger.model.QMessage;
-import edu.progmatic.messenger.model.Topic;
-import edu.progmatic.messenger.model.User;
+import edu.progmatic.messenger.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -30,15 +28,17 @@ public class MessageService {
 
     public List<Message> showMessagesForAdmin(String order, Long limit, String direction, Long topicId, boolean isDeleted) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QMessage message = QMessage.message;
+        QTopic topic = QTopic.topic;
         if(topicId != null){
-            return queryFactory.selectFrom(QMessage.message)
-                    .where(QMessage.message.topic.id.eq(topicId), QMessage.message.isDeleted.eq(isDeleted))
+            return queryFactory.selectFrom(message).join(message.topic, topic)
+                    .where(message.topic.id.eq(topicId), message.isDeleted.eq(isDeleted))
                     .orderBy(orderSpecifier(direction,orderBySelect(order)))
                     .limit(limit)
                     .fetch();
         } else{
-            return queryFactory.selectFrom(QMessage.message)
-                    .where(QMessage.message.isDeleted.eq(isDeleted))
+            return queryFactory.selectFrom(message).join(message.topic, topic)
+                    .where(message.isDeleted.eq(isDeleted))
                     .orderBy(orderSpecifier(direction,orderBySelect(order)))
                     .limit(limit)
                     .fetch();
@@ -87,25 +87,25 @@ public class MessageService {
         m.setDeleted(!m.isDeleted());
     }
 
-    public String orderBySelect(String order) {
+    public ComparableExpressionBase orderBySelect(String order) {
         if (order.equals("dateTime")) {
-            order = "dateTime";
+            return QMessage.message.dateTime;
         } else if (order.equals("text")) {
-            order = "text";
+            return  QMessage.message.text;
+        } else if (order.equals("name")) {
+            return QMessage.message.topic.name;
         } else {
-            order = "sender";
+            return QMessage.message.sender;
         }
-        return order;
     }
 
 
-    private OrderSpecifier<?> orderSpecifier(String order, String fieldName){
-        Path<Object> fieldPath = Expressions.path(Object.class, QMessage.message, fieldName);
+    private OrderSpecifier<?> orderSpecifier(String order, ComparableExpressionBase expression){
         if(order.equals("desc")){
-            return new OrderSpecifier(Order.DESC, fieldPath);
+            return expression.desc();
         }
         else{
-            return new OrderSpecifier(Order.ASC, fieldPath);
+            return expression.asc();
 
         }
     }
