@@ -25,6 +25,7 @@ public class MessageController implements WebMvcConfigurer {
     Logger logger = LoggerFactory.getLogger(MessageController.class);
     MessageService messageService;
     TopicService topicService;
+
     @Autowired
     public MessageController(MessageService messageService, TopicService topicService) {
         this.messageService = messageService;
@@ -45,12 +46,8 @@ public class MessageController implements WebMvcConfigurer {
         Topic topic = new Topic();
         TopicDeleteDTO topicDeleteDTO = new TopicDeleteDTO();
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
-        List<Message> messages;
-        if (isAdmin) {
-            messages = messageService.showMessagesForAdmin(order, limit, direction,topicId,isDeleted,text,sender);
-        } else {
-            messages = messageService.showMessagesForUser(order, limit, direction,topicId,text,sender);
-        }
+        List<Message> messages = messageService.showMessages(order, limit, direction, topicId, isDeleted, text, sender, isAdmin);
+
         model.addAttribute("messages", messages);
         model.addAttribute("topicToDelete", null);
         model.addAttribute("topic", topic);
@@ -98,7 +95,7 @@ public class MessageController implements WebMvcConfigurer {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/messages/deleteTopic")
-    public String deleteTopic(@ModelAttribute(value = "topicToDelete") TopicDeleteDTO topicDeleteDTO){
+    public String deleteTopic(@ModelAttribute(value = "topicToDelete") TopicDeleteDTO topicDeleteDTO) {
         topicService.deleteById(topicDeleteDTO.getId());
         return "redirect:/messages";
     }

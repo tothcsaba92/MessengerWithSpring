@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -26,55 +25,31 @@ public class MessageService {
     Logger logger = LoggerFactory.getLogger(MessageService.class);
 
 
-    public List<Message> showMessagesForAdmin(String order, Long limit, String direction, Long topicId, Boolean isDeleted,
-                                              String text, String sender) {
+    public List<Message> showMessages(String order, Long limit, String direction, Long topicId, Boolean isDeleted,
+                                      String text, String sender, boolean isAdmin) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        BooleanBuilder whereCondition = new BooleanBuilder();
         QMessage message = QMessage.message;
         QTopic topic = QTopic.topic;
-        BooleanBuilder whereCondition = new BooleanBuilder();
         if (topicId != 0) {
             whereCondition.and(message.topic.id.eq(topicId));
         }
-        if (!StringUtils.isEmpty(text)){
+        if (!StringUtils.isEmpty(text)) {
             whereCondition.and(message.text.contains(text));
         }
-        if (!StringUtils.isEmpty(sender)){
+        if (!StringUtils.isEmpty(sender)) {
             whereCondition.and(message.sender.contains(sender));
         }
-        if(isDeleted != null){
+        if (isDeleted != null && isAdmin) {
             whereCondition.and(message.isDeleted.eq(isDeleted));
         }
 
-            return queryFactory.selectFrom(message).join(message.topic, topic)
-                    .where(whereCondition)
-                    .orderBy(orderSpecifier(direction, orderBySelect(order)))
-                    .limit(limit)
-                    .fetch();
-
-
-    }
-
-    public List<Message> showMessagesForUser(String order, Long limit, String direction, Long topicId,
-                                            String text, String sender) {
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        QMessage message = QMessage.message;
-        QTopic topic = QTopic.topic;
-        BooleanBuilder whereCondition = new BooleanBuilder();
-        if (topicId != 0) {
-            whereCondition.and(message.topic.id.eq(topicId));
-        }
-        if (!StringUtils.isEmpty(text)){
-            whereCondition.and(message.text.contains(text));
-        }
-        if (!StringUtils.isEmpty(sender)){
-            whereCondition.and(message.sender.contains(sender));
-        }
-
         return queryFactory.selectFrom(message).join(message.topic, topic)
-                .where(whereCondition, message.isDeleted.eq(false))
+                .where(whereCondition)
                 .orderBy(orderSpecifier(direction, orderBySelect(order)))
                 .limit(limit)
                 .fetch();
+
 
     }
 
