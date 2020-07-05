@@ -43,7 +43,8 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 
       String messageTemplate = messages.stream()
               .collect(Collectors.joining(","));
-      context.buildConstraintViolationWithTemplate(messageTemplate)
+      context.buildConstraintViolationWithTemplate("A jelszónak muszáj tartalmaznia legalább egy kis és " +
+              "nagy betűt, számot és speciális karaktert!")
               .addConstraintViolation()
               .disableDefaultConstraintViolation();
       return false;

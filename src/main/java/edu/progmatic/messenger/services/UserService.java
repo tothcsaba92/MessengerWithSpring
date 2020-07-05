@@ -1,5 +1,6 @@
 package edu.progmatic.messenger.services;
 
+import edu.progmatic.messenger.constans.GregorianDateMatcher;
 import edu.progmatic.messenger.dto.UserDTO;
 import edu.progmatic.messenger.model.Role;
 import edu.progmatic.messenger.model.User;
@@ -13,9 +14,13 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static edu.progmatic.messenger.constans.DateFormats.DATE_FORMAT;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -40,8 +45,12 @@ public class UserService implements UserDetailsService {
         return !emails.isEmpty();
     }
 
-    public boolean userPasswordValidation(String password, String passwordConfirmation) {
+    public boolean passwordValidation(String password, String passwordConfirmation) {
         return passwordConfirmation.equals(password);
+    }
+    public boolean birthdayValidation(LocalDate birthday){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        return new GregorianDateMatcher().matches(birthday.format(formatter));
     }
 
     @Transactional

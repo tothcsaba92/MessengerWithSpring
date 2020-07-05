@@ -77,21 +77,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <span
                         th:if="${#fields.hasErrors('email')}" th:errors="${newUser.email}">Text Error
                 </span>
-                <input th:if="${#fields.hasErrors('birthday')}" class="form-control is-invalid" type="text" name="Username" placeholder="Születési dátum"
-                       required="" th:field="${newUser.birthday}">
+                <input th:if="${#fields.hasErrors('birthday')}" class="form-control is-invalid" type="text" name="Username"
+                       placeholder="Születési dátum (év/hónap/nap" required="" th:field="${newUser.birthday}">
                 <input th:unless="${#fields.hasErrors('birthday')}" class="form-control" type="text" name="Username" placeholder="Születési dátum"
                        required="" th:field="${newUser.birthday}">
                 <span
                         th:if="${#fields.hasErrors('birthday')}" th:errors="${{newUser.birthday}}">Text Error
                 </span>
 
-                <!--                <div class="wthree-text">-->
-                <!--                    <label class="anim">-->
-                <!--                        <input type="checkbox" class="checkbox" required="">-->
-                <!--                        <span>I Agree To The Terms & Conditions</span>-->
-                <!--                    </label>-->
-                <!--                    <div class="clear"> </div>-->
-                <!--                </div>-->
                 <input type="submit" value="REGISZTRÁCIÓ">
             </form>
             <p>Van már fiókod? <a href="login"> Jelentkezz be!</a></p>
