@@ -49,20 +49,17 @@ public class MessageService {
         if (isDeleted != null && isAdmin) {
             whereCondition.and(message.isDeleted.eq(isDeleted));
         }
-        if (dateFrom != null) {
+        if (!StringUtils.isEmpty(dateFrom)) {
             whereCondition.and(message.dateTime.after(LocalDateTime.parse(dateFrom, formatter)));
         }
-        if (dateTo != null) {
+        if (!StringUtils.isEmpty(dateTo)) {
             whereCondition.and(message.dateTime.before(LocalDateTime.parse(dateTo, formatter)));
         }
-
         return queryFactory.selectFrom(message).join(message.topic, topic)
                 .where(whereCondition)
                 .orderBy(orderSpecifier(direction, orderBySelect(order)))
                 .limit(limit)
                 .fetch();
-
-
     }
 
     @Transactional
@@ -70,7 +67,7 @@ public class MessageService {
         return (Message) em.createQuery(
                 "SELECT m FROM Message m WHERE m.id = :msgId")
                 .setParameter("msgId", msgId)
-                .getResultList().get(0);
+                .getSingleResult();
     }
 
     @Transactional
@@ -90,7 +87,7 @@ public class MessageService {
         m.setDeleted(!m.isDeleted());
     }
 
-    public ComparableExpressionBase orderBySelect(String order) {
+    private ComparableExpressionBase orderBySelect(String order) {
         if (order.equals("dateTime")) {
             return QMessage.message.dateTime;
         } else if (order.equals("text")) {
@@ -102,14 +99,8 @@ public class MessageService {
         }
     }
 
-
     private OrderSpecifier<?> orderSpecifier(String order, ComparableExpressionBase expression) {
-        if (order.equals("desc")) {
-            return expression.desc();
-        } else {
-            return expression.asc();
-
-        }
+        return order.equals("desc") ? expression.desc() : expression.asc();
     }
 
 }

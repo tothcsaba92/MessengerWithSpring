@@ -7,14 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class TopicController {
     Logger logger = LoggerFactory.getLogger(TopicController.class);
-
     TopicService topicService;
 
     @Autowired
@@ -23,8 +21,8 @@ public class TopicController {
     }
 
     @RequestMapping(value = "/new_topic", method = RequestMethod.POST)
-    public String createNewTopic(@ModelAttribute(value = "topic") Topic topic) {
-        topicService.createNewTopic(topic.getName());
+    public String createNewTopic(@ModelAttribute(value = "topic") Topic newTopic) {
+        topicService.createNewTopic(newTopic.getName());
         return "redirect:/messages";
     }
 

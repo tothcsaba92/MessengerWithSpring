@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -50,15 +49,11 @@ public class MessageController implements WebMvcConfigurer {
         TopicDeleteDTO topicDeleteDTO = new TopicDeleteDTO();
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
         List<Message> messages = messageService.showMessages(order, limit, direction, topicId, isDeleted, text,
-                                                            sender, isAdmin,dateFrom,dateTo);
-        logger.info(dateFrom+ dateTo+"datum");
-
+                sender, isAdmin, dateFrom, dateTo);
         model.addAttribute("messages", messages);
-        model.addAttribute("topicToDelete", null);
         model.addAttribute("topic", topic);
         model.addAttribute("topicToDelete", topicDeleteDTO);
         model.addAttribute("topicList", topicService.findAllTopics());
-
         return "messages";
     }
 
@@ -101,7 +96,7 @@ public class MessageController implements WebMvcConfigurer {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/messages/deleteTopic")
     public String deleteTopic(@ModelAttribute(value = "topicToDelete") TopicDeleteDTO topicDeleteDTO) {
-        topicService.deleteById(topicDeleteDTO.getId());
+        topicService.deleteTopicById(topicDeleteDTO.getId());
         return "redirect:/messages";
     }
 }

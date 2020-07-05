@@ -4,7 +4,6 @@ import edu.progmatic.messenger.constans.DateFormats;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -18,7 +17,6 @@ public class User implements UserDetails {
     private String passwordConfirm;
     @DateTimeFormat(pattern = DateFormats.DATE_FORMAT)
     private LocalDate birthDate;
-
     @Column(name = "email")
     private String email;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

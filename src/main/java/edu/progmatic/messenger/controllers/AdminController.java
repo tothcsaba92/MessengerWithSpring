@@ -30,7 +30,6 @@ public class AdminController {
         return "redirect:/messages";
     }
 
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members")
     public String viewMembers(Model model) {

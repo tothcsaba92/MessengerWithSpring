@@ -24,7 +24,6 @@ public class UserService implements UserDetailsService {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @PersistenceContext
     EntityManager em;
 
@@ -35,7 +34,7 @@ public class UserService implements UserDetailsService {
         return !users.isEmpty();
     }
 
-    public boolean emailValidation(String email){
+    public boolean emailValidation(String email) {
         List<User> emails = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
                 .setParameter("email", email).getResultList();
         return !emails.isEmpty();
@@ -51,7 +50,7 @@ public class UserService implements UserDetailsService {
                 bCryptPasswordEncoder.encode(registrationDTO.getPasswordConfirm())
                 , registrationDTO.getBirthday(), registrationDTO.getEmail());
         Set<Role> roles = new HashSet<>();
-        Role userRole = em.createQuery("SELECT r FROM Role r WHERE r.name  = :roleName",Role.class)
+        Role userRole = em.createQuery("SELECT r FROM Role r WHERE r.name  = :roleName", Role.class)
                 .setParameter("roleName", ROLE_USER)
                 .getSingleResult();
         roles.add(userRole);
@@ -73,7 +72,7 @@ public class UserService implements UserDetailsService {
         Role adminRole = em.createQuery("SELECT r FROM Role r WHERE r.name = :roleName", Role.class)
                 .setParameter("roleName", ROLE_ADMIN)
                 .getSingleResult();
-        user.getRoles().add( adminRole);
+        user.getRoles().add(adminRole);
         em.persist(user);
     }
 
