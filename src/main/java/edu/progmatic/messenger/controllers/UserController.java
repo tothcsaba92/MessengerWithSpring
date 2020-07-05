@@ -1,6 +1,6 @@
 package edu.progmatic.messenger.controllers;
 
-import edu.progmatic.messenger.dto.RegistrationDTO;
+import edu.progmatic.messenger.dto.UserDTO;
 import edu.progmatic.messenger.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,12 +33,12 @@ public class UserController {
 
     @GetMapping(value = "/registration")
     public String viewRegistration(Model model) {
-        model.addAttribute("newUser", new RegistrationDTO());
+        model.addAttribute("newUser", new UserDTO());
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registerNewUser(@ModelAttribute(value = "newUser") @Valid RegistrationDTO newUser,
+    public String registerNewUser(@ModelAttribute(value = "newUser") @Valid UserDTO newUser,
                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "registration";

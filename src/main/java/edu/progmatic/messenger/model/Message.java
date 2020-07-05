@@ -21,9 +21,10 @@ public class Message {
     @GeneratedValue
     private long id;
 
-    public Message(String text, String sender) {
+    public Message(String text, String sender, Topic topic) {
         this.text = text;
         this.sender = sender;
+        this.topic = topic;
     }
 
     public Message() {

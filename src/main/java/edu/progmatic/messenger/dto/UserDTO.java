@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-public class RegistrationDTO {
+public class UserDTO {
 
     @Size(min = 3, max = 20)
     @NotNull

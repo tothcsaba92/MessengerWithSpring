@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import edu.progmatic.messenger.dto.MessageDTO;
 import edu.progmatic.messenger.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,13 +72,12 @@ public class MessageService {
     }
 
     @Transactional
-    public void createNewMessage(Message newMessage) {
+    public void createNewMessage(MessageDTO newMessageDTO) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
         User user = (User) principal;
-        newMessage.setSender(user.getName());
-        Topic topic = em.find(Topic.class, newMessage.getTopic().getId());
-        newMessage.setTopic(topic);
+        Topic topic = em.find(Topic.class, newMessageDTO.getTopic().getId());
+        Message newMessage = new Message(newMessageDTO.getText(),user.getName(),topic);
         em.persist(newMessage);
     }
 

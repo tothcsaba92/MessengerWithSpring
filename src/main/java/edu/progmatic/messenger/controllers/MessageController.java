@@ -1,5 +1,6 @@
 package edu.progmatic.messenger.controllers;
 
+import edu.progmatic.messenger.dto.MessageDTO;
 import edu.progmatic.messenger.dto.TopicDeleteDTO;
 import edu.progmatic.messenger.model.Message;
 import edu.progmatic.messenger.model.Topic;
@@ -64,7 +65,7 @@ public class MessageController implements WebMvcConfigurer {
         if (message != null) {
             model.addAttribute("message", message);
         } else {
-            Message nonExistsMessage = new Message(null, null);
+            Message nonExistsMessage = new Message(null, null,null);
             nonExistsMessage.setDateTime(null);
             nonExistsMessage.setId(0);
             model.addAttribute("message", nonExistsMessage);
@@ -74,17 +75,17 @@ public class MessageController implements WebMvcConfigurer {
 
     @GetMapping(value = "/new_message")
     public String showNewMessage(Model model) {
-        Message msg = new Message(null, null);
+        MessageDTO newMessage = new MessageDTO();
         Topic topic = new Topic();
-        msg.setTopic(topic);
-        model.addAttribute("newMessage", msg);
+        newMessage.setTopic(topic);
+        model.addAttribute("newMessage", newMessage);
         model.addAttribute("topic", topic);
         model.addAttribute("topicList", topicService.findAllTopics());
         return "new_message";
     }
 
     @RequestMapping(value = "/new_message", method = RequestMethod.POST)
-    public String createNewMessage(@ModelAttribute(value = "newMessage") @Valid Message newMessage,
+    public String createNewMessage(@ModelAttribute(value = "newMessage") @Valid MessageDTO newMessage,
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "new_message";

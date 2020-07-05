@@ -1,6 +1,6 @@
 package edu.progmatic.messenger.services;
 
-import edu.progmatic.messenger.dto.RegistrationDTO;
+import edu.progmatic.messenger.dto.UserDTO;
 import edu.progmatic.messenger.model.Role;
 import edu.progmatic.messenger.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +45,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void createNewUser(RegistrationDTO registrationDTO) {
-        User user = new User(registrationDTO.getUsername(), bCryptPasswordEncoder.encode(registrationDTO.getPassword()),
-                bCryptPasswordEncoder.encode(registrationDTO.getPasswordConfirm())
-                , registrationDTO.getBirthday(), registrationDTO.getEmail());
+    public void createNewUser(UserDTO userDTO) {
+        User user = new User(userDTO.getUsername(), bCryptPasswordEncoder.encode(userDTO.getPassword()),
+                bCryptPasswordEncoder.encode(userDTO.getPasswordConfirm())
+                , userDTO.getBirthday(), userDTO.getEmail());
         Set<Role> roles = new HashSet<>();
         Role userRole = em.createQuery("SELECT r FROM Role r WHERE r.name  = :roleName", Role.class)
                 .setParameter("roleName", ROLE_USER)
