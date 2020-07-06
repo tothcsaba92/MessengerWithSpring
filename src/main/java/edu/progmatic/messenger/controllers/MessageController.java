@@ -61,10 +61,12 @@ public class MessageController implements WebMvcConfigurer {
 
     @RequestMapping(value = "/messages/{messageId}",method = { RequestMethod.GET, RequestMethod.POST })
     public String showSelectedMessage(@PathVariable("messageId") Long msgId, Model model, HttpServletRequest request,
-                                      @ModelAttribute(value = "modifiedText") String modifiedText) {
+                                      @ModelAttribute(value = "modifiedText") String modifiedText,
+                                      @RequestParam(value = "sleepTime", required = false, defaultValue = "0") Integer sleepTime) {
         Message message = messageService.showSelectedMessageById(msgId);
+        logger.info(sleepTime+" sleepTime");
         if(request.getMethod().equals("POST")){
-            messageService.modifyTextOfMessage(message.getId(),modifiedText);
+            messageService.modifyTextOfMessage(message.getId(),modifiedText,sleepTime);
             return "redirect:/messages";
         }
         if (message != null) {

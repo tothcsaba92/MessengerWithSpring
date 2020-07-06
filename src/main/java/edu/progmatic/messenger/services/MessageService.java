@@ -89,9 +89,17 @@ public class MessageService {
     }
 
     @Transactional
-    public void modifyTextOfMessage(long id, String text){
-        Message modifiedMessage = em.find(Message.class, id);
-        modifiedMessage.setText(text);
+    public void modifyTextOfMessage(long id, String text,Integer sleepTime){
+
+        try {
+            Message modifiedMessage = em.find(Message.class, id);
+            logger.info("alvasido");
+            Thread.sleep(sleepTime * 1000);
+            logger.info("ebreszto");
+            modifiedMessage.setText(text);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
 
     }
 
