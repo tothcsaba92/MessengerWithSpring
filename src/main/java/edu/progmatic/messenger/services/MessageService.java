@@ -6,12 +6,13 @@ import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import edu.progmatic.messenger.dto.MessageDTO;
 import edu.progmatic.messenger.model.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,19 +42,19 @@ public class MessageService {
         if (topicId != 0) {
             whereCondition.and(message.topic.id.eq(topicId));
         }
-        if (!StringUtils.isEmpty(text)) {
+        if (StringUtils.isNotBlank(text)) {
             whereCondition.and(message.text.contains(text));
         }
-        if (!StringUtils.isEmpty(sender)) {
+        if (StringUtils.isNotBlank(sender)) {
             whereCondition.and(message.sender.contains(sender));
         }
         if (isDeleted != null && isAdmin) {
             whereCondition.and(message.isDeleted.eq(isDeleted));
         }
-        if (!StringUtils.isEmpty(dateFrom)) {
+        if (StringUtils.isNotBlank(dateFrom)) {
             whereCondition.and(message.dateTime.after(LocalDateTime.parse(dateFrom, formatter)));
         }
-        if (!StringUtils.isEmpty(dateTo)) {
+        if (StringUtils.isNotBlank(dateTo)) {
             whereCondition.and(message.dateTime.before(LocalDateTime.parse(dateTo, formatter)));
         }
         return queryFactory.selectFrom(message).join(message.topic, topic)
