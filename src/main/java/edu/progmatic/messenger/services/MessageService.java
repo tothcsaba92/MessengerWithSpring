@@ -84,8 +84,15 @@ public class MessageService {
 
     @Transactional
     public void setMessageForDeletion(long id) {
-        Message m = em.find(Message.class, id);
-        m.setDeleted(!m.isDeleted());
+        Message messageForDeletion = em.find(Message.class, id);
+        messageForDeletion.setDeleted(!messageForDeletion.isDeleted());
+    }
+
+    @Transactional
+    public void modifyTextOfMessage(long id, String text){
+        Message modifiedMessage = em.find(Message.class, id);
+        modifiedMessage.setText(text);
+
     }
 
     private ComparableExpressionBase orderBySelect(String order) {

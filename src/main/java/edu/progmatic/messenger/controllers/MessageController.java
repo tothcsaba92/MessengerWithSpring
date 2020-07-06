@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -58,10 +59,14 @@ public class MessageController implements WebMvcConfigurer {
         return "messages";
     }
 
-    @RequestMapping(value = "/messages/{messageId}", method = RequestMethod.GET)
-    public String showSelectedMessage(
-            @PathVariable("messageId") Long msgId, Model model) {
+    @RequestMapping(value = "/messages/{messageId}",method = { RequestMethod.GET, RequestMethod.POST })
+    public String showSelectedMessage(@PathVariable("messageId") Long msgId, Model model, HttpServletRequest request,
+                                      @ModelAttribute(value = "modifiedText") String modifiedText) {
         Message message = messageService.showSelectedMessageById(msgId);
+        if(request.getMethod().equals("POST")){
+            messageService.modifyTextOfMessage(message.getId(),modifiedText);
+            return "redirect:/messages";
+        }
         if (message != null) {
             model.addAttribute("message", message);
         } else {
@@ -72,6 +77,7 @@ public class MessageController implements WebMvcConfigurer {
         }
         return "single_message";
     }
+
 
     @GetMapping(value = "/new_message")
     public String showNewMessage(Model model) {

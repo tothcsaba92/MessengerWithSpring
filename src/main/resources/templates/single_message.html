@@ -1,13 +1,14 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <!-- Required meta tags -->
-<!--    TODO nem hozza be a css-t-->
+    <!--    TODO nem hozza be a css-t-->
     <meta charset="utf-8"/>
     <title>Egy adott üzenet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
 
     <link href="../css/message.css?version=1" rel="stylesheet"/>
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
@@ -47,38 +48,22 @@
                         </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link " th:href="@{/members}" data-sec-authorize="hasRole('ADMIN')">Felhasznalok<span
+                        <a class="nav-link " th:href="@{/members}"
+                           data-sec-authorize="hasRole('ADMIN')">Felhasznalok<span
                                 class="form-control mr-sm-2 sr-only">(current)</span></a>
                     </li>
                 </ul>
             </form>
         </div>
 
-        <form th:action="@{/login}" method="POST" >
+        <form th:action="@{/login}" method="POST">
             <button type="submit" class="btn btn-outline-info">Kijelentkezés</button>
         </form>
-        </div>
+    </div>
 
 </nav>
 
 <div class="container">
-<!--    <h2>Üzenet:</h2>-->
-<!--    <table border="1">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <td>Üzenet szövege:</td>-->
-<!--            <td>Feladó:</td>-->
-<!--            <td>Üzenet ideje:</td>-->
-<!--            <td>Üzenet ID:</td>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tr>-->
-<!--            <td data-th-text="${message.text}"></td>-->
-<!--            <td data-th-text="${message.sender}"></td>-->
-<!--            <td data-th-text="${{message.dateTime}}"></td>-->
-<!--            <td data-th-text="${message.id}"></td>-->
-<!--        </tr>-->
-<!--    </table>-->
 
     <div class="card " style="margin-top: 100px">
         <div class="row no-gutters">
@@ -88,9 +73,12 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${message.sender}"></h5>
-                    <p class="card-text" th:text="${message.text}"></p>
-                    <p class="card-text"><small class="text-muted" th:text="${{message.dateTime}}"></small></p>
+                    <form th:action="@{/messages/{messageId}(messageId=${message.id})}" th:object="${message}" method="post">
+                        <h5 class="card-title" th:text="${message.sender}"></h5>
+                        <textarea class="card-text" th:text="${message.text}" name="modifiedText"></textarea>
+                        <p class="card-text"><small class="text-muted" th:text="${{message.dateTime}}"></small></p>
+                        <input class="btn btn-primary" type="submit" value="Modositas">
+                    </form>
                 </div>
             </div>
         </div>
