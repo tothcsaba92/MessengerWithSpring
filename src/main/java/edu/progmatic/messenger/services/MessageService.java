@@ -83,7 +83,7 @@ public class MessageService {
     }
 
     @Transactional
-    public void setMessageForDeletion(long id) {
+    public void setMessageForDeletion(Long id) {
         Message messageForDeletion = em.find(Message.class, id);
         messageForDeletion.setDeleted(!messageForDeletion.isDeleted());
     }
