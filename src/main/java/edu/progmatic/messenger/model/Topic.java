@@ -1,5 +1,7 @@
 package edu.progmatic.messenger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +9,8 @@ import java.util.List;
 @Entity
 public class Topic {
     @OneToMany(cascade= CascadeType.REMOVE,mappedBy = "topic")
+    @JsonIgnore
     private List<Message> messages = new ArrayList<>();
-
     private String name;
     @Id
     @GeneratedValue
@@ -19,7 +21,6 @@ public class Topic {
     }
 
     public Topic(){}
-
     public List<Message> getMessages() {
         return messages;
     }
