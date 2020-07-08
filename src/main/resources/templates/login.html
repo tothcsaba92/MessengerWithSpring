@@ -39,14 +39,14 @@
                             You have been logged out.
                         </div>
 
-                        <input type="text" name="username" class="form-control input_user" value="" placeholder="Felhasználó">
+                        <input type="text" name="username" id="usernameInput" class="form-control input_user" value="" placeholder="Felhasználó">
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
 
-                        <input type="password" name="password" class="form-control input_pass" value="" placeholder="Jelszó">
+                        <input type="password" id="passwordInput" name="password" class="form-control input_pass" value="" placeholder="Jelszó">
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="d-flex justify-content-center mt-3 login_container">
                         <input name="_csrf" type="hidden" value="8dec804c-c586-4134-872f-182c803db2fd" />
-                        <button type="submit" name="button" class="btn login_btn">Bejelentkezés</button>
+                        <button type="submit" id="loginButton" name="button" class="btn login_btn">Bejelentkezés</button>
                     </div>
                 </form>
             </div>
