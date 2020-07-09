@@ -176,10 +176,10 @@
                             <td class="column100 column5" data-column="column5" data-th-text="${message.topic?.name}">8:00 AM</td>
                             <td class="column100 column6" data-column="column6" data-sec-authorize="hasRole('ADMIN')"><a th:switch="${message.deleted}" th:href="@{/messages/delete/{messageId}(messageId=${message.id})}"
                                                                                    >
-                                <p th:case="${false}" type="submit" class="btn btn-primary" >Törlés</p>
+                                <p th:case="${false}" type="submit" class="btn btn-primary" th:id="${message.text}+'Delete'" >Törlés</p>
                                 <p th:case="${true}" type="submit" class="btn btn-primary" >Visszavonas</p>
                             </a></td>
-                            <td class="column100 column7" data-column="column7" data-th-text="${message.deleted}?'Törölt' : 'Nem törölt'" data-sec-authorize="hasRole('ADMIN')">5:00 PM</td>
+                            <td class="column100 column7" data-column="column7" th:id="${message.text}+'Status'" data-th-text="${message.deleted}?'Törölt' : 'Nem törölt'" data-sec-authorize="hasRole('ADMIN')">5:00 PM</td>
                         </tr>
                         </tbody>
                     </table>

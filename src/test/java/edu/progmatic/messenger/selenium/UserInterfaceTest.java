@@ -42,7 +42,7 @@ public class UserInterfaceTest {
 
     @Test
     public void loginAndCreateNewMessage() {
-        String messageText = "Selenium teszt";
+        String messageText = "barack";
         driver.findElement(By.id("usernameInput")).click();
         driver.findElement(By.id("usernameInput")).sendKeys("Botos");
         driver.findElement(By.id("passwordInput")).sendKeys("Botos123!");
@@ -59,21 +59,29 @@ public class UserInterfaceTest {
     }
 
     @Test
-    public void deleteMessage() {
+    public void setForDeletion() {
+        String messageText = "spagetti";
         driver.findElement(By.id("usernameInput")).click();
         driver.findElement(By.id("usernameInput")).sendKeys("Botos");
         driver.findElement(By.id("passwordInput")).sendKeys("Botos123!");
         driver.findElement(By.id("loginButton")).click();
         driver.findElement(By.linkText("Üzenetek")).click();
         driver.findElement(By.linkText("Üzenetek olvasás")).click();
-        driver.findElement(By.cssSelector(".row100:nth-child(1) .btn")).click();
-        driver.findElement(By.cssSelector(".btn:nth-child(2)")).click();
-        driver.findElement(By.cssSelector(".container > .d-flex")).click();
+        driver.findElement(By.linkText("Üzenetek")).click();
+        driver.findElement(By.linkText("Üzenet írás")).click();
+        driver.findElement(By.id("exampleFormControlTextarea1")).click();
+        driver.findElement(By.id("exampleFormControlTextarea1")).sendKeys(messageText);
+        driver.findElement(By.cssSelector(".btn:nth-child(1)")).click();
+        driver.findElement(By.id(messageText+"Delete")).click();
+        System.out.println("olvass");
+        System.out.println(driver.findElement(By.id(messageText + "Status")).getText());
+        Assert.assertTrue("Törölt".equals(driver.findElement(By.id(messageText+"Status")).getText()));
+
     }
 
     @Test
     public void newMessageExists() {
-        String messageText = "seleniumTest";
+        String messageText = "Orsos";
         driver.findElement(By.id("usernameInput")).click();
         driver.findElement(By.id("usernameInput")).sendKeys("Botos");
         driver.findElement(By.id("passwordInput")).sendKeys("Botos123!");
@@ -88,7 +96,7 @@ public class UserInterfaceTest {
 
     @Test
     public void createNewUserAndPromoteToAdmin() throws InterruptedException {
-        String username = "Koporsos";
+        String username = "Salata";
         driver.findElement(By.linkText("Regisztráció")).click();
         driver.findElement(By.id("username")).click();
         driver.findElement(By.id("username")).sendKeys(username);
