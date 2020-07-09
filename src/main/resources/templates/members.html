@@ -80,7 +80,7 @@
             <td>
                 <a  th:href="@{/members/promote/{username}(username=${member.username})}"
                     data-sec-authorize="hasRole('ADMIN')">
-                    <p type="submit" class="btn btn-primary">Legyen Admin</p>
+                    <p type="submit" class="btn btn-primary" th:id="${member.username}+'x'">Legyen Admin</p>
                 </a>
             </td>
         </tr>
