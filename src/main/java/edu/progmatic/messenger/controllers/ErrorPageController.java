@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-public class ErrorPageController implements ErrorController {
+public class  ErrorPageController implements ErrorController {
     private static final String ERR_PATH = "/error";
 
     private ErrorAttributes errorAttributes;

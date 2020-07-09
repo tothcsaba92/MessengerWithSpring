@@ -25,7 +25,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/messages/delete/{messageId}")
-    public String setMessageForDeletion(@PathVariable("messageId") int msgId) {
+    public String setMessageForDeletion(@PathVariable("messageId") Long msgId) {
        messageService.setMessageForDeletion(msgId);
         return "redirect:/messages";
     }

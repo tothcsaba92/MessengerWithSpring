@@ -14,7 +14,10 @@ public class ExceptionAdviceController {
 
     @ExceptionHandler(Exception.class)
     public String exception(Exception ex, Model model) {
-        model.addAttribute("exception", ex.getMessage());
+        model.addAttribute("exception", ex);
+        logger.error(ex.getMessage());
+        logger.error(Arrays.toString(ex.getStackTrace()));
+
         String stackTraceText = Arrays.toString(ex.getStackTrace());
         model.addAttribute("excStackTrace", stackTraceText);
         logger.error("error", ex);

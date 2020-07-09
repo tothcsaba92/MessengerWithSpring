@@ -59,6 +59,8 @@ public class MessageController implements WebMvcConfigurer {
         return "messages";
     }
 
+
+
     @RequestMapping(value = "/messages/{messageId}",method = { RequestMethod.GET, RequestMethod.POST })
     public String showSelectedMessage(@PathVariable("messageId") Long msgId, Model model, HttpServletRequest request,
                                       @ModelAttribute(value = "modifiedText") String modifiedText,
