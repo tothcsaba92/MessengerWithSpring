@@ -4,10 +4,16 @@ import edu.progmatic.messenger.model.Message;
 import edu.progmatic.messenger.services.MessageService;
 import edu.progmatic.messenger.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.net.http.HttpRequest;
 import java.util.List;
 
 @RestController
@@ -36,15 +42,21 @@ public class MessageRestController {
         return messageService.showMessages(order, limit, direction, topicId, isDeleted, text,
                 sender, true, dateFrom, dateTo);
     }
-  /*  //ha átírod GET-re, akkor mükszik
+
     @RequestMapping(value = "/rest/messages/{messageId}", method = RequestMethod.PUT)
     public Message setMessageForDeletion(@PathVariable("messageId") Long msgId) {
        messageService.setMessageForDeletion(msgId);
        return  messageService.showSelectedMessageById(msgId);
-    }*/
+    }
+
 
     @GetMapping(value = "/rest/messages/{messageId}")
     public Message showASingleMessage(@PathVariable("messageId") Long msgId){
        return messageService.showSelectedMessageById(msgId);
+    }
+
+    @GetMapping(value = "/rest/csrf")
+    public CsrfToken getCurrentCsrfToken(CsrfToken token) {
+        return token;
     }
 }
