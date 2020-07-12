@@ -40,7 +40,7 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/messages", "/messages/**", "/home", "/exception",
-                        "/pics/msg_background.jpeg", "/webjars/**", "/registration", "/css/**", "/members", "/statics/pics/**", "/", "/rest/csrf")
+                        "/pics/msg_background.jpeg", "/webjars/**", "/registration", "/css/**", "/members", "/statics/pics/**", "/", "/rest/csrf", "/", "/favicon.ico")
                 .permitAll()
                 .anyRequest().authenticated()
         ;
