@@ -56,6 +56,7 @@
                 </ul>
             </form>
         </div>
+        Üdvözlünk <span sec:authentication="name"> Anonymous </span>
         <form th:action="@{/login}" method="POST">
             <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
         </form>
@@ -96,9 +97,6 @@
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
             aria-expanded="false" aria-controls="multiCollapseExample2">Stack Trace
     </button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5"
-                aria-expanded="false" aria-controls="multiCollapseExample3">Cause
-        </button>
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
             aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2 multiCollapseExample3">Mindent mutat
     </button>
@@ -118,13 +116,6 @@
         <div class="collapse multi-collapse" id="multiCollapseExample2">
             <div class="card card-body">
                 <p th:text="${excStackTrace}"></p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="collapse multi-collapse" id="multiCollapseExample3">
-            <div class="card card-body">
-                <p th:text="${cause}"></p>
             </div>
         </div>
     </div>

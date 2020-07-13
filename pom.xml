@@ -17,7 +17,7 @@
     </parent>
 
     <properties>
-        <querydsl.version>4.1.3</querydsl.version>
+<!--        <querydsl.version>4.1.3</querydsl.version>-->
     </properties>
 
     <dependencies>
@@ -34,6 +34,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
         </dependency>
 
         <dependency>
@@ -109,7 +114,6 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -154,7 +158,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.progmatic.messages.springconfig.Application</mainClass>
+                    <mainClass>edu.progmatic.messenger.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -189,8 +193,6 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-
-
         </plugins>
     </build>
 
