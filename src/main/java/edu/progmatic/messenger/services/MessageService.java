@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -22,6 +21,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static edu.progmatic.messenger.constans.DateFormats.DATE_TIME_FORMAT_FOR_DATEPICKER;
+
+/**
+ * @author csaba
+ */
 
 @Service
 public class MessageService {
@@ -78,7 +81,7 @@ public class MessageService {
         Object principal = auth.getPrincipal();
         User user = (User) principal;
         Topic topic = em.find(Topic.class, newMessageDTO.getTopic().getId());
-        Message newMessage = new Message(newMessageDTO.getText(),user.getName(),topic);
+        Message newMessage = new Message(newMessageDTO.getText(), user.getName(), topic);
         em.persist(newMessage);
     }
 
@@ -89,7 +92,7 @@ public class MessageService {
     }
 
     @Transactional
-    public void modifyTextOfMessage(long id, String text,Integer sleepTime){
+    public void modifyTextOfMessage(long id, String text, Integer sleepTime) {
 
         try {
             Message modifiedMessage = em.find(Message.class, id);
@@ -103,6 +106,11 @@ public class MessageService {
 
     }
 
+    /**
+     * This method used by querdsl to generate dynamic where clause.
+     *
+     * @param order -- Type of order what we want to get sorted by.
+     */
     private ComparableExpressionBase orderBySelect(String order) {
         if (order.equals("dateTime")) {
             return QMessage.message.dateTime;
@@ -115,6 +123,11 @@ public class MessageService {
         }
     }
 
+    /**
+     * This method used by querdsl to generate dynamic where clause.
+     *
+     * @param expression -- Direction of sort method(ASC/DESC)
+     */
     private OrderSpecifier<?> orderSpecifier(String order, ComparableExpressionBase expression) {
         return order.equals("desc") ? expression.desc() : expression.asc();
     }

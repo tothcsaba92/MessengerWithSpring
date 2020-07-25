@@ -1,9 +1,6 @@
 package edu.progmatic.messenger.services;
 
-import edu.progmatic.messenger.controllers.TopicController;
 import edu.progmatic.messenger.model.Topic;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -11,9 +8,12 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author csaba
+ */
+
 @Service
 public class TopicService {
-    Logger logger = LoggerFactory.getLogger(TopicController.class);
     @PersistenceContext
     EntityManager em;
 

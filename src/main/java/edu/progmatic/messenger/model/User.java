@@ -4,10 +4,15 @@ import edu.progmatic.messenger.constans.DateFormats;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
+
+/**
+ * @author csaba
+ */
 
 @Entity
 public class User implements UserDetails {

@@ -2,8 +2,16 @@ package edu.progmatic.messenger.constans;
 
 import java.util.regex.Pattern;
 
+/**
+ *
+ * @author csaba
+ */
+
 public class GregorianDateMatcher implements DateMatcher {
 
+    /**
+     * Checks the input is valid date by the Gregorian calendar.
+     */
     private static Pattern DATE_PATTERN = Pattern.compile(
             "^((2000|2400|2800|(19|2[0-9](0[48]|[2468][048]|[13579][26])))-02-29)$"
                     + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"

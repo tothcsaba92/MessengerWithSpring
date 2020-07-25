@@ -2,21 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <!-- Required meta tags -->
-    <!--    TODO nem hozza be a css-t-->
     <meta charset="utf-8"/>
     <title>Egy adott üzenet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
-
     <link href="../css/message.css?version=1" rel="stylesheet"/>
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
     <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
-
 </head>
+
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light" style=background-color:#CD5C2E>
     <div class="container">
@@ -29,7 +25,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">
@@ -61,11 +56,9 @@
             <button type="submit" class="btn btn-outline-info">Kijelentkezés</button>
         </form>
     </div>
-
 </nav>
 
 <div class="container">
-
     <div class="card " style="margin-top: 100px">
         <div class="row no-gutters">
             <div class="col-md-4">
@@ -74,22 +67,20 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <form th:action="@{/messages/{messageId}(messageId=${message.id})}" th:object="${message}" method="post">
+                    <form th:action="@{/messages/{messageId}(messageId=${message.id})}" th:object="${message}"
+                          method="post">
                         <h5 class="card-title" th:text="${message.sender}"></h5>
                         <textarea class="card-text" th:text="${message.text}" name="modifiedText"></textarea>
                         <p class="card-text"><small class="text-muted" th:text="${{message.dateTime}}"></small></p>
                         <label for="customRange1">Késleltetés beállitása</label>
-                        <input type="range" class="custom-range" id="customRange1" name="sleepTime" >
+                        <input type="range" class="custom-range" id="customRange1" name="sleepTime">
                         <input class="btn btn-primary" type="submit" value="Modositas">
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
 
 </body>
 </html>

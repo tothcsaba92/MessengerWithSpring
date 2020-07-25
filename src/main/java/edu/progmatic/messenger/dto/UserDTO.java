@@ -4,10 +4,15 @@ import edu.progmatic.messenger.constans.DateFormats;
 import edu.progmatic.messenger.passwordValidation.ValidPassword;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+
+/**
+ * @author csaba
+ */
 
 public class UserDTO {
 
@@ -41,7 +46,6 @@ public class UserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public String getUsername() {
         return username;

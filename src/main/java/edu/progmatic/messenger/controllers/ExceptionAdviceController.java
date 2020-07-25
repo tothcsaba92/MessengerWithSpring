@@ -8,10 +8,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Arrays;
 
+/**
+ *
+ * @author csaba
+ */
+
 @ControllerAdvice
 public class ExceptionAdviceController {
     Logger logger = LoggerFactory.getLogger(ExceptionAdviceController.class);
 
+    /**
+     * Catches all types of exceptions to be able print the stacktrace on the custom exception view.
+     */
     @ExceptionHandler(Exception.class)
     public String exception(Exception ex, Model model) {
         model.addAttribute("exception", ex);

@@ -6,6 +6,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+/**
+ *
+ * @author csaba
+ */
+
 @Entity
 public class Message {
     @NotNull

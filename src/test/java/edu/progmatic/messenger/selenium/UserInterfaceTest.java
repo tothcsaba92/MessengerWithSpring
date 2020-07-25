@@ -17,6 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * @author csaba
+ */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -40,6 +44,9 @@ public class UserInterfaceTest {
         driver.quit();
     }
 
+    /**
+     * Test for already registered user who will login and try to create a new message.
+     */
     @Test
     public void loginAndCreateNewMessage() {
         String messageText = "barack";
@@ -58,6 +65,9 @@ public class UserInterfaceTest {
 
     }
 
+    /**
+     * Test is using an admin user, who logs in, and deletes the provided message.
+     */
     @Test
     public void setForDeletion() {
         String messageText = "spagetti";
@@ -79,6 +89,9 @@ public class UserInterfaceTest {
 
     }
 
+    /**
+     * Test for a new message which checks the new message displays in the messages database.
+     */
     @Test
     public void newMessageExists() {
         String messageText = "Orsos";
@@ -94,6 +107,9 @@ public class UserInterfaceTest {
         Assert.assertTrue("Text not found!", driver.getPageSource().contains(messageText));
     }
 
+    /**
+     * Test with an admin who promote an user to admin.
+     */
     @Test
     public void createNewUserAndPromoteToAdmin() throws InterruptedException {
         String username = "Salata";

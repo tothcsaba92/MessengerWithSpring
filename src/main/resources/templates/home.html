@@ -14,8 +14,8 @@
     <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
 
+<body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light" style=background-color:#CD5C2E>
     <div class="container">
         <a class="navbar-brand" th:href="@{/home}">Üzengető <img
@@ -26,9 +26,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto"></ul>
 
-            </ul>
             <form class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ">
@@ -55,6 +54,7 @@
                 </ul>
             </form>
         </div>
+
         <form th:action="@{/login}" method="POST">
             <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
         </form>
@@ -64,7 +64,7 @@
         <div class="col-auto pl-0">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" >✉</span>
+                    <span class="input-group-text">✉</span>
                 </div>
 
                 <input th:if="${param.error}" class="form-control is-invalid" type="text" name="username"
@@ -76,27 +76,23 @@
         <div class="col-auto pl-0">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" >✎</span>
+                    <span class="input-group-text">✎</span>
                 </div>
                 <input type="password" class="form-control" name="password" placeholder="Jelszó">
             </div>
         </div>
+
         <div class="col-auto pl-0 pr-0">
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Bejelentkezes</button>
         </div>
     </form>
-
 </nav>
 
 <div class="container align-content-center">
-
     <div class="jumbotron" style="background-color: #66000000">
         <h1 style="text-align: center" class="display-4">Üdvözlünk az üzenetküldő alkalamazásunkban!</h1>
     </div>
-
-
 </div>
-
 
 </body>
 </html>

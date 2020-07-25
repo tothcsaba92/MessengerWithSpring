@@ -16,6 +16,13 @@ import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
 import java.util.List;
 
+/**
+ *This controller is make the API restful, to more separate the FE and BE, and instead of html view , it returns with
+ * an abject, what is transformed to a JSON file.
+ *
+ * @author csaba
+ */
+
 @RestController
 public class MessageRestController {
     MessageService messageService;

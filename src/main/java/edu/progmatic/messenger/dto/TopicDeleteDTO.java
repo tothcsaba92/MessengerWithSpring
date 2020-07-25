@@ -1,7 +1,11 @@
 package edu.progmatic.messenger.dto;
 
+/**
+ * @author csaba
+ */
+
 public class TopicDeleteDTO {
-    private  Long id;
+    private Long id;
 
     public Long getId() {
         return id;

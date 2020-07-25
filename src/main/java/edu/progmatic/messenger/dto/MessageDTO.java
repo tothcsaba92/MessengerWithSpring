@@ -5,6 +5,10 @@ import edu.progmatic.messenger.model.Topic;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * @author csaba
+ */
+
 public class MessageDTO {
     @NotNull
     @Size(min = 1, max = 255)

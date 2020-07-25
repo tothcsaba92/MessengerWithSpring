@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
+/**
+ *
+ * @author csaba
+ */
+
 @Controller
 public class AdminController {
     MessageService messageService;
@@ -22,7 +27,12 @@ public class AdminController {
         this.messageService = messageService;
         this.userService = userService;
     }
-
+    /**
+     * Change the status of the selected messsage to "removed".
+     *
+     * @param msgId
+     *            -- ID of the message.
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/messages/delete/{messageId}")
     public String setMessageForDeletion(@PathVariable("messageId") Long msgId) {
@@ -30,6 +40,9 @@ public class AdminController {
         return "redirect:/messages";
     }
 
+    /**
+     * Show the list of users where status is "ROLE_USER".
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members")
     public String viewMembers(Model model) {
@@ -38,6 +51,9 @@ public class AdminController {
         return "members";
     }
 
+    /**
+     * Change the status of selected user for "ROLE_ADMIN".
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/members/promote/{username}")
     public String promoteToAdmin(@PathVariable("username") String username) {

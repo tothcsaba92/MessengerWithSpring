@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
+
 <head>
     <meta charset="UTF-8"/>
     <title>Új üzenet írása</title>
@@ -14,9 +15,8 @@
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
     <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
-
 </head>
+
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light " style=background-color:#CD5C2E>
     <div class="container">
@@ -56,54 +56,49 @@
                 </ul>
             </form>
         </div>
+
         <form th:action="@{/login}" method="POST">
             <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
         </form>
     </div>
 </nav>
 
-
 <div class="container">
     <div class="border-class">
         <form action="#" th:action="@{/new_message}" th:object="${newMessage}" method="post" class="needs-validation"
-          novalidate>
+              novalidate>
+            <label for="topics">Topic lista</label>
+            <select class="form-control" id="topics" data-th-field="*{topic.id}">
+                <option th:each="topic : ${topicList}"
+                        th:text="${topic.name}"
+                        th:value="${topic.id}">
+                </option>
+            </select>
 
-        <label for="topics">Topic lista</label>
-        <select class="form-control" id="topics" data-th-field="*{topic.id}">
-            <option th:each="topic : ${topicList}"
-                    th:text="${topic.name}"
-                    th:value="${topic.id}">
-            </option>
-        </select>
-
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Üzenet:</label>
-            <textarea class="form-control " id="exampleFormControlTextarea1" rows="3"
-                      type="text" data-th-field="*{text}" placeholder="Gépeld ide az üzeneted!"
-                      data-th-classappend="${#fields.hasErrors('text')} ? is-invalid : ''"></textarea>
-
-
-            <div class="invalid-feedback">
-                1-250 karakter hosszu lehet a szove
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Üzenet:</label>
+                <textarea class="form-control " id="exampleFormControlTextarea1" rows="3"
+                          type="text" data-th-field="*{text}" placeholder="Gépeld ide az üzeneted!"
+                          data-th-classappend="${#fields.hasErrors('text')} ? is-invalid : ''"></textarea>
+                <div class="invalid-feedback">
+                    1-250 karakter hosszu lehet a szove
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="Küldés">
-        </div>
-    </form>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Küldés">
+            </div>
+        </form>
 
-    <form th:action="@{/new_topic}" th:object="${topic}" method="post">
-        <div class="form-group">
-            <label for="myInput2">Topic:</label>
-            <textarea class="form-control" id="myInput2" type="text" th:field="*{name}" placeholder="Add meg a topic nevét"></textarea>
-        </div>
-        <input class="btn btn-primary" type="submit" value="Létrehozás">
-    </form>
-
-
-
-</div>
+        <form th:action="@{/new_topic}" th:object="${topic}" method="post">
+            <div class="form-group">
+                <label for="myInput2">Topic:</label>
+                <textarea class="form-control" id="myInput2" type="text" th:field="*{name}"
+                          placeholder="Add meg a topic nevét"></textarea>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Létrehozás">
+        </form>
+    </div>
 </div>
 
 </body>

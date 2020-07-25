@@ -22,6 +22,11 @@ import java.util.Set;
 
 import static edu.progmatic.messenger.constans.DateFormats.DATE_FORMAT;
 
+/**
+ *
+ * @author csaba
+ */
+
 @Service
 public class UserService implements UserDetailsService {
 

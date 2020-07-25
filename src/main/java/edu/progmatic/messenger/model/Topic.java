@@ -6,9 +6,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author csaba
+ */
+
 @Entity
 public class Topic {
-    @OneToMany(cascade= CascadeType.REMOVE,mappedBy = "topic")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "topic")
     @JsonIgnore
     private List<Message> messages = new ArrayList<>();
     private String name;
@@ -20,7 +24,9 @@ public class Topic {
         this.name = name;
     }
 
-    public Topic(){}
+    public Topic() {
+    }
+
     public List<Message> getMessages() {
         return messages;
     }

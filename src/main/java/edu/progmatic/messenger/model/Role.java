@@ -1,9 +1,14 @@
 package edu.progmatic.messenger.model;
 
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+/**
+ * @author csaba
+ */
 
 @Entity
 public class Role implements GrantedAuthority {

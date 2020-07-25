@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author csaba
+ */
 
 @Controller
 public class MessageController implements WebMvcConfigurer {
@@ -34,7 +37,19 @@ public class MessageController implements WebMvcConfigurer {
         this.topicService = topicService;
     }
 
-
+    /**
+     * Search option with different parameters, none of them is required to provide.
+     *
+     * @param limit     -- Number of messages to show in the table.
+     * @param order     -- Sort by different parameters(e.g. sender, text, time).
+     * @param direction --Type of sort: Ascend or descend.
+     * @param topicId   --ID of the group of messages.
+     * @param isDeleted --Status of the message,deleted messages only visible for admins.
+     * @param text      --Directly search within the text of messages for the specified text.
+     * @param sender    --Search only in the name of the sender.
+     * @param dateFrom  --Search only from selected date.
+     * @param dateTo    --Search till selected date.
+     */
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
     public String showMessages(SecurityContextHolderAwareRequestWrapper request,
                                @RequestParam(value = "limit", required = false, defaultValue = Integer.MAX_VALUE + "") long limit,
@@ -59,22 +74,28 @@ public class MessageController implements WebMvcConfigurer {
         return "messages";
     }
 
-
-
-    @RequestMapping(value = "/messages/{messageId}",method = { RequestMethod.GET, RequestMethod.POST })
+    /**
+     * Check whether any room with given type was available for the given dates.
+     *
+     * @param msgId        -- ID of message.
+     * @param request      -- Required to get access to the current logged in user details.
+     * @param modifiedText -- Modified text(available only for admins).
+     * @param sleepTime    -- Delay the time of the post request(currently useless function,only for experiment).
+     */
+    @RequestMapping(value = "/messages/{messageId}", method = {RequestMethod.GET, RequestMethod.POST})
     public String showSelectedMessage(@PathVariable("messageId") Long msgId, Model model, HttpServletRequest request,
                                       @ModelAttribute(value = "modifiedText") String modifiedText,
                                       @RequestParam(value = "sleepTime", required = false, defaultValue = "0") Integer sleepTime) {
         Message message = messageService.showSelectedMessageById(msgId);
-        logger.info(sleepTime+" sleepTime");
-        if(request.getMethod().equals("POST")){
-            messageService.modifyTextOfMessage(message.getId(),modifiedText,sleepTime);
+        logger.info(sleepTime + " sleepTime");
+        if (request.getMethod().equals("POST")) {
+            messageService.modifyTextOfMessage(message.getId(), modifiedText, sleepTime);
             return "redirect:/messages";
         }
         if (message != null) {
             model.addAttribute("message", message);
         } else {
-            Message nonExistsMessage = new Message(null, null,null);
+            Message nonExistsMessage = new Message(null, null, null);
             nonExistsMessage.setDateTime(null);
             nonExistsMessage.setId(0);
             model.addAttribute("message", nonExistsMessage);
@@ -82,7 +103,9 @@ public class MessageController implements WebMvcConfigurer {
         return "single_message";
     }
 
-
+    /**
+     * Shows an empty view to create a new message.
+     */
     @GetMapping(value = "/new_message")
     public String showNewMessage(Model model) {
         MessageDTO newMessage = new MessageDTO();
@@ -94,6 +117,11 @@ public class MessageController implements WebMvcConfigurer {
         return "new_message";
     }
 
+    /**
+     * Create new message with the give topic, text. Sender, time is automatically set.
+     *
+     * @param newMessage -- Data transfer object for the new message.
+     */
     @RequestMapping(value = "/new_message", method = RequestMethod.POST)
     public String createNewMessage(@ModelAttribute(value = "newMessage") @Valid MessageDTO newMessage,
                                    BindingResult bindingResult) {
@@ -104,6 +132,11 @@ public class MessageController implements WebMvcConfigurer {
         return "redirect:/messages";
     }
 
+    /**
+     * Set the status of the message for deleted.
+     *
+     * @param topicDeleteDTO -- Data transfer object for the message what has been chose for deletion.
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/messages/deleteTopic")
     public String deleteTopic(@ModelAttribute(value = "topicToDelete") TopicDeleteDTO topicDeleteDTO) {

@@ -11,6 +11,11 @@ import org.springframework.web.context.request.ServletWebRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+/**
+ *
+ * @author csaba
+ */
+
 @Controller
 public class  ErrorPageController implements ErrorController {
     private static final String ERR_PATH = "/error";
@@ -22,6 +27,10 @@ public class  ErrorPageController implements ErrorController {
         this.errorAttributes = errorAttributes;
     }
 
+    /**
+     * Catches all types of errors to be able to display on the view.
+     *
+     */
     @GetMapping(ERR_PATH)
     public String error(Model model, HttpServletRequest request) {
         ServletWebRequest requestAttributes = new ServletWebRequest(request);
@@ -45,8 +54,6 @@ public class  ErrorPageController implements ErrorController {
             return "detailedError";
         }
     }
-
-
 
     @Override
     public String getErrorPath() {

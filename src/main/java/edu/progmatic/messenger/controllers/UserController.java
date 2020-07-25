@@ -2,8 +2,6 @@ package edu.progmatic.messenger.controllers;
 
 import edu.progmatic.messenger.dto.UserDTO;
 import edu.progmatic.messenger.services.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
+/**
+ * @author csaba
+ */
+
 @Controller
 public class UserController {
 
@@ -25,9 +27,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    Logger logger = LoggerFactory.getLogger(UserController.class);
-
 
     @GetMapping(value = "/login")
     public String loginUser() {
@@ -40,6 +39,9 @@ public class UserController {
         return "registration";
     }
 
+    /**
+     * Register a new user with basic details with server side validation.
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registerNewUser(@ModelAttribute(value = "newUser") @Valid UserDTO newUser,
                                   BindingResult bindingResult) {
