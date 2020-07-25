@@ -6,10 +6,10 @@ A simple web forum built in Spring boot.
 - Spring Boot 2.1.3
 - Spring Security 5 
 - JPA
--Querydsl
--Mockito
--Selenium
--Passay
+- Querydsl
+- Mockito
+- Selenium
+- Passay
 
 ### Frontend 
 - Thymeleaf
@@ -17,8 +17,8 @@ A simple web forum built in Spring boot.
 - javaScript
 
 ### Dadatabase
--Hibernate
--MySQL
+- Hibernate
+- MySQL
 
 ### Build Tool 
 - Maven 4.0.0
