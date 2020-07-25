@@ -65,9 +65,11 @@
                 </ul>
             </form>
         </div>
+        Üdvözlünk <span sec:authentication="name"> Anonymous </span>
         <form th:action="@{/login}" method="POST">
             <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated()">Kijelentkezés</button>
         </form>
+        </div>
     </div>
 </nav>
 

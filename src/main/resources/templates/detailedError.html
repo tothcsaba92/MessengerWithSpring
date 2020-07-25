@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8"/>
@@ -46,6 +46,7 @@
                 </ul>
             </form>
         </div>
+        Üdvözlünk <span sec:authentication="name"> Anonymous </span>
     </div>
 </nav>
 

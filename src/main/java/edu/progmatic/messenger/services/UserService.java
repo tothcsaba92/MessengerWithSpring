@@ -1,9 +1,12 @@
 package edu.progmatic.messenger.services;
 
 import edu.progmatic.messenger.constans.GregorianDateMatcher;
+import edu.progmatic.messenger.controllers.MessageController;
 import edu.progmatic.messenger.dto.UserDTO;
 import edu.progmatic.messenger.model.Role;
 import edu.progmatic.messenger.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -29,6 +33,8 @@ import static edu.progmatic.messenger.constans.DateFormats.DATE_FORMAT;
 
 @Service
 public class UserService implements UserDetailsService {
+
+    Logger logger = LoggerFactory.getLogger(UserDetailsService.class);
 
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
@@ -64,9 +70,15 @@ public class UserService implements UserDetailsService {
                 bCryptPasswordEncoder.encode(userDTO.getPasswordConfirm())
                 , userDTO.getBirthday(), userDTO.getEmail());
         Set<Role> roles = new HashSet<>();
-        Role userRole = em.createQuery("SELECT r FROM Role r WHERE r.name  = :roleName", Role.class)
-                .setParameter("roleName", ROLE_USER)
-                .getSingleResult();
+        Role userRole = null;
+        userRole = null;
+        try {
+            userRole = em.createQuery("SELECT r FROM Role r WHERE r.name  = :roleName", Role.class)
+                    .setParameter("roleName", ROLE_USER)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+           logger.debug("HIBA OKA: "+e.getCause() + " " +e.getStackTrace());
+        }
         roles.add(userRole);
         user.setRoles(roles);
         em.persist(user);
